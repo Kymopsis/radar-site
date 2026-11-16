@@ -1,0 +1,30 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FAQ とトラブルシューティング · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/faq.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/faq.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/faq.html"><link rel="alternate" hreflang="ja" href="../ja/faq.html"><link rel="alternate" hreflang="ko" href="../ko/faq.html"><link rel="alternate" hreflang="de" href="../de/faq.html"><link rel="alternate" hreflang="fr" href="../fr/faq.html"><link rel="alternate" hreflang="es" href="../es/faq.html"><link rel="alternate" hreflang="pt" href="../pt/faq.html"><link rel="alternate" hreflang="it" href="../it/faq.html"><link rel="alternate" hreflang="ru" href="../ru/faq.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">アプリを開く</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/faq.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja" selected>日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">概要</a><div class="ng"><div class="nh">はじめに</div><a href="getting-started.html">はじめに</a></div><div class="ng"><div class="nh">接続</div><a href="usb.html">ブラウザーで USB</a><a href="wifi.html">自宅の Wi-Fi</a><a href="hotspot.html">ホットスポット</a></div><div class="ng"><div class="nh">スマートホーム</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">開発</div><a href="raw-data.html">生データ</a><a href="json-api.html">JSON と API</a><a href="devkit-flashing.html">開発キット書き込み</a></div><div class="ng"><div class="nh">ヘルプ</div><a href="faq.html" class=on>FAQ</a></div></nav>
+<main><h1 id="faq-とトラブルシューティング">FAQ とトラブルシューティング</h1>
+<h2 id="アプリは接続できるが結果が表示されない">アプリは接続できるが結果が表示されない</h2>
+<ul><li>レーダーのキャリアボードに電源は入っていますか？ 先に Radar Base の電源を入れましたか？ 診断 → <strong>レーダーを再起動</strong> を開いてください。</li><li>診断 → <strong>レーダーのバージョンを確認</strong>：応答があれば、結果用の配線（RX0/TX0）は問題ありません。</li></ul>
+<h2 id="シナリオの読み込みに失敗する">シナリオの読み込みに失敗する</h2>
+<ul><li>診断 → <strong>ブートリンクを確認</strong>。応答がない場合は、RX1、TX1、RST、P12、P19 のジャンパーワイヤーが緩んでいることが多いです。</li><li>ワイヤーを挿し直してください。ジャンパーワイヤーは接触不良になりやすいです。長さは 15 cm 以内にしてください。</li></ul>
+<h2 id="生データのセルフテストでブロックの破損や欠落が出る">生データのセルフテストでブロックの破損や欠落が出る</h2>
+<ul><li>SPI CLK と MOSI の配線を確認してください（MISO ではなく MOSI）。そのすぐ横にグラウンド線も添えます。</li><li>SPI 速度を下げます：コンソールで <code>cfg spi 12.5</code>。</li></ul>
+<h2 id="すべてのブロックが不良で-00-または-ff-だけになる">すべてのブロックが不良で、00 または FF だけになる</h2>
+<p>データ線がキャリアボードの MISO ピンにつながっています。<strong>MOSI</strong> につなぎ替えてください。</p>
+<h2 id="ブラウザーに-usb-ポートが表示されない">ブラウザーに USB ポートが表示されない</h2>
+<ul><li>コントローラーの <strong>USB</strong> と書かれたポートを使います。UART ではありません。</li><li>シリアルターミナルを閉じてください。ポートを使えるのは一度に 1 つのプログラムだけです。</li><li>デスクトップ PC の Chrome または Edge を使ってください。</li></ul>
+<h2 id="http-kymradar-local-が開かない">http://kymradar.local が開かない</h2>
+<p>一部の Android スマホは <code>.local</code> の名前を解決できません。デバイス設定 → 自宅の Wi-Fi に表示される IP アドレスを使ってください。</p>
+<h2 id="呼吸数や心拍数が空のまま">呼吸数や心拍数が空のまま</h2>
+<p>レーダーの正面 0.5-1.5 m の位置で、胸をレーダーに向けて静かに座るか横になり、約 20 秒待ってください。これらの値はウェルネス用途のみで、医療用途には使えません。</p>
+<h2 id="人は表示されるのにエリアが点灯しない-またはその逆">人は表示されるのにエリアが点灯しない（またはその逆）</h2>
+<p>エリアとトラッキングは、レーダーの別々の出力です。ほとんど動かない人はトラッキングから外れることがありますが、エリアは使用中のままです。 数字を安定させるため、アプリは直近の短い間の最大人数を表示します。</p>
+<p>大量購入、書き込み済みモジュール、カスタムファームウェア： <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>クラウドは不要。レーダーのデータは自分のデバイスの中だけに残ります。</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','ja')}catch(e){}</script>
+</body></html>

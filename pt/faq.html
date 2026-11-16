@@ -1,0 +1,30 @@
+<!doctype html><html lang="pt"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Perguntas frequentes e solução de problemas · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/faq.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/faq.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/faq.html"><link rel="alternate" hreflang="ja" href="../ja/faq.html"><link rel="alternate" hreflang="ko" href="../ko/faq.html"><link rel="alternate" hreflang="de" href="../de/faq.html"><link rel="alternate" hreflang="fr" href="../fr/faq.html"><link rel="alternate" hreflang="es" href="../es/faq.html"><link rel="alternate" hreflang="pt" href="../pt/faq.html"><link rel="alternate" hreflang="it" href="../it/faq.html"><link rel="alternate" hreflang="ru" href="../ru/faq.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">Abrir o app</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/faq.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt" selected>Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">Visão geral</a><div class="ng"><div class="nh">Início</div><a href="getting-started.html">Primeiros passos</a></div><div class="ng"><div class="nh">Conectar</div><a href="usb.html">USB no navegador</a><a href="wifi.html">Wi-Fi de casa</a><a href="hotspot.html">Hotspot de reserva</a></div><div class="ng"><div class="nh">Casa inteligente</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">Desenvolver</div><a href="raw-data.html">Dados brutos</a><a href="json-api.html">JSON e API</a><a href="devkit-flashing.html">Gravação do kit de desenvolvimento</a></div><div class="ng"><div class="nh">Ajuda</div><a href="faq.html" class=on>Perguntas frequentes</a></div></nav>
+<main><h1 id="perguntas-frequentes-e-solução-de-problemas">Perguntas frequentes e solução de problemas</h1>
+<h2 id="o-app-conecta-mas-não-mostra-resultados">O app conecta, mas não mostra resultados</h2>
+<ul><li>A placa do radar está alimentada? O Radar Base foi ligado primeiro? Abra Diagnóstico → <strong>Reiniciar o radar</strong>.</li><li>Diagnóstico → <strong>Perguntar a versão ao radar</strong>: se houver resposta, os fios de resultados (RX0/TX0) estão bons.</li></ul>
+<h2 id="o-carregamento-de-um-cenário-falha">O carregamento de um cenário falha</h2>
+<ul><li>Diagnóstico → <strong>Verificar o link de inicialização</strong>. Sem resposta, normalmente há um fio solto em RX1, TX1, RST, P12 ou P19.</li><li>Encaixe os fios de novo; jumpers perdem contato com facilidade. Mantenha-os com menos de 15 cm.</li></ul>
+<h2 id="o-autoteste-de-dados-brutos-mostra-blocos-corrompidos-ou-ausentes">O autoteste de dados brutos mostra blocos corrompidos ou ausentes</h2>
+<ul><li>Verifique os fios SPI CLK e MOSI (MOSI, não MISO) e coloque um fio de terra ao lado deles.</li><li>Reduza a velocidade SPI: console <code>cfg spi 12.5</code>.</li></ul>
+<h2 id="todos-os-blocos-estão-ruins-e-contêm-apenas-00-ou-ff">Todos os blocos estão ruins e contêm apenas 00 ou FF</h2>
+<p>O fio de dados está no pino MISO da placa. Mude-o para <strong>MOSI</strong>.</p>
+<h2 id="o-navegador-não-lista-a-porta-usb">O navegador não lista a porta USB</h2>
+<ul><li>Use a porta marcada como <strong>USB</strong> no controlador, não UART.</li><li>Feche qualquer terminal serial: só um programa pode usar a porta.</li><li>Use Chrome ou Edge em um computador de mesa.</li></ul>
+<h2 id="http-kymradar-local-não-abre">http://kymradar.local não abre</h2>
+<p>Alguns celulares Android não resolvem nomes <code>.local</code>. Use o endereço IP mostrado em Configurações do dispositivo → Wi-Fi de casa.</p>
+<h2 id="a-frequência-respiratória-ou-cardíaca-continua-vazia">A frequência respiratória ou cardíaca continua vazia</h2>
+<p>Sente-se ou deite-se parado a 0,5-1,5 m à frente do radar, com o peito voltado para ele, e espere cerca de 20 segundos. Essas medições são apenas para bem-estar, não para uso médico.</p>
+<h2 id="uma-pessoa-aparece-mas-a-área-não-acende-ou-o-contrário">Uma pessoa aparece, mas a área não acende (ou o contrário)</h2>
+<p>Áreas e rastreamento são saídas separadas do radar. Uma pessoa muito parada pode sair do rastreamento enquanto a área continua ocupada. O app mostra a maior contagem do último momento para manter o número estável.</p>
+<p>Volume, módulos pré-gravados ou firmware personalizado: <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>Sem nuvem. Seus dados de radar ficam nos seus dispositivos.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','pt')}catch(e){}</script>
+</body></html>

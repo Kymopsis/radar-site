@@ -1,0 +1,8 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Kymopsis Radar Base</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><script>
+var L=["en", "zh-CN", "zh-TW", "ja", "ko", "de", "fr", "es", "pt", "it", "ru"],s=null;try{s=localStorage.getItem('kym.lang')}catch(e){}
+function pick(){if(s&&L.indexOf(s)>=0)return s;var ls=navigator.languages||[navigator.language];
+for(var i=0;i<ls.length;i++){var l=ls[i];if(/^zh/i.test(l))return /^zh-(TW|HK|MO|Hant)/i.test(l)?'zh-TW':'zh-CN';
+if(L.indexOf(l)>=0)return l;if(L.indexOf(l.split('-')[0])>=0)return l.split('-')[0]}return 'en'}
+var t=pick();if(L.indexOf(t)<0)t='en';location.replace(t+'/index.html')</script></head>
+<body><a href="en/index.html">Kymopsis Radar Base</a></body></html>

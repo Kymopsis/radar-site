@@ -1,0 +1,55 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>快速上手 · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/getting-started.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/getting-started.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/getting-started.html"><link rel="alternate" hreflang="ja" href="../ja/getting-started.html"><link rel="alternate" hreflang="ko" href="../ko/getting-started.html"><link rel="alternate" hreflang="de" href="../de/getting-started.html"><link rel="alternate" hreflang="fr" href="../fr/getting-started.html"><link rel="alternate" hreflang="es" href="../es/getting-started.html"><link rel="alternate" hreflang="pt" href="../pt/getting-started.html"><link rel="alternate" hreflang="it" href="../it/getting-started.html"><link rel="alternate" hreflang="ru" href="../ru/getting-started.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">打开应用</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/getting-started.html'"><option value="en">English</option><option value="zh-CN" selected>简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">概览</a><div class="ng"><div class="nh">开始</div><a href="getting-started.html" class=on>快速上手</a></div><div class="ng"><div class="nh">连接</div><a href="usb.html">浏览器中使用 USB</a><a href="wifi.html">家庭 Wi-Fi</a><a href="hotspot.html">热点备用</a></div><div class="ng"><div class="nh">智能家居</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">开发</div><a href="raw-data.html">原始数据</a><a href="json-api.html">JSON 与 API</a><a href="devkit-flashing.html">开发套件写入</a></div><div class="ng"><div class="nh">帮助</div><a href="faq.html">常见问题</a></div></nav>
+<main><h1 id="快速上手">快速上手</h1>
+<p>本指南带你从开箱到看到实时雷达结果，大约 15 分钟。</p>
+<h2 id="你需要准备">你需要准备</h2>
+<ul><li>Radar Base 控制器（ESP32-S3 板）和装在载板上的 60 GHz 雷达模块</li><li>10 根杜邦线（母对母）- 套件中已附带</li><li>两根 USB 线：一根接 Radar Base，一根给雷达载板供电</li><li>一台装有 Chrome 或 Edge 的电脑（Windows、macOS、Linux 或 ChromeOS）</li></ul>
+<h2 id="1-准备雷达载板">1. 准备雷达载板</h2>
+<p>取下载板串口排针（J9）和 P19 / GND / P12 启动排针上的所有跳线帽。 否则载板自带的 USB 串口芯片会和 Radar Base 抢用同一组导线。</p>
+<h2 id="2-接线">2. 接线</h2>
+<p>先全部断电。<strong>先接 GND</strong>，再接其他线。标签以雷达载板上印的为准。</p>
+<svg class="diagram" viewBox="0 0 760 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wiring: Radar Base pins to radar carrier labels">
+<g font-family="Inter,system-ui,sans-serif" font-size="14">
+<rect x="10" y="10" width="230" height="450" rx="14" fill="#0b5cff"/>
+<text x="125" y="38" text-anchor="middle" font-weight="700" fill="#fff">Radar Base (ESP32-S3)</text>
+<rect x="520" y="10" width="230" height="450" rx="14" fill="#f8fbff" stroke="#c7d8ff"/>
+<text x="635" y="38" text-anchor="middle" font-weight="700" fill="#0f172a">Radar carrier (labels)</text>
+<g id="rows" fill="none" stroke-width="3" stroke-linecap="round">
+<path d="M240 70H520" stroke="#0f172a"/>
+<path d="M240 108H520" stroke="#2563eb"/><path d="M240 146H520" stroke="#16a34a"/>
+<path d="M240 184H520" stroke="#2563eb"/><path d="M240 222H520" stroke="#16a34a"/>
+<path d="M240 260H520" stroke="#dc2626"/><path d="M240 298H520" stroke="#ea580c"/><path d="M240 336H520" stroke="#ea580c"/>
+<path d="M240 374H520" stroke="#9333ea"/><path d="M240 412H520" stroke="#9333ea"/></g>
+<g fill="#fff" font-weight="600">
+<text x="30" y="75">GND</text><text x="30" y="113">GPIO17</text><text x="30" y="151">GPIO18</text><text x="30" y="189">GPIO15</text>
+<text x="30" y="227">GPIO16</text><text x="30" y="265">GPIO4</text><text x="30" y="303">GPIO5</text><text x="30" y="341">GPIO6</text>
+<text x="30" y="379">GPIO12</text><text x="30" y="417">GPIO11</text></g>
+<g fill="#0f172a" font-weight="600" text-anchor="end">
+<text x="730" y="75">GND</text><text x="730" y="113">RX0</text><text x="730" y="151">TX0</text><text x="730" y="189">RX1</text>
+<text x="730" y="227">TX1</text><text x="730" y="265">RST</text><text x="730" y="303">P12</text><text x="730" y="341">P19</text>
+<text x="730" y="379">SPI CLK</text><text x="730" y="417">SPI MOSI</text></g>
+<g fill="#64748b" font-size="12" text-anchor="middle">
+<text x="380" y="63">first</text><text x="380" y="101">results: commands</text><text x="380" y="139">results: data</text>
+<text x="380" y="177">loading apps</text><text x="380" y="215">loading replies</text><text x="380" y="253">reset</text>
+<text x="380" y="291">boot select</text><text x="380" y="329">boot select</text><text x="380" y="367">raw data clock</text><text x="380" y="405">raw data (not MISO)</text></g>
+</g></svg>
+
+<div class="tw"><table><thead><tr><th>Radar Base 引脚</th><th>雷达载板标签</th><th>用途</th></tr></thead><tbody><tr><td>GND</td><td>GND</td><td>公共地（先接）</td></tr><tr><td>GPIO17</td><td>RX0</td><td>向雷达应用发送命令</td></tr><tr><td>GPIO18</td><td>TX0</td><td>接收雷达应用的结果</td></tr><tr><td>GPIO15</td><td>RX1</td><td>向雷达加载应用</td></tr><tr><td>GPIO16</td><td>TX1</td><td>加载时的回复</td></tr><tr><td>GPIO4</td><td>RST</td><td>雷达复位</td></tr><tr><td>GPIO5</td><td>P12</td><td>启动选择（也用于数据选择）</td></tr><tr><td>GPIO6</td><td>P19</td><td>启动选择</td></tr><tr><td>GPIO12</td><td>SPI CLK</td><td>原始数据时钟（仅原始数据用）</td></tr><tr><td>GPIO11</td><td>SPI MOSI</td><td>原始数据（不要用 MISO）</td></tr></tbody></table></div>
+<p>雷达由它自己的载板供电（最大约 600 mA）。千万不要从控制板的 3V3 引脚给它供电。</p>
+<h2 id="3-按正确顺序上电">3. 按正确顺序上电</h2>
+<ol><li>把控制器上标有 <strong>USB</strong> 的端口接到电脑。（标有 UART 的端口只用于更新控制器自身的固件。）</li><li>然后再给雷达载板供电。</li></ol>
+<p>Radar Base 一启动就会设置雷达的启动引脚，所以雷达必须后上电。如果顺序反了，打开“诊断”并点击 <strong>重启雷达</strong>。</p>
+<h2 id="4-看它运行">4. 看它运行</h2>
+<ol><li>在 Chrome 或 Edge 中打开<a href="../app/">应用</a>，点击 <strong>连接 USB</strong>，选择名为 “USB JTAG/serial” 的端口。</li><li>选择 <strong>运行场景</strong> → <strong>3D 存在与人员追踪</strong>。</li><li>在雷达前走动。你的位置会显示为一个蓝点。</li></ol>
+<p>下一步：日常使用请看<a href="wifi.html">家庭 Wi-Fi</a>，想做自己的算法请看<a href="raw-data.html">原始数据</a>。</p>
+<p>批量采购、预刷固件模块或定制固件： <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>无需云端。雷达数据只留在你自己的设备上。</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','zh-CN')}catch(e){}</script>
+</body></html>

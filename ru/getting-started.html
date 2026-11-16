@@ -1,0 +1,55 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Быстрый старт · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/getting-started.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/getting-started.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/getting-started.html"><link rel="alternate" hreflang="ja" href="../ja/getting-started.html"><link rel="alternate" hreflang="ko" href="../ko/getting-started.html"><link rel="alternate" hreflang="de" href="../de/getting-started.html"><link rel="alternate" hreflang="fr" href="../fr/getting-started.html"><link rel="alternate" hreflang="es" href="../es/getting-started.html"><link rel="alternate" hreflang="pt" href="../pt/getting-started.html"><link rel="alternate" hreflang="it" href="../it/getting-started.html"><link rel="alternate" hreflang="ru" href="../ru/getting-started.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">Открыть приложение</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/getting-started.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru" selected>Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">Обзор</a><div class="ng"><div class="nh">Начало</div><a href="getting-started.html" class=on>Быстрый старт</a></div><div class="ng"><div class="nh">Подключение</div><a href="usb.html">USB в браузере</a><a href="wifi.html">Домашний Wi-Fi</a><a href="hotspot.html">Резервная точка доступа</a></div><div class="ng"><div class="nh">Умный дом</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">Разработка</div><a href="raw-data.html">Сырые данные</a><a href="json-api.html">JSON и API</a><a href="devkit-flashing.html">Запись для dev-kit</a></div><div class="ng"><div class="nh">Помощь</div><a href="faq.html">FAQ</a></div></nav>
+<main><h1 id="быстрый-старт">Быстрый старт</h1>
+<p>Это руководство проведёт вас от коробки до живых результатов радара примерно за 15 минут.</p>
+<h2 id="что-понадобится">Что понадобится</h2>
+<ul><li>Контроллер Radar Base (плата ESP32-S3) и радарный модуль 60 GHz на плате-носителе</li><li>10 соединительных проводов (мама-мама) - входят в комплект</li><li>Два USB-кабеля: один для Radar Base, второй для питания платы-носителя радара</li><li>Компьютер с Chrome или Edge (Windows, macOS, Linux или ChromeOS)</li></ul>
+<h2 id="1-подготовьте-плату-носитель-радара">1. Подготовьте плату-носитель радара</h2>
+<p>Снимите все джамперы с последовательного разъёма платы-носителя (J9) и с разъёма загрузки P19 / GND / P12. Иначе собственный USB-последовательный чип платы-носителя будет конфликтовать с Radar Base на тех же проводах.</p>
+<h2 id="2-подключите-провода">2. Подключите провода</h2>
+<p>Сначала отключите всё питание. Подключайте <strong>сначала GND</strong>, затем остальное. Названия — те, что напечатаны на плате-носителе радара.</p>
+<svg class="diagram" viewBox="0 0 760 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wiring: Radar Base pins to radar carrier labels">
+<g font-family="Inter,system-ui,sans-serif" font-size="14">
+<rect x="10" y="10" width="230" height="450" rx="14" fill="#0b5cff"/>
+<text x="125" y="38" text-anchor="middle" font-weight="700" fill="#fff">Radar Base (ESP32-S3)</text>
+<rect x="520" y="10" width="230" height="450" rx="14" fill="#f8fbff" stroke="#c7d8ff"/>
+<text x="635" y="38" text-anchor="middle" font-weight="700" fill="#0f172a">Radar carrier (labels)</text>
+<g id="rows" fill="none" stroke-width="3" stroke-linecap="round">
+<path d="M240 70H520" stroke="#0f172a"/>
+<path d="M240 108H520" stroke="#2563eb"/><path d="M240 146H520" stroke="#16a34a"/>
+<path d="M240 184H520" stroke="#2563eb"/><path d="M240 222H520" stroke="#16a34a"/>
+<path d="M240 260H520" stroke="#dc2626"/><path d="M240 298H520" stroke="#ea580c"/><path d="M240 336H520" stroke="#ea580c"/>
+<path d="M240 374H520" stroke="#9333ea"/><path d="M240 412H520" stroke="#9333ea"/></g>
+<g fill="#fff" font-weight="600">
+<text x="30" y="75">GND</text><text x="30" y="113">GPIO17</text><text x="30" y="151">GPIO18</text><text x="30" y="189">GPIO15</text>
+<text x="30" y="227">GPIO16</text><text x="30" y="265">GPIO4</text><text x="30" y="303">GPIO5</text><text x="30" y="341">GPIO6</text>
+<text x="30" y="379">GPIO12</text><text x="30" y="417">GPIO11</text></g>
+<g fill="#0f172a" font-weight="600" text-anchor="end">
+<text x="730" y="75">GND</text><text x="730" y="113">RX0</text><text x="730" y="151">TX0</text><text x="730" y="189">RX1</text>
+<text x="730" y="227">TX1</text><text x="730" y="265">RST</text><text x="730" y="303">P12</text><text x="730" y="341">P19</text>
+<text x="730" y="379">SPI CLK</text><text x="730" y="417">SPI MOSI</text></g>
+<g fill="#64748b" font-size="12" text-anchor="middle">
+<text x="380" y="63">first</text><text x="380" y="101">results: commands</text><text x="380" y="139">results: data</text>
+<text x="380" y="177">loading apps</text><text x="380" y="215">loading replies</text><text x="380" y="253">reset</text>
+<text x="380" y="291">boot select</text><text x="380" y="329">boot select</text><text x="380" y="367">raw data clock</text><text x="380" y="405">raw data (not MISO)</text></g>
+</g></svg>
+
+<div class="tw"><table><thead><tr><th>Вывод Radar Base</th><th>Метка на плате-носителе</th><th>Назначение</th></tr></thead><tbody><tr><td>GND</td><td>GND</td><td>Общая земля (подключается первой)</td></tr><tr><td>GPIO17</td><td>RX0</td><td>Команды радарному приложению</td></tr><tr><td>GPIO18</td><td>TX0</td><td>Результаты от радарного приложения</td></tr><tr><td>GPIO15</td><td>RX1</td><td>Загрузка приложений в радар</td></tr><tr><td>GPIO16</td><td>TX1</td><td>Ответы во время загрузки</td></tr><tr><td>GPIO4</td><td>RST</td><td>Сброс радара</td></tr><tr><td>GPIO5</td><td>P12</td><td>Выбор режима загрузки (также выбор данных)</td></tr><tr><td>GPIO6</td><td>P19</td><td>Выбор режима загрузки</td></tr><tr><td>GPIO12</td><td>SPI CLK</td><td>Тактовый сигнал сырых данных (только для сырых данных)</td></tr><tr><td>GPIO11</td><td>SPI MOSI</td><td>Сырые данные (MISO не использовать)</td></tr></tbody></table></div>
+<p>Радар питается от собственной платы-носителя (потребляет до 600 mA). Никогда не питайте его от вывода 3V3 платы контроллера.</p>
+<h2 id="3-включите-питание-в-правильном-порядке">3. Включите питание в правильном порядке</h2>
+<ol><li>Подключите к компьютеру порт контроллера с надписью <strong>USB</strong>. (Порт UART нужен только для обновления собственной прошивки контроллера.)</li><li>Затем подайте питание на плату-носитель радара.</li></ol>
+<p>Radar Base задаёт загрузочные выводы радара сразу после старта, поэтому радар должен включаться вторым. Если вы включили их в обратном порядке, откройте Диагностика и нажмите <strong>Перезапустить радар</strong>.</p>
+<h2 id="4-посмотрите-как-это-работает">4. Посмотрите, как это работает</h2>
+<ol><li>Откройте <a href="../app/">приложение</a> в Chrome или Edge и нажмите <strong>Подключить USB</strong>; выберите порт с названием «USB JTAG/serial».</li><li>Выберите <strong>Запустить сценарий</strong> → <strong>3D-присутствие и трекинг людей</strong>.</li><li>Пройдитесь перед радаром. Ваше положение появится синей точкой.</li></ol>
+<p>Дальше: <a href="wifi.html">Домашний Wi-Fi</a> для повседневного использования или <a href="raw-data.html">Сырые данные</a>, чтобы создавать собственные алгоритмы.</p>
+<p>Партии, предварительно прошитые модули или индивидуальная прошивка: <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>Без облака. Данные радара остаются на ваших устройствах.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','ru')}catch(e){}</script>
+</body></html>

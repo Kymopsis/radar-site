@@ -1,0 +1,21 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>원시 데이터와 나만의 알고리즘 · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/raw-data.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/raw-data.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/raw-data.html"><link rel="alternate" hreflang="ja" href="../ja/raw-data.html"><link rel="alternate" hreflang="ko" href="../ko/raw-data.html"><link rel="alternate" hreflang="de" href="../de/raw-data.html"><link rel="alternate" hreflang="fr" href="../fr/raw-data.html"><link rel="alternate" hreflang="es" href="../es/raw-data.html"><link rel="alternate" hreflang="pt" href="../pt/raw-data.html"><link rel="alternate" hreflang="it" href="../it/raw-data.html"><link rel="alternate" hreflang="ru" href="../ru/raw-data.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">앱 열기</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/raw-data.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko" selected>한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">개요</a><div class="ng"><div class="nh">시작하기</div><a href="getting-started.html">시작하기</a></div><div class="ng"><div class="nh">연결</div><a href="usb.html">브라우저에서 USB</a><a href="wifi.html">집 Wi-Fi</a><a href="hotspot.html">핫스팟 대체 연결</a></div><div class="ng"><div class="nh">스마트홈</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">개발</div><a href="raw-data.html" class=on>원시 데이터</a><a href="json-api.html">JSON과 API</a><a href="devkit-flashing.html">개발 키트 기록</a></div><div class="ng"><div class="nh">도움말</div><a href="faq.html">FAQ</a></div></nav>
+<main><h1 id="원시-데이터와-나만의-알고리즘">원시 데이터와 나만의 알고리즘</h1>
+<p>Radar Base는 레이더의 원시 데이터(모든 처프, 두 수신 채널)를 USB로 스트리밍할 수 있습니다. 오픈 펌웨어에는 이 스트림과 그 설정이 포함되어 있지만, 원시 데이터를 보고 처리하는 PC 도구는 공개 저장소에 포함되어 있지 않습니다.</p>
+<h2 id="오픈-펌웨어가-제공하는-것">오픈 펌웨어가 제공하는 것</h2>
+<div class="tw"><table><thead><tr><th>기능</th><th>위치</th></tr></thead><tbody><tr><td>원시 데이터 설정: 처프, 게인, 필터, 안테나</td><td>앱 → 원시 데이터 및 레이더 설정, 또는 콘솔에서 <code>cfg &lt;key&gt; &lt;value&gt;</code></td></tr><tr><td>데이터 링크 자가 테스트: 모든 블록 검사</td><td>앱 → 원시 데이터 및 레이더 설정 → <strong>테스트 실행</strong></td></tr><tr><td>직접 만든 코드용 JSON 결과</td><td><a href="json-api.html">JSON 결과와 API</a></td></tr></tbody></table></div>
+<h2 id="알고리즘을-어디서-실행할까">알고리즘을 어디서 실행할까</h2>
+<p>먼저 PC에서 프로토타입을 만드세요. 그다음 레이더 자체의 FFT와 CFAR 하드웨어로 처리할 수 있는지 확인합니다. 가능하면 레이더에서 실행하고 결과만 내보냅니다. 아니면 ESP32에서 가능한지 확인하고, 둘 다 안 될 때만 PC에 두세요.</p>
+<h2 id="데이터-링크-확인">데이터 링크 확인</h2>
+<p>앱 → 원시 데이터 및 레이더 설정 → <strong>테스트 실행</strong>. 원시 데이터 앱을 몇 초간 실행하며 모든 블록을 검사합니다. 손상된 블록과 누락된 블록은 둘 다 0이어야 합니다.</p>
+<p>대량 구매, 사전 기록된 모듈, 맞춤 펌웨어: <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>클라우드가 필요 없습니다. 레이더 데이터는 내 기기에만 남습니다.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','ko')}catch(e){}</script>
+</body></html>

@@ -1,0 +1,58 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kymopsis Radar Base · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/index.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/index.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/index.html"><link rel="alternate" hreflang="ja" href="../ja/index.html"><link rel="alternate" hreflang="ko" href="../ko/index.html"><link rel="alternate" hreflang="de" href="../de/index.html"><link rel="alternate" hreflang="fr" href="../fr/index.html"><link rel="alternate" hreflang="es" href="../es/index.html"><link rel="alternate" hreflang="pt" href="../pt/index.html"><link rel="alternate" hreflang="it" href="../it/index.html"><link rel="alternate" hreflang="ru" href="../ru/index.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">Ouvrir l&#x27;appli</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/index.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr" selected>Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html" class=on>Vue d&#x27;ensemble</a><div class="ng"><div class="nh">Démarrer</div><a href="getting-started.html">Premiers pas</a></div><div class="ng"><div class="nh">Connexion</div><a href="usb.html">USB dans le navigateur</a><a href="wifi.html">Wi-Fi domestique</a><a href="hotspot.html">Point d&#x27;accès de secours</a></div><div class="ng"><div class="nh">Maison connectée</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">Développer</div><a href="raw-data.html">Données brutes</a><a href="json-api.html">JSON et API</a><a href="devkit-flashing.html">Flashage du kit de développement</a></div><div class="ng"><div class="nh">Aide</div><a href="faq.html">FAQ</a></div></nav>
+<main><h1 id="radar-base">Radar Base</h1>
+<p>Radar Base relie un module radar mmWave 60 GHz à votre ordinateur, à votre téléphone et à votre maison connectée. Le travail radar est fait par le radar sur sa propre puce ; Radar Base y charge des applis radar, transforme leurs résultats en un format JSON simple et les diffuse en USB et en Wi-Fi.</p>
+<div class="cards">
+<a class="card" href="getting-started.html"><b>Lancer une appli radar prête à l'emploi</b><span>Positions des personnes en 3D, détection de chute, respiration et fréquence cardiaque. Sans programmer.</span></a>
+<a class="card" href="usb.html"><b>L'utiliser dans le navigateur en USB</b><span>Branchez, ouvrez ce site dans Chrome ou Edge, c'est tout. Pas de Wi-Fi nécessaire.</span></a>
+<a class="card" href="wifi.html"><b>Le mettre sur votre Wi-Fi domestique</b><span>Accessible sur http://kymradar.local depuis n'importe quel téléphone ou ordinateur à la maison.</span></a>
+<a class="card" href="json-api.html"><b>Créer votre propre intégration</b><span>Lisez les résultats en JSON via USB ou WebSocket depuis n'importe quel programme.</span></a>
+</div>
+<h2 id="matériel-testé">Matériel testé</h2>
+<div class="tw"><table><thead><tr><th>Matériel</th><th>État</th></tr></thead><tbody><tr><td>Kit de développement Kymopsis Radar Base</td><td>Testé. Fonctionne dès la sortie de la boîte ; profil de carte inclus</td></tr><tr><td>Montage DIY Kymopsis : ESP32-S3 DevKit et le module radar 60 GHz sur sa carte porteuse, câblés comme dans <a href="getting-started.html">Prise en main</a></td><td>Testé. Fonctionne dès la sortie de la boîte ; profil de carte inclus</td></tr><tr><td>Autres cartes et modules radar</td><td>Non testé. Vérifiez vous-même l'attribution des broches et le profil de carte ; l'appli affiche alors « Carte inconnue, angles non calibrés »</td></tr></tbody></table></div>
+<h2 id="éditions-ouverte-et-kit-de-développement">Éditions ouverte et kit de développement</h2>
+<div class="tw"><table><thead><tr><th>Fonction</th><th>Firmware ouvert</th><th>Firmware du kit de développement</th></tr></thead><tbody><tr><td>Exécuter des applis radar depuis la mémoire du radar, vues en direct</td><td>Oui</td><td>Oui</td></tr><tr><td>JSON via USB et Wi-Fi, appli web en 11 langues</td><td>Oui</td><td>Oui</td></tr><tr><td>Wi-Fi domestique, point d'accès de secours, Home Assistant (MQTT)</td><td>Oui</td><td>Oui</td></tr><tr><td>Flux de données brutes, réglages et autotest</td><td>Oui</td><td>Oui</td></tr><tr><td>Écrire une appli dans la flash du radar, avec sauvegarde</td><td>-</td><td>Oui</td></tr><tr><td>Flashage par lots : PASS / FAIL, compteur, journal CSV</td><td>-</td><td>Oui</td></tr><tr><td>Profil de carte défini en usine</td><td>-</td><td>Oui</td></tr></tbody></table></div>
+<h2 id="comment-tout-s-articule">Comment tout s'articule</h2>
+<svg class="diagram" viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Radar module to Radar Base to clients">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#94a3b8"/></marker></defs>
+<g font-family="Inter,system-ui,sans-serif" font-size="14">
+<rect x="10" y="80" width="200" height="140" rx="14" fill="#f8fbff" stroke="#c7d8ff"/>
+<text x="110" y="110" text-anchor="middle" font-weight="700" fill="#0f172a">Radar module</text>
+<text x="110" y="138" text-anchor="middle" fill="#475569">60 GHz radar</text>
+<text x="110" y="160" text-anchor="middle" fill="#475569">radar apps run here</text>
+<text x="110" y="182" text-anchor="middle" fill="#475569">FFT and CFAR hardware</text>
+<rect x="320" y="60" width="240" height="180" rx="14" fill="#0b5cff"/>
+<text x="440" y="92" text-anchor="middle" font-weight="700" fill="#fff">Radar Base (ESP32-S3)</text>
+<text x="440" y="122" text-anchor="middle" fill="#dbe7ff">loads radar apps</text>
+<text x="440" y="144" text-anchor="middle" fill="#dbe7ff">results → JSON</text>
+<text x="440" y="166" text-anchor="middle" fill="#dbe7ff">raw data stream</text>
+<text x="440" y="188" text-anchor="middle" fill="#dbe7ff">web app · Wi-Fi · USB</text>
+<text x="440" y="210" text-anchor="middle" fill="#dbe7ff">MQTT</text>
+<line x1="212" y1="130" x2="316" y2="130" stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="316" y1="170" x2="214" y2="170" stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)"/>
+<text x="264" y="122" text-anchor="middle" font-size="12" fill="#64748b">results, raw data</text>
+<text x="264" y="190" text-anchor="middle" font-size="12" fill="#64748b">apps, settings</text>
+<g fill="#fff" stroke="#dce7f2">
+<rect x="670" y="20" width="220" height="56" rx="12"/><rect x="670" y="92" width="220" height="56" rx="12"/>
+<rect x="670" y="164" width="220" height="56" rx="12"/><rect x="670" y="236" width="220" height="56" rx="12"/></g>
+<g fill="#0f172a" font-weight="600"><text x="686" y="45">Web app</text><text x="686" y="117">PC viewer</text><text x="686" y="189">Home Assistant</text><text x="686" y="261">Your own code</text></g>
+<g fill="#64748b" font-size="12"><text x="686" y="64">USB or home Wi-Fi</text><text x="686" y="136">USB, JSON results</text><text x="686" y="208">MQTT, your own broker</text><text x="686" y="280">JSON over USB or WebSocket</text></g>
+<g stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)" fill="none">
+<path d="M562 110 C620 110 620 48 666 48"/><path d="M562 130 C620 130 620 120 666 120"/><path d="M562 170 C620 170 620 192 666 192"/><path d="M562 190 C620 190 620 264 666 264"/></g>
+</g></svg>
+
+<div class="tw"><table><thead><tr><th>Élément</th><th>Ce qu'il fait</th></tr></thead><tbody><tr><td>Module radar</td><td>Exécute les applis radar : chaque appli fait toute la chaîne de traitement du signal sur le radar et envoie des résultats</td></tr><tr><td>Radar Base (ESP32-S3)</td><td>Charge les applis radar, traduit les résultats en JSON, diffuse les données brutes, sert l'appli web, rejoint votre Wi-Fi</td></tr><tr><td>Appli web</td><td>Choisissez une tâche, suivez les résultats en direct, modifiez les réglages. La même appli en Wi-Fi et en USB, en 11 langues</td></tr><tr><td>Votre propre code</td><td>Lit les résultats JSON via USB ou WebSocket</td></tr><tr><td>Maison connectée</td><td>Home Assistant via MQTT (bientôt), ESPHome (plus tard)</td></tr></tbody></table></div>
+<h2 id="modes-de-connexion">Modes de connexion</h2>
+<div class="tw"><table><thead><tr><th>Mode</th><th>Quand l'utiliser</th><th>Guide</th></tr></thead><tbody><tr><td>USB</td><td>Premiers pas et développement. Fonctionne partout, sans réseau</td><td><a href="usb.html">USB dans le navigateur</a></td></tr><tr><td>Wi-Fi domestique</td><td>Usage quotidien depuis les téléphones et ordinateurs de la maison</td><td><a href="wifi.html">Wi-Fi domestique</a></td></tr><tr><td>Point d'accès</td><td>Première configuration, ou quand aucun réseau domestique n'est joignable</td><td><a href="hotspot.html">Point d'accès de secours</a></td></tr><tr><td>Home Assistant</td><td>Automatisations : lumières, alertes, tableaux de bord</td><td><a href="home-assistant.html">Home Assistant</a></td></tr></tbody></table></div>
+<p>Radar Base n'a jamais besoin d'un compte cloud. Vos données radar restent sur vos propres appareils.</p>
+<p>Volumes, modules préflashés ou firmware sur mesure : <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>Pas de cloud. Vos données radar restent sur vos appareils.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','fr')}catch(e){}</script>
+</body></html>

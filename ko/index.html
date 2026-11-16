@@ -1,0 +1,58 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kymopsis Radar Base · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/index.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/index.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/index.html"><link rel="alternate" hreflang="ja" href="../ja/index.html"><link rel="alternate" hreflang="ko" href="../ko/index.html"><link rel="alternate" hreflang="de" href="../de/index.html"><link rel="alternate" hreflang="fr" href="../fr/index.html"><link rel="alternate" hreflang="es" href="../es/index.html"><link rel="alternate" hreflang="pt" href="../pt/index.html"><link rel="alternate" hreflang="it" href="../it/index.html"><link rel="alternate" hreflang="ru" href="../ru/index.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">앱 열기</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/index.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko" selected>한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html" class=on>개요</a><div class="ng"><div class="nh">시작하기</div><a href="getting-started.html">시작하기</a></div><div class="ng"><div class="nh">연결</div><a href="usb.html">브라우저에서 USB</a><a href="wifi.html">집 Wi-Fi</a><a href="hotspot.html">핫스팟 대체 연결</a></div><div class="ng"><div class="nh">스마트홈</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">개발</div><a href="raw-data.html">원시 데이터</a><a href="json-api.html">JSON과 API</a><a href="devkit-flashing.html">개발 키트 기록</a></div><div class="ng"><div class="nh">도움말</div><a href="faq.html">FAQ</a></div></nav>
+<main><h1 id="radar-base">Radar Base</h1>
+<p>Radar Base는 60 GHz 밀리미터파 레이더 모듈을 컴퓨터, 휴대폰, 스마트홈에 연결합니다. 레이더 연산은 레이더 자체 칩이 처리합니다. Radar Base는 레이더 앱을 불러오고, 그 결과를 하나의 간단한 JSON 형식으로 바꿔 USB와 Wi-Fi로 제공합니다.</p>
+<div class="cards">
+<a class="card" href="getting-started.html"><b>완성된 레이더 앱 실행</b><span>3D 사람 위치, 낙상 감지, 호흡수와 심박수. 코딩이 필요 없습니다.</span></a>
+<a class="card" href="usb.html"><b>USB로 브라우저에서 사용</b><span>연결하고 Chrome 또는 Edge에서 이 사이트를 열면 끝. Wi-Fi가 필요 없습니다.</span></a>
+<a class="card" href="wifi.html"><b>집 Wi-Fi에 연결</b><span>집 안의 어떤 휴대폰이나 컴퓨터에서도 http://kymradar.local로 접속하세요.</span></a>
+<a class="card" href="json-api.html"><b>나만의 연동 개발</b><span>어떤 프로그램에서든 USB나 WebSocket으로 결과를 JSON으로 읽으세요.</span></a>
+</div>
+<h2 id="테스트된-하드웨어">테스트된 하드웨어</h2>
+<div class="tw"><table><thead><tr><th>하드웨어</th><th>상태</th></tr></thead><tbody><tr><td>Kymopsis Radar Base 개발 키트</td><td>테스트 완료. 바로 사용 가능하며 보드 프로필이 포함되어 있습니다</td></tr><tr><td>Kymopsis DIY 구성: ESP32-S3 DevKit과 캐리어 보드의 60 GHz 레이더 모듈, <a href="getting-started.html">시작하기</a>대로 배선</td><td>테스트 완료. 바로 사용 가능하며 보드 프로필이 포함되어 있습니다</td></tr><tr><td>기타 보드와 레이더 모듈</td><td>테스트하지 않음. 핀 배정과 보드 프로필을 직접 확인하세요. 이 경우 앱에 "알 수 없는 보드, 각도 미보정"이 표시됩니다</td></tr></tbody></table></div>
+<h2 id="오픈-버전과-개발-키트-버전">오픈 버전과 개발 키트 버전</h2>
+<div class="tw"><table><thead><tr><th>기능</th><th>오픈 펌웨어</th><th>개발 키트 펌웨어</th></tr></thead><tbody><tr><td>레이더 메모리에서 레이더 앱 실행, 실시간 보기</td><td>예</td><td>예</td></tr><tr><td>USB와 Wi-Fi를 통한 JSON, 11개 언어의 웹 앱</td><td>예</td><td>예</td></tr><tr><td>가정용 Wi-Fi, 핫스팟 대체, Home Assistant(MQTT)</td><td>예</td><td>예</td></tr><tr><td>원시 데이터 스트림, 설정, 자가 테스트</td><td>예</td><td>예</td></tr><tr><td>앱을 레이더 자체 플래시에 기록(백업 포함)</td><td>-</td><td>예</td></tr><tr><td>일괄 기록: PASS / FAIL, 카운터, CSV 로그</td><td>-</td><td>예</td></tr><tr><td>공장에서 보드 프로필 설정</td><td>-</td><td>예</td></tr></tbody></table></div>
+<h2 id="전체-구성">전체 구성</h2>
+<svg class="diagram" viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Radar module to Radar Base to clients">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#94a3b8"/></marker></defs>
+<g font-family="Inter,system-ui,sans-serif" font-size="14">
+<rect x="10" y="80" width="200" height="140" rx="14" fill="#f8fbff" stroke="#c7d8ff"/>
+<text x="110" y="110" text-anchor="middle" font-weight="700" fill="#0f172a">Radar module</text>
+<text x="110" y="138" text-anchor="middle" fill="#475569">60 GHz radar</text>
+<text x="110" y="160" text-anchor="middle" fill="#475569">radar apps run here</text>
+<text x="110" y="182" text-anchor="middle" fill="#475569">FFT and CFAR hardware</text>
+<rect x="320" y="60" width="240" height="180" rx="14" fill="#0b5cff"/>
+<text x="440" y="92" text-anchor="middle" font-weight="700" fill="#fff">Radar Base (ESP32-S3)</text>
+<text x="440" y="122" text-anchor="middle" fill="#dbe7ff">loads radar apps</text>
+<text x="440" y="144" text-anchor="middle" fill="#dbe7ff">results → JSON</text>
+<text x="440" y="166" text-anchor="middle" fill="#dbe7ff">raw data stream</text>
+<text x="440" y="188" text-anchor="middle" fill="#dbe7ff">web app · Wi-Fi · USB</text>
+<text x="440" y="210" text-anchor="middle" fill="#dbe7ff">MQTT</text>
+<line x1="212" y1="130" x2="316" y2="130" stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="316" y1="170" x2="214" y2="170" stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)"/>
+<text x="264" y="122" text-anchor="middle" font-size="12" fill="#64748b">results, raw data</text>
+<text x="264" y="190" text-anchor="middle" font-size="12" fill="#64748b">apps, settings</text>
+<g fill="#fff" stroke="#dce7f2">
+<rect x="670" y="20" width="220" height="56" rx="12"/><rect x="670" y="92" width="220" height="56" rx="12"/>
+<rect x="670" y="164" width="220" height="56" rx="12"/><rect x="670" y="236" width="220" height="56" rx="12"/></g>
+<g fill="#0f172a" font-weight="600"><text x="686" y="45">Web app</text><text x="686" y="117">PC viewer</text><text x="686" y="189">Home Assistant</text><text x="686" y="261">Your own code</text></g>
+<g fill="#64748b" font-size="12"><text x="686" y="64">USB or home Wi-Fi</text><text x="686" y="136">USB, JSON results</text><text x="686" y="208">MQTT, your own broker</text><text x="686" y="280">JSON over USB or WebSocket</text></g>
+<g stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)" fill="none">
+<path d="M562 110 C620 110 620 48 666 48"/><path d="M562 130 C620 130 620 120 666 120"/><path d="M562 170 C620 170 620 192 666 192"/><path d="M562 190 C620 190 620 264 666 264"/></g>
+</g></svg>
+
+<div class="tw"><table><thead><tr><th>구성 요소</th><th>하는 일</th></tr></thead><tbody><tr><td>레이더 모듈</td><td>레이더 앱을 실행합니다. 각 앱이 신호 처리 전체를 레이더 안에서 수행하고 결과를 보고합니다</td></tr><tr><td>Radar Base (ESP32-S3)</td><td>레이더 앱을 불러오고, 결과를 JSON으로 변환하고, 원시 데이터를 스트리밍하고, 웹 앱을 제공하고, Wi-Fi에 연결합니다</td></tr><tr><td>웹 앱</td><td>작업을 고르고, 실시간 결과를 보고, 설정을 바꿉니다. Wi-Fi와 USB에서 같은 앱이며 11개 언어를 지원합니다</td></tr><tr><td>직접 만든 코드</td><td>USB나 WebSocket으로 JSON 결과를 읽습니다</td></tr><tr><td>스마트홈</td><td>MQTT로 Home Assistant(다음 단계), ESPHome(그다음)</td></tr></tbody></table></div>
+<h2 id="연결-방법">연결 방법</h2>
+<div class="tw"><table><thead><tr><th>방식</th><th>사용 시점</th><th>가이드</th></tr></thead><tbody><tr><td>USB</td><td>첫 사용, 개발. 어디서나 되고 네트워크가 필요 없음</td><td><a href="usb.html">브라우저에서 USB 사용</a></td></tr><tr><td>집 Wi-Fi</td><td>집에서 휴대폰과 컴퓨터로 일상적으로 사용</td><td><a href="wifi.html">집 Wi-Fi</a></td></tr><tr><td>핫스팟</td><td>처음 설정할 때, 또는 집 네트워크에 닿지 않을 때</td><td><a href="hotspot.html">핫스팟 대체 연결</a></td></tr><tr><td>Home Assistant</td><td>자동화: 조명, 알림, 대시보드</td><td><a href="home-assistant.html">Home Assistant</a></td></tr></tbody></table></div>
+<p>Radar Base는 클라우드 계정이 필요하지 않습니다. 레이더 데이터는 내 기기에만 남습니다.</p>
+<p>대량 구매, 사전 기록된 모듈, 맞춤 펌웨어: <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>클라우드가 필요 없습니다. 레이더 데이터는 내 기기에만 남습니다.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','ko')}catch(e){}</script>
+</body></html>

@@ -1,0 +1,21 @@
+<!doctype html><html lang="zh-TW"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>原始資料與你自己的演算法 · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/raw-data.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/raw-data.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/raw-data.html"><link rel="alternate" hreflang="ja" href="../ja/raw-data.html"><link rel="alternate" hreflang="ko" href="../ko/raw-data.html"><link rel="alternate" hreflang="de" href="../de/raw-data.html"><link rel="alternate" hreflang="fr" href="../fr/raw-data.html"><link rel="alternate" hreflang="es" href="../es/raw-data.html"><link rel="alternate" hreflang="pt" href="../pt/raw-data.html"><link rel="alternate" hreflang="it" href="../it/raw-data.html"><link rel="alternate" hreflang="ru" href="../ru/raw-data.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">開啟應用程式</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/raw-data.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW" selected>繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">總覽</a><div class="ng"><div class="nh">開始</div><a href="getting-started.html">快速上手</a></div><div class="ng"><div class="nh">連線</div><a href="usb.html">瀏覽器中使用 USB</a><a href="wifi.html">家用 Wi-Fi</a><a href="hotspot.html">熱點備援</a></div><div class="ng"><div class="nh">智慧家庭</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">開發</div><a href="raw-data.html" class=on>原始資料</a><a href="json-api.html">JSON 與 API</a><a href="devkit-flashing.html">開發套件寫入</a></div><div class="ng"><div class="nh">說明</div><a href="faq.html">常見問題</a></div></nav>
+<main><h1 id="原始資料與你自己的演算法">原始資料與你自己的演算法</h1>
+<p>Radar Base 可以透過 USB 傳輸雷達的原始資料（每個 chirp、兩個接收通道）。開放版韌體包含這個資料流及其設定；用於檢視和處理原始資料的電腦工具不在公開儲存庫中。</p>
+<h2 id="開放版韌體提供什麼">開放版韌體提供什麼</h2>
+<div class="tw"><table><thead><tr><th>功能</th><th>位置</th></tr></thead><tbody><tr><td>原始資料設定：chirp、增益、濾波器、天線</td><td>應用程式 → 原始資料與雷達設定，或主控台 <code>cfg &lt;key&gt; &lt;value&gt;</code></td></tr><tr><td>資料鏈路自我測試：檢查每個區塊</td><td>應用程式 → 原始資料與雷達設定 → <strong>開始測試</strong></td></tr><tr><td>供你自己的程式碼使用的 JSON 結果</td><td><a href="json-api.html">JSON 結果與 API</a></td></tr></tbody></table></div>
+<h2 id="演算法該在哪裡執行">演算法該在哪裡執行</h2>
+<p>先在電腦上做原型。接著看雷達自己的 FFT 和 CFAR 硬體能否勝任；如果可以，就應該在雷達上執行，只把結果傳出來。 否則再看 ESP32 能否勝任；兩者都不行時才留在電腦上。</p>
+<h2 id="檢查資料鏈路">檢查資料鏈路</h2>
+<p>應用程式 → 原始資料與雷達設定 → <strong>開始測試</strong>。它會執行原始資料應用幾秒鐘並檢查每個區塊： 損毀區塊和遺失區塊都應為 0。</p>
+<p>大量採購、預燒錄模組或客製韌體： <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>不需要雲端。雷達資料只留在你自己的裝置上。</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','zh-TW')}catch(e){}</script>
+</body></html>

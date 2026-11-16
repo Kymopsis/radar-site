@@ -1,0 +1,21 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Home Assistant · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/home-assistant.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/home-assistant.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/home-assistant.html"><link rel="alternate" hreflang="ja" href="../ja/home-assistant.html"><link rel="alternate" hreflang="ko" href="../ko/home-assistant.html"><link rel="alternate" hreflang="de" href="../de/home-assistant.html"><link rel="alternate" hreflang="fr" href="../fr/home-assistant.html"><link rel="alternate" hreflang="es" href="../es/home-assistant.html"><link rel="alternate" hreflang="pt" href="../pt/home-assistant.html"><link rel="alternate" hreflang="it" href="../it/home-assistant.html"><link rel="alternate" hreflang="ru" href="../ru/home-assistant.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">앱 열기</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/home-assistant.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko" selected>한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">개요</a><div class="ng"><div class="nh">시작하기</div><a href="getting-started.html">시작하기</a></div><div class="ng"><div class="nh">연결</div><a href="usb.html">브라우저에서 USB</a><a href="wifi.html">집 Wi-Fi</a><a href="hotspot.html">핫스팟 대체 연결</a></div><div class="ng"><div class="nh">스마트홈</div><a href="home-assistant.html" class=on>Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">개발</div><a href="raw-data.html">원시 데이터</a><a href="json-api.html">JSON과 API</a><a href="devkit-flashing.html">개발 키트 기록</a></div><div class="ng"><div class="nh">도움말</div><a href="faq.html">FAQ</a></div></nav>
+<main><h1 id="home-assistant">Home Assistant</h1>
+<p class="note">다음 단계로 제공 예정입니다. 이 페이지는 연동이 어떻게 동작할지 설명하며, 현재 개발 중입니다.</p>
+<p>Radar Base는 MQTT 디스커버리를 통해 Home Assistant에 자동으로 나타납니다. MQTT 브로커는 직접 사용하는 것을 씁니다. 일반적으로는 Home Assistant의 <strong>Mosquitto broker</strong> 애드온을 씁니다. Kymopsis는 브로커도 클라우드도 운영하지 않습니다.</p>
+<h2 id="예정된-엔티티">예정된 엔티티</h2>
+<div class="tw"><table><thead><tr><th>엔티티</th><th>종류</th><th>출처</th></tr></thead><tbody><tr><td>재실</td><td>이진 센서</td><td>3D 재실 감지</td></tr><tr><td>인원 수</td><td>센서</td><td>3D 재실 감지</td></tr><tr><td>구역 1-4 사용 중</td><td>이진 센서</td><td>3D 재실 감지</td></tr><tr><td>낙상 감지됨</td><td>이진 센서 및 이벤트</td><td>낙상 감지</td></tr><tr><td>호흡수, 심박수</td><td>센서(진단)</td><td>호흡 및 심박수</td></tr><tr><td>설치 방식(천장 / 벽)</td><td>선택</td><td>3D 재실 감지</td></tr></tbody></table></div>
+<h2 id="예정된-설정-방법">예정된 설정 방법</h2>
+<ol><li>Home Assistant에서 Mosquitto broker 애드온과 MQTT 통합 구성요소를 설치합니다.</li><li>Radar Base 앱에서: 기기 설정 → 스마트홈 → 브로커 주소, 사용자, 비밀번호를 입력합니다.</li><li>Radar Base가 설정 → 기기 아래에 나타납니다.</li></ol>
+<p>호흡수와 심박수는 웰니스 용도로만 사용하세요. 의료용이 아닙니다.</p>
+<p>대량 구매, 사전 기록된 모듈, 맞춤 펌웨어: <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>클라우드가 필요 없습니다. 레이더 데이터는 내 기기에만 남습니다.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','ko')}catch(e){}</script>
+</body></html>

@@ -1,0 +1,21 @@
+<!doctype html><html lang="zh-TW"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Home Assistant · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/home-assistant.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/home-assistant.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/home-assistant.html"><link rel="alternate" hreflang="ja" href="../ja/home-assistant.html"><link rel="alternate" hreflang="ko" href="../ko/home-assistant.html"><link rel="alternate" hreflang="de" href="../de/home-assistant.html"><link rel="alternate" hreflang="fr" href="../fr/home-assistant.html"><link rel="alternate" hreflang="es" href="../es/home-assistant.html"><link rel="alternate" hreflang="pt" href="../pt/home-assistant.html"><link rel="alternate" hreflang="it" href="../it/home-assistant.html"><link rel="alternate" hreflang="ru" href="../ru/home-assistant.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">開啟應用程式</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/home-assistant.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW" selected>繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">總覽</a><div class="ng"><div class="nh">開始</div><a href="getting-started.html">快速上手</a></div><div class="ng"><div class="nh">連線</div><a href="usb.html">瀏覽器中使用 USB</a><a href="wifi.html">家用 Wi-Fi</a><a href="hotspot.html">熱點備援</a></div><div class="ng"><div class="nh">智慧家庭</div><a href="home-assistant.html" class=on>Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">開發</div><a href="raw-data.html">原始資料</a><a href="json-api.html">JSON 與 API</a><a href="devkit-flashing.html">開發套件寫入</a></div><div class="ng"><div class="nh">說明</div><a href="faq.html">常見問題</a></div></nav>
+<main><h1 id="home-assistant">Home Assistant</h1>
+<p class="note">即將推出。本頁說明整合的運作方式，目前正在開發中。</p>
+<p>Radar Base 將透過 MQTT 自動探索出現在 Home Assistant 中。你使用自己的 MQTT 代理伺服器；常見的選擇是 Home Assistant 裡的 <strong>Mosquitto broker</strong> 附加元件。Kymopsis 不運行任何代理伺服器，也沒有雲端。</p>
+<h2 id="規劃中的實體">規劃中的實體</h2>
+<div class="tw"><table><thead><tr><th>實體</th><th>類型</th><th>來源</th></tr></thead><tbody><tr><td>有人狀態</td><td>二元感測器</td><td>3D 人員存在</td></tr><tr><td>人數</td><td>感測器</td><td>3D 人員存在</td></tr><tr><td>區域 1-4 有人</td><td>二元感測器</td><td>3D 人員存在</td></tr><tr><td>偵測到跌倒</td><td>二元感測器和事件</td><td>跌倒偵測</td></tr><tr><td>呼吸率、心率</td><td>感測器（診斷）</td><td>呼吸與心率</td></tr><tr><td>安裝方式（天花板 / 牆面）</td><td>選擇</td><td>3D 人員存在</td></tr></tbody></table></div>
+<h2 id="規劃中的設定步驟">規劃中的設定步驟</h2>
+<ol><li>在 Home Assistant 中安裝 Mosquitto broker 附加元件和 MQTT 整合。</li><li>在 Radar Base 應用程式中：裝置設定 → 智慧家庭 → 填入代理伺服器位址、使用者名稱和密碼。</li><li>Radar Base 會出現在「設定 → 裝置」中。</li></ol>
+<p>呼吸和心率僅供健康保健用途，非醫療用途。</p>
+<p>大量採購、預燒錄模組或客製韌體： <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>不需要雲端。雷達資料只留在你自己的裝置上。</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','zh-TW')}catch(e){}</script>
+</body></html>

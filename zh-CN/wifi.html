@@ -1,0 +1,28 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>把 Radar Base 接入家庭 Wi-Fi · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/wifi.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/wifi.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/wifi.html"><link rel="alternate" hreflang="ja" href="../ja/wifi.html"><link rel="alternate" hreflang="ko" href="../ko/wifi.html"><link rel="alternate" hreflang="de" href="../de/wifi.html"><link rel="alternate" hreflang="fr" href="../fr/wifi.html"><link rel="alternate" hreflang="es" href="../es/wifi.html"><link rel="alternate" hreflang="pt" href="../pt/wifi.html"><link rel="alternate" hreflang="it" href="../it/wifi.html"><link rel="alternate" hreflang="ru" href="../ru/wifi.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">打开应用</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/wifi.html'"><option value="en">English</option><option value="zh-CN" selected>简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">概览</a><div class="ng"><div class="nh">开始</div><a href="getting-started.html">快速上手</a></div><div class="ng"><div class="nh">连接</div><a href="usb.html">浏览器中使用 USB</a><a href="wifi.html" class=on>家庭 Wi-Fi</a><a href="hotspot.html">热点备用</a></div><div class="ng"><div class="nh">智能家居</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">开发</div><a href="raw-data.html">原始数据</a><a href="json-api.html">JSON 与 API</a><a href="devkit-flashing.html">开发套件写入</a></div><div class="ng"><div class="nh">帮助</div><a href="faq.html">常见问题</a></div></nav>
+<main><h1 id="把-radar-base-接入家庭-wi-fi">把 Radar Base 接入家庭 Wi-Fi</h1>
+<p>Radar Base 接入家庭网络后，家里任何手机、平板或电脑都可以通过 <strong>http://kymradar.local</strong> 打开它。 你的设备继续使用平常的 Wi-Fi。</p>
+<h2 id="设置方法">设置方法</h2>
+<p>任选一种方式：</p>
+<ul><li><strong>在应用中（USB 或热点）：</strong> 设备设置 → 家庭 Wi-Fi → 选择你的网络 → 输入密码 → 连接。</li><li><strong>在串口终端中：</strong> <code>wifi &lt;network-name&gt; &lt;password&gt;</code>（两者都不能含空格）。</li></ul>
+<p>Radar Base 需要 2.4 GHz 网络。大多数家用路由器会在同一个名称下同时提供 2.4 GHz 和 5 GHz，这样没问题。</p>
+<h2 id="打开方式">打开方式</h2>
+<ul><li>电脑、iPhone、iPad 和 Mac：<strong>http://kymradar.local</strong></li><li>部分 Android 手机无法解析 <code>.local</code> 名称。请使用“设备设置 → 家庭 Wi-Fi”下显示的 IP 地址</li></ul>
+<p>（例如 http://192.168.1.57），或在路由器的设备列表里查找名为 “kymradar” 的设备。</p>
+<h2 id="热点会怎样">热点会怎样</h2>
+<p>家庭 Wi-Fi 可用、且没有手机连在热点上时，Radar Base 的热点会自动关闭。如果家庭网络消失 30 秒，热点会自己重新开启， 详见<a href="hotspot.html">热点备用</a>。</p>
+<h2 id="更改或移除网络">更改或移除网络</h2>
+<p>设备设置 → 家庭 Wi-Fi → <strong>忘记网络</strong>，或在控制台输入 <code>wifi forget</code>。热点会重新开启。</p>
+<h2 id="隐私">隐私</h2>
+<p>Radar Base 只与你自己网络里的设备通信。它没有云端连接，也不会把任何数据发送到别处。</p>
+<p>批量采购、预刷固件模块或定制固件： <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>无需云端。雷达数据只留在你自己的设备上。</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','zh-CN')}catch(e){}</script>
+</body></html>

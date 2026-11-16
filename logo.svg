@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="600" viewBox="0 0 1800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Kymopsis</title>
+  <desc id="desc">Integrated Kymopsis wordmark in near black and cyan blue for a light background.</desc>
+  <defs>
+    <linearGradient id="signal" x1="245" y1="300" x2="530" y2="490" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#18E4EA"/>
+      <stop offset="1" stop-color="#08A9F5"/>
+    </linearGradient>
+  </defs>
+
+  <g id="kymopsis-initial" transform="translate(245 140) scale(.68)">
+    <path fill="#070A10" d="M105 132c0-20 12-32 32-32h77c20 0 32 12 32 32v336c0 20-12 32-32 32h-77c-20 0-32-12-32-32V132Z"/>
+    <path fill="#070A10" d="M238 295c58-34 101-82 143-124 42-41 86-64 145-76-30 37-63 75-100 111-49 48-101 84-188 105v-16Z"/>
+    <path fill="url(#signal)" d="M238 304c73 17 123 52 168 96 40 39 77 70 132 95-70 2-124-19-172-57-48-39-86-82-128-118v-16Z"/>
+    <circle cx="244" cy="308" r="8" fill="#070A10"/>
+  </g>
+
+  <text x="635" y="410" fill="#070A10"
+        font-family="Manrope, Avenir Next, Segoe UI Variable Display, Segoe UI, sans-serif"
+        font-size="250" font-weight="650" letter-spacing="-6">ymopsis</text>
+</svg>

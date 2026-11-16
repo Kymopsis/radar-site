@@ -1,0 +1,55 @@
+<!doctype html><html lang="pt"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Primeiros passos · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/getting-started.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/getting-started.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/getting-started.html"><link rel="alternate" hreflang="ja" href="../ja/getting-started.html"><link rel="alternate" hreflang="ko" href="../ko/getting-started.html"><link rel="alternate" hreflang="de" href="../de/getting-started.html"><link rel="alternate" hreflang="fr" href="../fr/getting-started.html"><link rel="alternate" hreflang="es" href="../es/getting-started.html"><link rel="alternate" hreflang="pt" href="../pt/getting-started.html"><link rel="alternate" hreflang="it" href="../it/getting-started.html"><link rel="alternate" hreflang="ru" href="../ru/getting-started.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">Abrir o app</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/getting-started.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt" selected>Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">Visão geral</a><div class="ng"><div class="nh">Início</div><a href="getting-started.html" class=on>Primeiros passos</a></div><div class="ng"><div class="nh">Conectar</div><a href="usb.html">USB no navegador</a><a href="wifi.html">Wi-Fi de casa</a><a href="hotspot.html">Hotspot de reserva</a></div><div class="ng"><div class="nh">Casa inteligente</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">Desenvolver</div><a href="raw-data.html">Dados brutos</a><a href="json-api.html">JSON e API</a><a href="devkit-flashing.html">Gravação do kit de desenvolvimento</a></div><div class="ng"><div class="nh">Ajuda</div><a href="faq.html">Perguntas frequentes</a></div></nav>
+<main><h1 id="primeiros-passos">Primeiros passos</h1>
+<p>Este guia leva você da caixa até resultados de radar ao vivo em cerca de 15 minutos.</p>
+<h2 id="o-que-você-precisa">O que você precisa</h2>
+<ul><li>Controlador Radar Base (placa ESP32-S3) e o módulo de radar de 60 GHz na sua placa</li><li>10 jumpers (fêmea-fêmea) - incluídos no kit</li><li>Dois cabos USB: um para o Radar Base e outro para alimentar a placa do radar</li><li>Um computador com Chrome ou Edge (Windows, macOS, Linux ou ChromeOS)</li></ul>
+<h2 id="1-prepare-a-placa-do-radar">1. Prepare a placa do radar</h2>
+<p>Retire todas as tampas de jumper do conector serial da placa (J9) e do conector de boot P19 / GND / P12. Caso contrário, o chip USB-serial da própria placa disputa com o Radar Base os mesmos fios.</p>
+<h2 id="2-faça-a-fiação">2. Faça a fiação</h2>
+<p>Desligue tudo primeiro. Conecte <strong>o GND primeiro</strong> e depois o resto. Os nomes são os impressos na placa do radar.</p>
+<svg class="diagram" viewBox="0 0 760 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wiring: Radar Base pins to radar carrier labels">
+<g font-family="Inter,system-ui,sans-serif" font-size="14">
+<rect x="10" y="10" width="230" height="450" rx="14" fill="#0b5cff"/>
+<text x="125" y="38" text-anchor="middle" font-weight="700" fill="#fff">Radar Base (ESP32-S3)</text>
+<rect x="520" y="10" width="230" height="450" rx="14" fill="#f8fbff" stroke="#c7d8ff"/>
+<text x="635" y="38" text-anchor="middle" font-weight="700" fill="#0f172a">Radar carrier (labels)</text>
+<g id="rows" fill="none" stroke-width="3" stroke-linecap="round">
+<path d="M240 70H520" stroke="#0f172a"/>
+<path d="M240 108H520" stroke="#2563eb"/><path d="M240 146H520" stroke="#16a34a"/>
+<path d="M240 184H520" stroke="#2563eb"/><path d="M240 222H520" stroke="#16a34a"/>
+<path d="M240 260H520" stroke="#dc2626"/><path d="M240 298H520" stroke="#ea580c"/><path d="M240 336H520" stroke="#ea580c"/>
+<path d="M240 374H520" stroke="#9333ea"/><path d="M240 412H520" stroke="#9333ea"/></g>
+<g fill="#fff" font-weight="600">
+<text x="30" y="75">GND</text><text x="30" y="113">GPIO17</text><text x="30" y="151">GPIO18</text><text x="30" y="189">GPIO15</text>
+<text x="30" y="227">GPIO16</text><text x="30" y="265">GPIO4</text><text x="30" y="303">GPIO5</text><text x="30" y="341">GPIO6</text>
+<text x="30" y="379">GPIO12</text><text x="30" y="417">GPIO11</text></g>
+<g fill="#0f172a" font-weight="600" text-anchor="end">
+<text x="730" y="75">GND</text><text x="730" y="113">RX0</text><text x="730" y="151">TX0</text><text x="730" y="189">RX1</text>
+<text x="730" y="227">TX1</text><text x="730" y="265">RST</text><text x="730" y="303">P12</text><text x="730" y="341">P19</text>
+<text x="730" y="379">SPI CLK</text><text x="730" y="417">SPI MOSI</text></g>
+<g fill="#64748b" font-size="12" text-anchor="middle">
+<text x="380" y="63">first</text><text x="380" y="101">results: commands</text><text x="380" y="139">results: data</text>
+<text x="380" y="177">loading apps</text><text x="380" y="215">loading replies</text><text x="380" y="253">reset</text>
+<text x="380" y="291">boot select</text><text x="380" y="329">boot select</text><text x="380" y="367">raw data clock</text><text x="380" y="405">raw data (not MISO)</text></g>
+</g></svg>
+
+<div class="tw"><table><thead><tr><th>Pino do Radar Base</th><th>Nome na placa do radar</th><th>Função</th></tr></thead><tbody><tr><td>GND</td><td>GND</td><td>Terra comum (conecte primeiro)</td></tr><tr><td>GPIO17</td><td>RX0</td><td>Comandos para o app do radar</td></tr><tr><td>GPIO18</td><td>TX0</td><td>Resultados do app do radar</td></tr><tr><td>GPIO15</td><td>RX1</td><td>Carregar apps no radar</td></tr><tr><td>GPIO16</td><td>TX1</td><td>Respostas durante o carregamento</td></tr><tr><td>GPIO4</td><td>RST</td><td>Reset do radar</td></tr><tr><td>GPIO5</td><td>P12</td><td>Seleção de boot (também seleção de dados)</td></tr><tr><td>GPIO6</td><td>P19</td><td>Seleção de boot</td></tr><tr><td>GPIO12</td><td>SPI CLK</td><td>Clock dos dados brutos (somente para dados brutos)</td></tr><tr><td>GPIO11</td><td>SPI MOSI</td><td>Dados brutos (não use MISO)</td></tr></tbody></table></div>
+<p>O radar é alimentado pela própria placa (consome até cerca de 600 mA). Nunca o alimente pelo pino 3V3 da placa do controlador.</p>
+<h2 id="3-ligue-na-ordem-certa">3. Ligue na ordem certa</h2>
+<ol><li>Conecte a porta do controlador marcada como <strong>USB</strong> ao seu computador. (A porta marcada como UART serve apenas para atualizar o firmware do próprio controlador.)</li><li>Depois alimente a placa do radar.</li></ol>
+<p>O Radar Base configura os pinos de boot do radar assim que inicia, então o radar precisa ligar em segundo lugar. Se você os ligou na ordem inversa, abra Diagnóstico e pressione <strong>Reiniciar o radar</strong>.</p>
+<h2 id="4-veja-funcionando">4. Veja funcionando</h2>
+<ol><li>Abra <a href="../app/">o app</a> no Chrome ou Edge e pressione <strong>Conectar USB</strong>; escolha a porta chamada "USB JTAG/serial".</li><li>Escolha <strong>Executar um cenário</strong> → <strong>Presença 3D e rastreamento</strong>.</li><li>Ande na frente do radar. Sua posição aparece como um ponto azul.</li></ol>
+<p>Em seguida: <a href="wifi.html">Wi-Fi de casa</a> para o uso diário, ou <a href="raw-data.html">Dados brutos</a> para criar seus próprios algoritmos.</p>
+<p>Volume, módulos pré-gravados ou firmware personalizado: <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>Sem nuvem. Seus dados de radar ficam nos seus dispositivos.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','pt')}catch(e){}</script>
+</body></html>

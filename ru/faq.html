@@ -1,0 +1,30 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Вопросы и решение проблем · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/faq.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/faq.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/faq.html"><link rel="alternate" hreflang="ja" href="../ja/faq.html"><link rel="alternate" hreflang="ko" href="../ko/faq.html"><link rel="alternate" hreflang="de" href="../de/faq.html"><link rel="alternate" hreflang="fr" href="../fr/faq.html"><link rel="alternate" hreflang="es" href="../es/faq.html"><link rel="alternate" hreflang="pt" href="../pt/faq.html"><link rel="alternate" hreflang="it" href="../it/faq.html"><link rel="alternate" hreflang="ru" href="../ru/faq.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">Открыть приложение</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/faq.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru" selected>Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">Обзор</a><div class="ng"><div class="nh">Начало</div><a href="getting-started.html">Быстрый старт</a></div><div class="ng"><div class="nh">Подключение</div><a href="usb.html">USB в браузере</a><a href="wifi.html">Домашний Wi-Fi</a><a href="hotspot.html">Резервная точка доступа</a></div><div class="ng"><div class="nh">Умный дом</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">Разработка</div><a href="raw-data.html">Сырые данные</a><a href="json-api.html">JSON и API</a><a href="devkit-flashing.html">Запись для dev-kit</a></div><div class="ng"><div class="nh">Помощь</div><a href="faq.html" class=on>FAQ</a></div></nav>
+<main><h1 id="вопросы-и-решение-проблем">Вопросы и решение проблем</h1>
+<h2 id="приложение-подключается-но-результатов-нет">Приложение подключается, но результатов нет</h2>
+<ul><li>На плату-носитель радара подано питание? Radar Base включили первым? Откройте Диагностика → <strong>Перезапустить радар</strong>.</li><li>Диагностика → <strong>Запросить версию радара</strong>: если ответ пришёл, провода результатов (RX0/TX0) в порядке.</li></ul>
+<h2 id="не-удаётся-загрузить-сценарий">Не удаётся загрузить сценарий</h2>
+<ul><li>Диагностика → <strong>Проверить связь для загрузки</strong>. Если ответа нет, обычно плохо держится перемычка на RX1, TX1, RST, P12 или P19.</li><li>Переустановите провода: перемычки легко теряют контакт. Длина — не больше 15 cm.</li></ul>
+<h2 id="самотест-сырых-данных-показывает-повреждённые-или-пропущенные-блоки">Самотест сырых данных показывает повреждённые или пропущенные блоки</h2>
+<ul><li>Проверьте провода SPI CLK и MOSI (именно MOSI, не MISO) и проложите рядом провод земли.</li><li>Снизьте скорость SPI: в консоли <code>cfg spi 12.5</code>.</li></ul>
+<h2 id="все-блоки-плохие-и-содержат-только-00-или-ff">Все блоки плохие и содержат только 00 или FF</h2>
+<p>Провод данных подключён к выводу MISO платы-носителя. Переставьте его на <strong>MOSI</strong>.</p>
+<h2 id="браузер-не-показывает-usb-порт">Браузер не показывает USB-порт</h2>
+<ul><li>Используйте порт с надписью <strong>USB</strong> на контроллере, а не UART.</li><li>Закройте любой последовательный терминал: порт может использовать только одна программа.</li><li>Используйте Chrome или Edge на настольном компьютере.</li></ul>
+<h2 id="http-kymradar-local-не-открывается">http://kymradar.local не открывается</h2>
+<p>Некоторые телефоны Android не разрешают имена <code>.local</code>. Используйте IP-адрес из раздела Настройки устройства → Домашний Wi-Fi.</p>
+<h2 id="дыхание-или-пульс-остаются-пустыми">Дыхание или пульс остаются пустыми</h2>
+<p>Сядьте или лягте неподвижно в 0.5-1.5 m перед радаром грудью к нему и подождите около 20 секунд. Эти показания предназначены только для оздоровительных целей и не для медицинского применения.</p>
+<h2 id="человек-показан-а-зона-не-горит-или-наоборот">Человек показан, а зона не горит (или наоборот)</h2>
+<p>Зоны и трекинг — разные выходы радара. Совсем неподвижный человек может пропасть из трекинга, пока зона остаётся занятой. Чтобы число не прыгало, приложение показывает максимальное количество людей за последнее мгновение.</p>
+<p>Партии, предварительно прошитые модули или индивидуальная прошивка: <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>Без облака. Данные радара остаются на ваших устройствах.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','ru')}catch(e){}</script>
+</body></html>

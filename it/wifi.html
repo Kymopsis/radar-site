@@ -1,0 +1,28 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Metti Radar Base sul Wi-Fi di casa · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/wifi.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/wifi.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/wifi.html"><link rel="alternate" hreflang="ja" href="../ja/wifi.html"><link rel="alternate" hreflang="ko" href="../ko/wifi.html"><link rel="alternate" hreflang="de" href="../de/wifi.html"><link rel="alternate" hreflang="fr" href="../fr/wifi.html"><link rel="alternate" hreflang="es" href="../es/wifi.html"><link rel="alternate" hreflang="pt" href="../pt/wifi.html"><link rel="alternate" hreflang="it" href="../it/wifi.html"><link rel="alternate" hreflang="ru" href="../ru/wifi.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">Apri l&#x27;app</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/wifi.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it" selected>Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">Panoramica</a><div class="ng"><div class="nh">Inizia</div><a href="getting-started.html">Per iniziare</a></div><div class="ng"><div class="nh">Collega</div><a href="usb.html">USB nel browser</a><a href="wifi.html" class=on>Wi-Fi di casa</a><a href="hotspot.html">Hotspot di riserva</a></div><div class="ng"><div class="nh">Smart home</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">Sviluppo</div><a href="raw-data.html">Dati grezzi</a><a href="json-api.html">JSON e API</a><a href="devkit-flashing.html">Scrittura del kit di sviluppo</a></div><div class="ng"><div class="nh">Aiuto</div><a href="faq.html">FAQ</a></div></nav>
+<main><h1 id="metti-radar-base-sul-wi-fi-di-casa">Metti Radar Base sul Wi-Fi di casa</h1>
+<p>Quando Radar Base è sulla tua rete di casa, qualsiasi telefono, tablet o computer in casa può aprirlo su <strong>http://kymradar.local</strong>. I tuoi dispositivi restano sul normale Wi-Fi.</p>
+<h2 id="configurazione">Configurazione</h2>
+<p>Scegli un modo:</p>
+<ul><li><strong>Dall'app (USB o hotspot):</strong> Impostazioni dispositivo → Wi-Fi di casa → scegli la tua rete → inserisci la password → Connetti.</li><li><strong>Da un terminale seriale:</strong> <code>wifi &lt;network-name&gt; &lt;password&gt;</code> (senza spazi in entrambi).</li></ul>
+<p>Radar Base richiede una rete a 2,4 GHz. La maggior parte dei router domestici offre 2,4 GHz e 5 GHz con lo stesso nome, e va bene.</p>
+<h2 id="aprilo">Aprilo</h2>
+<ul><li>Su computer, iPhone, iPad e Mac: <strong>http://kymradar.local</strong></li><li>Su alcuni telefoni Android i nomi <code>.local</code> non vengono risolti. Usa l'indirizzo IP mostrato in Impostazioni</li></ul>
+<p>dispositivo → Wi-Fi di casa (per esempio http://192.168.1.57), oppure cerca il dispositivo "kymradar" nell'elenco del router.</p>
+<h2 id="cosa-succede-all-hotspot">Cosa succede all'hotspot</h2>
+<p>L'hotspot di Radar Base si spegne da solo quando il tuo Wi-Fi di casa funziona e nessun telefono è collegato. Si riaccende da solo se la rete di casa sparisce per 30 secondi - vedi <a href="hotspot.html">Hotspot di riserva</a>.</p>
+<h2 id="cambiare-o-rimuovere-la-rete">Cambiare o rimuovere la rete</h2>
+<p>Impostazioni dispositivo → Wi-Fi di casa → <strong>Dimentica rete</strong>, oppure sulla console <code>wifi forget</code>. L'hotspot si riaccende.</p>
+<h2 id="privacy">Privacy</h2>
+<p>Radar Base parla solo con i dispositivi della tua rete. Non ha alcuna connessione cloud e non invia dati da nessuna parte.</p>
+<p>Volumi, moduli già programmati o firmware personalizzato: <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>Nessun cloud. I tuoi dati radar restano sui tuoi dispositivi.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','it')}catch(e){}</script>
+</body></html>

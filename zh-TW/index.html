@@ -1,0 +1,58 @@
+<!doctype html><html lang="zh-TW"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kymopsis Radar Base · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/index.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/index.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/index.html"><link rel="alternate" hreflang="ja" href="../ja/index.html"><link rel="alternate" hreflang="ko" href="../ko/index.html"><link rel="alternate" hreflang="de" href="../de/index.html"><link rel="alternate" hreflang="fr" href="../fr/index.html"><link rel="alternate" hreflang="es" href="../es/index.html"><link rel="alternate" hreflang="pt" href="../pt/index.html"><link rel="alternate" hreflang="it" href="../it/index.html"><link rel="alternate" hreflang="ru" href="../ru/index.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">開啟應用程式</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/index.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW" selected>繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html" class=on>總覽</a><div class="ng"><div class="nh">開始</div><a href="getting-started.html">快速上手</a></div><div class="ng"><div class="nh">連線</div><a href="usb.html">瀏覽器中使用 USB</a><a href="wifi.html">家用 Wi-Fi</a><a href="hotspot.html">熱點備援</a></div><div class="ng"><div class="nh">智慧家庭</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">開發</div><a href="raw-data.html">原始資料</a><a href="json-api.html">JSON 與 API</a><a href="devkit-flashing.html">開發套件寫入</a></div><div class="ng"><div class="nh">說明</div><a href="faq.html">常見問題</a></div></nav>
+<main><h1 id="radar-base">Radar Base</h1>
+<p>Radar Base 把 60 GHz 毫米波雷達模組連接到你的電腦、手機和智慧家庭。 雷達的運算由雷達自己的晶片完成；Radar Base 把雷達應用載入進去，把結果轉成一種簡單的 JSON 格式，並透過 USB 和 Wi-Fi 提供出來。</p>
+<div class="cards">
+<a class="card" href="getting-started.html"><b>執行現成的雷達應用</b><span>3D 人員位置、跌倒偵測、呼吸和心率。不需要寫程式。</span></a>
+<a class="card" href="usb.html"><b>透過 USB 在瀏覽器中使用</b><span>插上線，在 Chrome 或 Edge 中開啟本站即可。不需要 Wi-Fi。</span></a>
+<a class="card" href="wifi.html"><b>接上家用 Wi-Fi</b><span>在家中用任何手機或電腦連到 http://kymradar.local。</span></a>
+<a class="card" href="json-api.html"><b>開發自己的整合</b><span>在任何程式中透過 USB 或 WebSocket 以 JSON 讀取結果。</span></a>
+</div>
+<h2 id="已測試的硬體">已測試的硬體</h2>
+<div class="tw"><table><thead><tr><th>硬體</th><th>狀態</th></tr></thead><tbody><tr><td>Kymopsis Radar Base 開發套件</td><td>已測試。開箱即用；已含板型設定檔</td></tr><tr><td>Kymopsis DIY 方案：ESP32-S3 開發板與載板上的 60 GHz 雷達模組，依<a href="getting-started.html">入門</a>接線</td><td>已測試。開箱即用；已含板型設定檔</td></tr><tr><td>其他開發板與雷達模組</td><td>未測試。請自行核對腳位配置與板型設定檔；應用程式隨後會顯示「未知板型，角度未校準」</td></tr></tbody></table></div>
+<h2 id="開放版與開發套件版">開放版與開發套件版</h2>
+<div class="tw"><table><thead><tr><th>功能</th><th>開放韌體</th><th>開發套件韌體</th></tr></thead><tbody><tr><td>從雷達記憶體執行雷達應用，即時檢視</td><td>是</td><td>是</td></tr><tr><td>透過 USB 與 Wi-Fi 輸出 JSON，11 種語言的網頁應用</td><td>是</td><td>是</td></tr><tr><td>家用 Wi-Fi、熱點備援、Home Assistant（MQTT）</td><td>是</td><td>是</td></tr><tr><td>原始資料串流、設定與自我測試</td><td>是</td><td>是</td></tr><tr><td>把應用寫入雷達本身的快閃記憶體，並附備份</td><td>-</td><td>是</td></tr><tr><td>批次寫入：PASS / FAIL、計數器、CSV 紀錄</td><td>-</td><td>是</td></tr><tr><td>出廠設定板型設定檔</td><td>-</td><td>是</td></tr></tbody></table></div>
+<h2 id="整體架構">整體架構</h2>
+<svg class="diagram" viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Radar module to Radar Base to clients">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#94a3b8"/></marker></defs>
+<g font-family="Inter,system-ui,sans-serif" font-size="14">
+<rect x="10" y="80" width="200" height="140" rx="14" fill="#f8fbff" stroke="#c7d8ff"/>
+<text x="110" y="110" text-anchor="middle" font-weight="700" fill="#0f172a">Radar module</text>
+<text x="110" y="138" text-anchor="middle" fill="#475569">60 GHz radar</text>
+<text x="110" y="160" text-anchor="middle" fill="#475569">radar apps run here</text>
+<text x="110" y="182" text-anchor="middle" fill="#475569">FFT and CFAR hardware</text>
+<rect x="320" y="60" width="240" height="180" rx="14" fill="#0b5cff"/>
+<text x="440" y="92" text-anchor="middle" font-weight="700" fill="#fff">Radar Base (ESP32-S3)</text>
+<text x="440" y="122" text-anchor="middle" fill="#dbe7ff">loads radar apps</text>
+<text x="440" y="144" text-anchor="middle" fill="#dbe7ff">results → JSON</text>
+<text x="440" y="166" text-anchor="middle" fill="#dbe7ff">raw data stream</text>
+<text x="440" y="188" text-anchor="middle" fill="#dbe7ff">web app · Wi-Fi · USB</text>
+<text x="440" y="210" text-anchor="middle" fill="#dbe7ff">MQTT</text>
+<line x1="212" y1="130" x2="316" y2="130" stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="316" y1="170" x2="214" y2="170" stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)"/>
+<text x="264" y="122" text-anchor="middle" font-size="12" fill="#64748b">results, raw data</text>
+<text x="264" y="190" text-anchor="middle" font-size="12" fill="#64748b">apps, settings</text>
+<g fill="#fff" stroke="#dce7f2">
+<rect x="670" y="20" width="220" height="56" rx="12"/><rect x="670" y="92" width="220" height="56" rx="12"/>
+<rect x="670" y="164" width="220" height="56" rx="12"/><rect x="670" y="236" width="220" height="56" rx="12"/></g>
+<g fill="#0f172a" font-weight="600"><text x="686" y="45">Web app</text><text x="686" y="117">PC viewer</text><text x="686" y="189">Home Assistant</text><text x="686" y="261">Your own code</text></g>
+<g fill="#64748b" font-size="12"><text x="686" y="64">USB or home Wi-Fi</text><text x="686" y="136">USB, JSON results</text><text x="686" y="208">MQTT, your own broker</text><text x="686" y="280">JSON over USB or WebSocket</text></g>
+<g stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)" fill="none">
+<path d="M562 110 C620 110 620 48 666 48"/><path d="M562 130 C620 130 620 120 666 120"/><path d="M562 170 C620 170 620 192 666 192"/><path d="M562 190 C620 190 620 264 666 264"/></g>
+</g></svg>
+
+<div class="tw"><table><thead><tr><th>部分</th><th>功能</th></tr></thead><tbody><tr><td>雷達模組</td><td>執行雷達應用：每個應用在雷達上完成整條訊號處理鏈並回報結果</td></tr><tr><td>Radar Base (ESP32-S3)</td><td>載入雷達應用，把結果轉成 JSON，串流原始資料，提供網頁應用程式，連上你的 Wi-Fi</td></tr><tr><td>網頁應用程式</td><td>選擇任務、查看即時結果、修改設定。Wi-Fi 和 USB 下是同一個應用程式，支援 11 種語言</td></tr><tr><td>你自己的程式碼</td><td>透過 USB 或 WebSocket 讀取 JSON 結果</td></tr><tr><td>智慧家庭</td><td>透過 MQTT 連接 Home Assistant（即將推出），ESPHome（之後）</td></tr></tbody></table></div>
+<h2 id="連線方式">連線方式</h2>
+<div class="tw"><table><thead><tr><th>方式</th><th>適用情境</th><th>指南</th></tr></thead><tbody><tr><td>USB</td><td>初次體驗、開發。隨處可用，不需要網路</td><td><a href="usb.html">瀏覽器中使用 USB</a></td></tr><tr><td>家用 Wi-Fi</td><td>在家中用手機和電腦日常使用</td><td><a href="wifi.html">家用 Wi-Fi</a></td></tr><tr><td>熱點</td><td>首次設定，或連不上家用網路時</td><td><a href="hotspot.html">熱點備援</a></td></tr><tr><td>Home Assistant</td><td>自動化：燈光、提醒、儀表板</td><td><a href="home-assistant.html">Home Assistant</a></td></tr></tbody></table></div>
+<p>Radar Base 永遠不需要雲端帳號。你的雷達資料只留在自己的裝置上。</p>
+<p>大量採購、預燒錄模組或客製韌體： <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>不需要雲端。雷達資料只留在你自己的裝置上。</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','zh-TW')}catch(e){}</script>
+</body></html>

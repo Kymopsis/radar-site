@@ -1,0 +1,27 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Modulo di scrittura del radar (kit di sviluppo) · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/devkit-flashing.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/devkit-flashing.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/devkit-flashing.html"><link rel="alternate" hreflang="ja" href="../ja/devkit-flashing.html"><link rel="alternate" hreflang="ko" href="../ko/devkit-flashing.html"><link rel="alternate" hreflang="de" href="../de/devkit-flashing.html"><link rel="alternate" hreflang="fr" href="../fr/devkit-flashing.html"><link rel="alternate" hreflang="es" href="../es/devkit-flashing.html"><link rel="alternate" hreflang="pt" href="../pt/devkit-flashing.html"><link rel="alternate" hreflang="it" href="../it/devkit-flashing.html"><link rel="alternate" hreflang="ru" href="../ru/devkit-flashing.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">Apri l&#x27;app</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/devkit-flashing.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it" selected>Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">Panoramica</a><div class="ng"><div class="nh">Inizia</div><a href="getting-started.html">Per iniziare</a></div><div class="ng"><div class="nh">Collega</div><a href="usb.html">USB nel browser</a><a href="wifi.html">Wi-Fi di casa</a><a href="hotspot.html">Hotspot di riserva</a></div><div class="ng"><div class="nh">Smart home</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">Sviluppo</div><a href="raw-data.html">Dati grezzi</a><a href="json-api.html">JSON e API</a><a href="devkit-flashing.html" class=on>Scrittura del kit di sviluppo</a></div><div class="ng"><div class="nh">Aiuto</div><a href="faq.html">FAQ</a></div></nav>
+<main><h1 id="modulo-di-scrittura-del-radar-kit-di-sviluppo">Modulo di scrittura del radar (kit di sviluppo)</h1>
+<p>Il firmware di Radar Base esiste in due edizioni, compilate dallo stesso codice sorgente:</p>
+<div class="tw"><table><thead><tr><th>Edizione</th><th>Cosa sa fare</th></tr></thead><tbody><tr><td>Aperta</td><td>Tutto ciò che c'è su questo sito: esegue ogni app radar dalla memoria del radar, JSON, app web, Wi-Fi, smart home</td></tr><tr><td>Kit di sviluppo</td><td>Aperta + un modulo in più che scrive nella flash del radar</td></tr></tbody></table></div>
+<h2 id="cosa-fa-il-modulo">Cosa fa il modulo</h2>
+<p>Un'app scritta nella flash del radar parte da sola all'accensione, senza che Radar Base debba caricarla prima. Il modulo esegue un backup della flash attuale del radar prima di ogni scrittura; se il backup fallisce, non viene scritto nulla. I backup si possono ripristinare in qualsiasi momento dall'app.</p>
+<h2 id="come-viene-consegnato-il-firmware-del-kit-di-sviluppo">Come viene consegnato il firmware del kit di sviluppo</h2>
+<p>Il firmware del kit di sviluppo è precaricato sulla scheda del kit. Gli aggiornamenti vengono comunicati agli acquirenti via e-mail; questo firmware non è un download pubblico. Il firmware aperto è sempre disponibile nel repository pubblico.</p>
+<h2 id="scrittura-in-serie">Scrittura in serie</h2>
+<p>Per molti moduli di fila: scegli il firmware una sola volta e collega i moduli uno dopo l'altro. Ogni modulo viene rilevato, salvato se vuoi, scritto, verificato, avviato dalla sua flash e interrogato sulla versione. La pagina e il LED della scheda mostrano PASS o FAIL, un contatore somma e ogni modulo ottiene una riga in un registro CSV che puoi scaricare.</p>
+<h2 id="cosa-non-fa">Cosa non fa</h2>
+<ul><li>Non si connette a internet.</li><li>Non raccoglie, non memorizza e non invia alcun dato.</li><li>Nient'altro nel firmware dipende da lui.</li></ul>
+<p>È chiuso perché il piccolo programma ausiliario che carica nel radar per scrivere non possiamo pubblicarlo noi. Sulle unità del kit di sviluppo, quel programma è memorizzato cifrato con una chiave unica per ogni unità.</p>
+<h2 id="senza-il-modulo">Senza il modulo</h2>
+<p>Ogni app radar gira anche dalla memoria del radar con il firmware aperto (Esegui uno scenario). Perdi solo la comodità di «parte da sola senza Radar Base». Il firmware aperto, l'app e il formato JSON sono tutti open source.</p>
+<p>Volumi, moduli già programmati o firmware personalizzato: <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>Nessun cloud. I tuoi dati radar restano sui tuoi dispositivi.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','it')}catch(e){}</script>
+</body></html>

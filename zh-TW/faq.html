@@ -1,0 +1,30 @@
+<!doctype html><html lang="zh-TW"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>常見問題與疑難排解 · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/faq.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/faq.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/faq.html"><link rel="alternate" hreflang="ja" href="../ja/faq.html"><link rel="alternate" hreflang="ko" href="../ko/faq.html"><link rel="alternate" hreflang="de" href="../de/faq.html"><link rel="alternate" hreflang="fr" href="../fr/faq.html"><link rel="alternate" hreflang="es" href="../es/faq.html"><link rel="alternate" hreflang="pt" href="../pt/faq.html"><link rel="alternate" hreflang="it" href="../it/faq.html"><link rel="alternate" hreflang="ru" href="../ru/faq.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">開啟應用程式</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/faq.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW" selected>繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">總覽</a><div class="ng"><div class="nh">開始</div><a href="getting-started.html">快速上手</a></div><div class="ng"><div class="nh">連線</div><a href="usb.html">瀏覽器中使用 USB</a><a href="wifi.html">家用 Wi-Fi</a><a href="hotspot.html">熱點備援</a></div><div class="ng"><div class="nh">智慧家庭</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">開發</div><a href="raw-data.html">原始資料</a><a href="json-api.html">JSON 與 API</a><a href="devkit-flashing.html">開發套件寫入</a></div><div class="ng"><div class="nh">說明</div><a href="faq.html" class=on>常見問題</a></div></nav>
+<main><h1 id="常見問題與疑難排解">常見問題與疑難排解</h1>
+<h2 id="應用程式已連線-但沒有結果">應用程式已連線，但沒有結果</h2>
+<ul><li>雷達載板有通電嗎？是否先替 Radar Base 供電？開啟「診斷」→ <strong>重新啟動雷達</strong>。</li><li>「診斷」→ <strong>查詢雷達版本</strong>：有回應表示結果線（RX0/TX0）正常。</li></ul>
+<h2 id="載入情境失敗">載入情境失敗</h2>
+<ul><li>「診斷」→ <strong>檢查開機連線</strong>。沒有回應通常是 RX1、TX1、RST、P12 或 P19 上的杜邦線鬆脫。</li><li>重新插緊導線；杜邦線很容易接觸不良。長度請控制在 15 cm 以內。</li></ul>
+<h2 id="原始資料自我測試顯示資料區塊損毀或遺失">原始資料自我測試顯示資料區塊損毀或遺失</h2>
+<ul><li>檢查 SPI CLK 和 MOSI 導線（是 MOSI，不是 MISO），並在旁邊並排一條接地線。</li><li>降低 SPI 速度：在主控台輸入 <code>cfg spi 12.5</code>。</li></ul>
+<h2 id="每個區塊都是壞的-內容只有-00-或-ff">每個區塊都是壞的，內容只有 00 或 FF</h2>
+<p>資料線接到了載板的 MISO 腳位。請改接到 <strong>MOSI</strong>。</p>
+<h2 id="瀏覽器列不出-usb-連接埠">瀏覽器列不出 USB 連接埠</h2>
+<ul><li>使用控制板上標示 <strong>USB</strong> 的連接埠，不是 UART。</li><li>關閉任何序列終端機：同一個連接埠一次只能被一個程式使用。</li><li>請在桌上型電腦上使用 Chrome 或 Edge。</li></ul>
+<h2 id="http-kymradar-local-打不開">http://kymradar.local 打不開</h2>
+<p>部分 Android 手機無法解析 <code>.local</code> 名稱。請使用「裝置設定 → 家用 Wi-Fi」中顯示的 IP 位址。</p>
+<h2 id="呼吸或心率一直是空的">呼吸或心率一直是空的</h2>
+<p>請在雷達前方 0.5-1.5 m 處靜坐或靜躺，胸口朝向雷達，並等待約 20 秒。這些數值僅供健康保健用途，非醫療用途。</p>
+<h2 id="顯示有人但區域沒亮-或相反">顯示有人但區域沒亮（或相反）</h2>
+<p>區域和追蹤是雷達兩路獨立的輸出。一個完全靜止的人可能會從追蹤中消失，而區域仍顯示有人。應用程式會顯示最近一小段時間內的 最大人數，讓數字保持穩定。</p>
+<p>大量採購、預燒錄模組或客製韌體： <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>不需要雲端。雷達資料只留在你自己的裝置上。</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','zh-TW')}catch(e){}</script>
+</body></html>

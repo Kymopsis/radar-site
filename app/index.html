@@ -1,0 +1,653 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kymopsis Radar Base</title>
+<meta name="theme-color" content="#ffffff">
+<style>
+:root{--ink:#06111e;--head:#0f172a;--body:#475569;--sub:#64748b;--blue:#0b5cff;--blue-d:#094ecc;--cyan:#45d7ff;--line:#e2e8f0;--line2:#dce7f2;
+--bg:#f5f9fc;--card:#fff;--soft:#f1f5f9;--ok:#16a34a;--warn:#ea580c;--bad:#dc2626;--r:14px;--sh:0 1px 2px rgba(15,23,42,.04),0 4px 16px rgba(15,23,42,.05)}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--body);-webkit-font-smoothing:antialiased}
+button,select,input{font:inherit;color:inherit}
+a{color:var(--blue);text-decoration:none}
+.top{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
+.top .in{max-width:1180px;margin:auto;display:flex;align-items:center;gap:12px;padding:10px 16px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--head);font-weight:600;cursor:pointer}
+.brand img{height:30px;display:block}.brand span{font-size:15px;color:var(--sub);font-weight:500;padding-left:10px;border-left:1px solid var(--line)}
+.sp{flex:1}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--body);background:var(--soft);border-radius:999px;padding:4px 10px;white-space:nowrap}
+.dot{width:8px;height:8px;border-radius:50%;background:#94a3b8}.dot.ok{background:var(--ok);box-shadow:0 0 0 3px rgba(22,163,74,.15)}.dot.busy{background:var(--warn)}
+.lang{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:5px 8px;font-size:13px;cursor:pointer}
+main{max-width:1180px;margin:auto;padding:20px 16px 40px}
+h1{font-size:26px;line-height:1.25;color:var(--head);margin:6px 0 4px;letter-spacing:-.01em}
+h2{font-size:15px;color:var(--head);margin:0}
+.lead{margin:0 0 20px;color:var(--sub)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media(max-width:720px){.grid{grid-template-columns:1fr}h1{font-size:22px}.brand span{display:none}}
+.task{position:relative;display:flex;gap:14px;align-items:flex-start;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--sh);cursor:pointer;transition:border-color .15s,transform .15s,box-shadow .15s;width:100%}
+.task:hover{border-color:#b9cdfa;box-shadow:0 2px 4px rgba(15,23,42,.05),0 10px 28px rgba(11,92,255,.08);transform:translateY(-1px)}
+.task .ic{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:#eef4ff;color:var(--blue)}
+.task.feat{border-color:#c7d8ff;background:linear-gradient(180deg,#fff,#f6f9ff)}
+.task>span:nth-child(2){display:block;min-width:0;padding-right:18px}
+.task .tt{display:block;font-weight:600;color:var(--head);font-size:16px;margin-bottom:3px}.task .dd{display:block;font-size:14px;color:var(--sub)}
+.task .go{position:absolute;right:16px;top:18px;color:#94a3b8}
+.tag.kit{color:#0e7490;background:#e6fbff}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--blue);background:#eef4ff;border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:2px}
+.foot{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--sub)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh)}
+.bar{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.back{display:inline-flex;align-items:center;gap:4px;border:0;background:none;color:var(--sub);cursor:pointer;padding:6px 6px 6px 0;font-size:14px}
+.back:hover{color:var(--head)}
+.scene{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+@media(max-width:900px){.scene{grid-template-columns:1fr}}
+.viewc{position:relative;padding:8px}
+canvas{display:block;width:100%;aspect-ratio:1/1}
+.legend{display:flex;gap:14px;flex-wrap:wrap;padding:4px 10px 8px;font-size:12px;color:var(--sub)}
+.overlay{position:absolute;inset:8px;display:none;place-items:center;background:rgba(255,255,255,.86);border-radius:10px;text-align:center;color:var(--body);padding:20px}
+.overlay.on{display:grid}.spin{width:28px;height:28px;border:3px solid #dbe6ff;border-top-color:var(--blue);border-radius:50%;margin:0 auto 10px;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.stat{padding:12px 14px}.stat small{display:block;font-size:12px;color:var(--sub)}.stat b{display:block;font-size:26px;line-height:1.2;color:var(--head);font-weight:650;margin-top:2px}
+.zones{grid-column:1/-1;padding:12px 14px}.zrow{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}
+.z{text-align:center;padding:7px 0;border-radius:8px;background:var(--soft);color:var(--sub);font-weight:600;font-size:13px;transition:background .2s}
+.z.on{background:var(--blue);color:#fff}
+.panel{padding:4px 16px 8px}
+.sec{padding:14px 0;border-bottom:1px solid var(--line)}.sec:last-child{border-bottom:0}
+.sec h3{margin:0 0 8px;font-size:13px;font-weight:600;color:var(--head);display:flex;align-items:center;gap:6px}
+.help{font-size:12.5px;color:var(--sub);margin:8px 0 0}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;background:var(--soft);border-radius:10px;padding:3px;gap:3px}
+.seg button{border:0;background:none;border-radius:8px;padding:8px 6px;cursor:pointer;color:var(--body);font-weight:500;display:flex;align-items:center;justify-content:center;gap:6px}
+.seg button.on{background:var(--card);color:var(--blue);font-weight:600;box-shadow:0 1px 3px rgba(15,23,42,.12)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0}
+.row .l{font-size:14px;color:var(--head)}.row .l small{display:block;color:var(--sub);font-size:12px}
+.sw{position:relative;width:42px;height:24px;flex:none}.sw input{opacity:0;width:0;height:0}
+.sw i{position:absolute;inset:0;background:#cbd5e1;border-radius:24px;cursor:pointer;transition:.2s}
+.sw i:before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.sw input:checked+i{background:var(--blue)}.sw input:checked+i:before{transform:translateX(18px)}
+input[type=range]{width:100%;accent-color:var(--blue)}
+.rv{font-variant-numeric:tabular-nums;color:var(--head);font-weight:600;font-size:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:10px;padding:9px 14px;border:1px solid var(--line);background:var(--card);color:var(--head);font-weight:600;cursor:pointer}
+.btn:hover{border-color:#b9cdfa}.btn.pri{background:var(--blue);border-color:var(--blue);color:#fff}.btn.pri:hover{background:var(--blue-d)}
+.btn.full{width:100%}.acts{display:flex;gap:8px;padding:12px 0 6px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);opacity:0;background:var(--ink);color:#fff;font-size:14px;padding:9px 14px;border-radius:10px;transition:.25s;pointer-events:none;z-index:9}
+.toast.on{opacity:1;transform:translateX(-50%)}
+.list{display:grid;gap:10px}
+.note{font-size:13px;color:var(--sub);background:var(--soft);border-radius:10px;padding:10px 12px;margin-top:14px}
+[hidden]{display:none!important}
+.pad{padding:16px 18px;margin-bottom:14px}.pad h2{margin-bottom:4px}.pad p{margin:4px 0 0;color:var(--sub);font-size:14px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}@media(max-width:820px){.two{grid-template-columns:1fr}}
+.fld{display:grid;gap:6px;margin-top:12px}.fld label{font-size:13px;font-weight:600;color:var(--head)}
+.inp{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:var(--card);font-size:15px}
+.inp:focus{outline:2px solid #bcd0ff;border-color:var(--blue)}
+.frow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}@media(max-width:560px){.frow{grid-template-columns:1fr 1fr}}
+.frow .fld{margin-top:10px}.unit{font-weight:400;color:var(--sub)}
+.log{background:#0b1220;color:#cfe3ff;font:12.5px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;border-radius:10px;padding:10px 12px;height:240px;overflow:auto;white-space:pre-wrap;margin-top:12px}
+.res{margin-top:12px;display:grid;gap:6px}.res div{display:flex;justify-content:space-between;font-size:14px;border-bottom:1px solid var(--line);padding:6px 0}.res b{color:var(--head)}
+.ok{color:var(--ok)}.bad{color:var(--bad)}
+.ftab{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}.ftab td{padding:8px 4px;border-bottom:1px solid var(--line)}.ftab td:last-child{text-align:right}
+.lnk{border:0;background:none;color:var(--blue);cursor:pointer;padding:0;font-weight:600}
+.big{display:grid;place-items:center;text-align:center;min-height:300px;padding:24px}
+.big .st{font-size:34px;font-weight:700;letter-spacing:-.01em}.big .sub{color:var(--sub);margin-top:6px}
+.vit{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px}.vit .n{font-size:46px;font-weight:700;color:var(--head);line-height:1.1}.vit small{color:var(--sub)}
+#vchart{width:100%;height:220px;display:block}
+.trans{border-left:3px solid var(--cyan);background:#f2fbff}
+</style></head><body>
+<header class="top"><div class="in">
+ <div class="brand" onclick="go('home')"><img src="/logo.svg" alt="Kymopsis"><span>Radar Base</span></div>
+ <div class="sp"></div>
+ <span class="chip" id="conn"><span class="dot" id="cdot"></span><span id="ctext" data-i="conn.wait">Connecting…</span></span>
+ <button class="btn pri" id="usbbtn" hidden onclick="Link.open()" data-i="usb.connect">Connect USB</button>
+ <select class="lang" id="lang" aria-label="Language"></select>
+</div></header>
+
+<main>
+<!-- ============ HOME ============ -->
+<section id="v-home">
+ <h1 data-i="home.title">What would you like to do?</h1>
+ <p class="lead" id="home-lead"></p>
+ <div class="grid">
+  <button class="task feat" onclick="go('run')"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0"/><path d="M7.8 16.2a6 6 0 0 1 0-8.4M16.2 7.8a6 6 0 0 1 0 8.4M4.9 19.1a10 10 0 0 1 0-14.2M19.1 4.9a10 10 0 0 1 0 14.2"/></svg></span>
+   <span><span class="tt"><span data-i="task.run">Run a scenario</span><span class="tag" data-i="tag.rec">Start here</span></span><span class="dd" data-i="task.run.d">Load a ready-made radar app and watch live results. The radar's flash is not changed.</span></span><span class="go">›</span></button>
+  <button class="task" onclick="go('flash')"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg></span>
+   <span><span class="tt" data-i="task.flash">Write firmware to the radar</span><span class="dd" data-i="task.flash.d">Make an app start by itself at power-up. The current firmware is backed up first.</span></span><span class="go">›</span></button>
+  <button class="task" onclick="go('batch')"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="7" rx="1.5"/><rect x="14" y="4" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7M17.5 14v7"/></svg></span>
+   <span><span class="tt"><span data-i="task.batch">Batch flashing</span><span class="tag kit" data-i="dev.devkit">Dev kit</span></span><span class="dd" data-i="task.batch.d">Write the same firmware to many modules in a row: detect, write, verify, PASS / FAIL, CSV log.</span></span><span class="go">›</span></button>
+  <button class="task" onclick="go('adc')"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3l3-8 4 16 3-8h5"/></svg></span>
+   <span><span class="tt" data-i="task.adc">Raw data &amp; radar settings</span><span class="dd" data-i="task.adc.d">Chirp, gain and filter settings, plus a data-link self-test. Live raw data needs USB.</span></span><span class="go">›</span></button>
+  <button class="task" onclick="go('settings')"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg></span>
+   <span><span class="tt" data-i="task.set">Device settings</span><span class="dd" data-i="task.set.d">Wi-Fi, firmware files, language and diagnostics.</span></span><span class="go">›</span></button>
+ </div>
+ <div class="foot"><span id="fw"></span><a href="/tools" data-i="foot.tools">Bench tools page</a><span data-i="foot.med">Wellness use only, not a medical device.</span></div>
+</section>
+
+<!-- ============ PICK A SCENARIO ============ -->
+<section id="v-run" hidden>
+ <button class="back" onclick="go('home')">‹ <span data-i="nav.home">Home</span></button>
+ <h1 data-i="run.title">Choose a scenario</h1>
+ <p class="lead" data-i="run.lead">It loads into the radar's memory in about 6 seconds. Power-cycling the radar returns it to the app in its flash.</p>
+ <div class="list">
+  <button class="task" onclick="startScene('hd3d')"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="7" r="3"/><path d="M5 21v-2a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v2"/></svg></span>
+   <span><span class="tt" data-i="sc.hd3d">3D presence &amp; tracking</span><span class="dd" data-i="sc.hd3d.d">Where people are in the room, up to several at once, with 4 occupancy areas. Ceiling or wall mount.</span></span><span class="go">›</span></button>
+  <button class="task" onclick="startScene('fall')"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="17" cy="5" r="2.5"/><path d="M14 9l-4 3 2 4-5 4M10 12l-5-1"/></svg></span>
+   <span><span class="tt" data-i="sc.fall">Fall detection</span><span class="dd" data-i="sc.fall.d">Flags a fall and whether someone is present. Ceiling mount.</span></span><span class="go">›</span></button>
+  <button class="task" onclick="startScene('vital')"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg></span>
+   <span><span class="tt" data-i="sc.vital">Breathing &amp; heart rate</span><span class="dd" data-i="sc.vital.d">One person sitting or lying still, 0.5–1.5 m in front of the radar.</span></span><span class="go">›</span></button>
+  <button class="task" onclick="startScene('flash')"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg></span>
+   <span><span class="tt" data-i="sc.flash">The app already in the radar</span><span class="dd" data-i="sc.flash.d">Restart the radar from its flash and show what it reports.</span></span><span class="go">›</span></button>
+ </div>
+</section>
+
+<!-- ============ SCENE ============ -->
+<section id="v-scene" hidden>
+ <div class="bar"><button class="back" onclick="go('run')">‹ <span data-i="nav.scen">Scenarios</span></button><div class="sp"></div><span class="chip" id="rate"><span class="dot" id="rdot"></span><span id="rtext">–</span></span></div>
+ <h1 id="scene-title">–</h1>
+ <p class="lead" id="scene-lead"></p>
+ <div class="scene" id="sv-hd3d">
+  <div class="card viewc"><canvas id="cv" width="900" height="900"></canvas>
+   <div class="legend" id="legend"></div>
+   <div class="overlay" id="ovl"><div><div class="spin"></div><b id="ovl-t" style="color:var(--head)"></b><div id="ovl-d" style="font-size:13px;margin-top:4px"></div></div></div>
+  </div>
+  <div>
+   <div class="stats">
+    <div class="card stat"><small data-i="st.people">People</small><b id="s-people">–</b></div>
+    <div class="card stat"><small data-i="st.near">Nearest person</small><b id="s-near">–</b></div>
+    <div class="card zones"><small style="font-size:12px;color:var(--sub)" data-i="st.areas">Occupied areas</small><div class="zrow"><span class="z" id="z1">1</span><span class="z" id="z2">2</span><span class="z" id="z3">3</span><span class="z" id="z4">4</span></div></div>
+   </div>
+   <div class="card panel">
+    <div class="sec"><h3 data-i="p.mount">Mounting</h3>
+     <div class="seg" id="seg-mount"><button data-v="ceiling" onclick="setMount('ceiling')"><span data-i="m.ceiling">Ceiling</span></button><button data-v="side" onclick="setMount('side')"><span data-i="m.side">Wall</span></button></div>
+     <p class="help" id="mount-help"></p></div>
+    <div class="sec"><h3 data-i="p.out">Radar outputs</h3>
+     <div class="row"><span class="l"><span data-i="o.trk">People tracking</span><small data-i="o.trk.d">Positions of each person</small></span><label class="sw"><input type="checkbox" id="o-trk" checked onchange="setOut('trk',this.checked)"><i></i></label></div>
+     <div class="row"><span class="l"><span data-i="o.cloud">Point cloud</span><small data-i="o.cloud.d">Raw detections, for tuning only</small></span><label class="sw"><input type="checkbox" id="o-cloud" onchange="setOut('cloud',this.checked)"><i></i></label></div></div>
+    <div class="sec"><h3 data-i="p.view">Display</h3>
+     <div class="row"><span class="l" id="rng-l">Area shown</span><span class="rv" id="rng-v">3 m</span></div>
+     <input type="range" id="rng" min="2" max="8" step="1" value="3" oninput="setRange(+this.value)">
+     <div class="row"><span class="l" data-i="v.trail">Movement trails</span><label class="sw"><input type="checkbox" id="trail" checked onchange="S.trail=this.checked"><i></i></label></div></div>
+    <div class="acts"><button class="btn full" onclick="startScene('flash')" data-i="a.stop">Back to the radar's own app</button></div>
+   </div>
+  </div>
+ </div>
+ <!-- fall detection -->
+ <div class="scene" id="sv-fall" hidden>
+  <div class="card big"><div><div class="st" id="f-state">–</div><div class="sub" id="f-sub"></div></div></div>
+  <div class="card panel">
+   <div class="sec"><h3 data-i="p.height">Mounting height</h3>
+    <div class="row"><span class="l" data-i="f.h">Radar height above the floor</span><span class="rv" id="fh-v">2.4 m</span></div>
+    <input type="range" id="fh" min="1" max="5" step="0.1" value="2.4" oninput="$('fh-v').textContent=(+this.value).toFixed(1)+' m'">
+    <p class="help" data-i="f.h.d">Ceiling mount, facing down. Measure from the floor to the radar.</p>
+    <div class="acts"><button class="btn pri full" onclick="setHeight()" data-i="a.apply">Apply</button></div></div>
+   <div class="sec"><h3 data-i="p.out">Radar outputs</h3>
+    <div class="row"><span class="l"><span data-i="o.cloud">Point cloud</span><small data-i="o.cloud.d">Raw detections, for tuning only</small></span><label class="sw"><input type="checkbox" onchange="Link.tf32('010E',this.checked?1:0).then(()=>toast(t('t.sent')))"><i></i></label></div></div>
+   <div class="acts"><button class="btn full" onclick="startScene('flash')" data-i="a.stop">Back to the radar's own app</button></div>
+  </div>
+ </div>
+ <!-- breathing & heart rate -->
+ <div class="scene" id="sv-vital" hidden>
+  <div class="card">
+   <div class="vit"><div><small data-i="v.br">Breathing / min</small><div class="n" id="v-br">–</div></div><div><small data-i="v.hr">Heart rate / min</small><div class="n" id="v-hr" style="color:#dc2626">–</div></div></div>
+   <div style="padding:0 12px 12px"><canvas id="vchart"></canvas><div class="legend"><span style="color:#2563eb">— <span data-i="v.br.s">Breathing</span></span><span style="color:#dc2626">— <span data-i="v.hr.s">Heart rate</span></span><span id="v-dist"></span></div></div>
+  </div>
+  <div class="card panel">
+   <div class="sec"><h3 data-i="v.tips">For a good reading</h3><p class="help" data-i="v.tips.d">Sit or lie still, 0.5–1.5 m in front of the radar, chest facing it. The first values appear after about 20 seconds.</p></div>
+   <div class="sec"><p class="help" data-i="foot.med">Wellness use only, not a medical device.</p></div>
+   <div class="acts"><button class="btn full" onclick="startScene('flash')" data-i="a.stop">Back to the radar's own app</button></div>
+  </div>
+ </div>
+</section>
+
+<!-- ============ WRITE FIRMWARE ============ -->
+<section id="v-flash" hidden>
+ <button class="back" onclick="go('home')">‹ <span data-i="nav.home">Home</span></button>
+ <h1 data-i="task.flash">Write firmware to the radar</h1>
+ <p class="lead" data-i="fl.lead">Puts an app into the radar's own flash so it starts by itself at power-up. The current firmware is saved first and can be put back at any time.</p>
+ <div class="card pad" id="fl-open" hidden><h2 data-i="kit.only">Included with the Kymopsis development kit firmware.</h2><p data-i="fl.open.d">This is the open firmware. It runs every radar app from the radar's memory (see Run a scenario) but does not write the radar's flash. Writing needs the dev-kit firmware.</p><div class="acts"><a class="btn" href="https://kymopsis.com/product/60ghz-ceiling-presence-radar-development-kit/?utm_source=github&utm_medium=firmware&utm_campaign=radar-base" target="_blank" rel="noopener" data-i="kit.link">About the development kit</a></div></div>
+ <div id="fl-dev">
+  <div class="two">
+   <div class="card pad"><h2 data-i="fl.s1">1. Choose the app</h2>
+    <div class="fld"><select class="inp" id="fl-app"></select></div>
+    <p data-i="fl.s1.d">Apps are files stored on Radar Base. Add new ones under Device settings → Firmware files.</p></div>
+   <div class="card pad"><h2 data-i="fl.s2">2. Write</h2>
+    <p data-i="fl.s2.d">The radar's current firmware is backed up first (saved as bakN.bin). If the backup fails, nothing is written. Takes about 15 seconds.</p>
+    <div class="acts"><button class="btn pri full" id="fl-go" onclick="flashApp()" data-i="fl.go">Write to the radar</button></div></div>
+  </div>
+  <div class="card pad"><h2 data-i="fl.prog">Progress</h2><div class="res" id="fl-res"></div><div class="log" id="fl-log"></div></div>
+  <div class="card pad"><h2 data-i="fl.rest">Restore a backup</h2><p data-i="fl.rest.d">Puts a saved firmware back exactly as it was.</p>
+   <div class="fld"><select class="inp" id="fl-bak"></select></div>
+   <div class="acts"><button class="btn" onclick="restoreBak()" data-i="fl.rest.go">Restore</button><button class="btn" onclick="backupOnly()" data-i="fl.bakonly">Back up only</button></div></div>
+ </div>
+ <p class="foot"><a href="https://kymopsis.com/b2b/?utm_source=github&utm_medium=firmware&utm_campaign=radar-base" target="_blank" rel="noopener" data-i="b2b">Volume, pre-flashed modules or custom firmware: Kymopsis B2B</a></p>
+ <div class="card pad trans"><h2 data-i="tr.t">About this function</h2><p data-i="tr.d">Writing the radar's flash is done by a small closed module that is part of the dev-kit firmware only. That is its only job: it does not connect to the internet and collects no data. Everything else is open source, and every radar app can also run from memory without it.</p></div>
+</section>
+
+<!-- ============ BATCH FLASHING ============ -->
+<section id="v-batch" hidden>
+ <button class="back" onclick="go('home')">‹ <span data-i="nav.home">Home</span></button>
+ <h1 data-i="task.batch">Batch flashing</h1>
+ <p class="lead" data-i="bt.lead">Choose a firmware once. Each module is flashed as soon as it is connected; swap modules when the light turns blue.</p>
+ <div class="card pad" id="bt-open" hidden><h2 data-i="kit.only">Included with the Kymopsis development kit firmware.</h2><p data-i="task.batch.d">Write the same firmware to many modules in a row: detect, write, verify, PASS / FAIL, CSV log.</p>
+  <div class="acts"><a class="btn" href="https://kymopsis.com/product/60ghz-ceiling-presence-radar-development-kit/?utm_source=github&utm_medium=firmware&utm_campaign=radar-base" target="_blank" rel="noopener" data-i="kit.link">About the development kit</a></div></div>
+ <div id="bt-dev">
+  <div class="two">
+   <div class="card pad">
+    <div class="fld"><label data-i="bt.fw">Firmware</label><select class="inp" id="bt-app"></select></div>
+    <div class="row" style="margin-top:10px"><span class="l"><span data-i="bt.bak">Back up each module first</span><small data-i="bt.bak.d">Slower (about 8 s more per module); off for new blank modules.</small></span><label class="sw"><input type="checkbox" id="bt-bak" checked><i></i></label></div>
+    <div class="acts"><button class="btn pri" id="bt-go" onclick="batchStart()" data-i="bt.start">Start</button><button class="btn" onclick="batchStop()" data-i="bt.stop">Stop</button>
+     <a class="btn" href="/api/file?name=batchlog.csv" data-i="bt.csv">Download log (CSV)</a></div></div>
+   <div class="card big" style="min-height:220px"><div><div class="st" id="bt-st">–</div><div class="sub" id="bt-cnt"></div></div></div>
+  </div>
+ </div>
+ <p class="foot"><a href="https://kymopsis.com/b2b/?utm_source=github&utm_medium=firmware&utm_campaign=radar-base" target="_blank" rel="noopener" data-i="b2b">Volume, pre-flashed modules or custom firmware: Kymopsis B2B</a></p>
+</section>
+
+<!-- ============ RAW DATA & RADAR SETTINGS ============ -->
+<section id="v-adc" hidden>
+ <button class="back" onclick="go('home')">‹ <span data-i="nav.home">Home</span></button>
+ <h1 data-i="task.adc">Raw data &amp; radar settings</h1>
+ <p class="lead" data-i="adc.lead">Settings for the raw data stream used by your own algorithms. Live raw data goes to a PC over USB; here you set the radar up and test the data link.</p>
+ <div class="two">
+  <div class="card pad"><h2 data-i="adc.chirp">Chirp</h2>
+   <div class="frow">
+    <div class="fld"><label><span data-i="c.fstart">Start</span> <span class="unit">MHz</span></label><input class="inp" type="number" data-k="fstart" step="100"></div>
+    <div class="fld"><label><span data-i="c.bw">Bandwidth</span> <span class="unit">MHz</span></label><input class="inp" type="number" data-k="bw" step="100"></div>
+    <div class="fld"><label><span data-i="c.t0">Ramp time</span> <span class="unit">µs</span></label><input class="inp" type="number" data-k="t0"></div>
+    <div class="fld"><label data-i="c.samples">Samples per chirp</label><select class="inp" data-k="samples"><option>256</option><option>512</option><option>1024</option><option>2048</option><option>4096</option></select></div>
+    <div class="fld"><label data-i="c.chirps">Chirps per frame</label><input class="inp" type="number" data-k="chirps" min="1" max="128"></div>
+    <div class="fld"><label><span data-i="c.period">Frame period</span> <span class="unit">ms</span></label><input class="inp" type="number" data-k="period" min="0" max="255"></div>
+   </div><p class="help" data-i="c.period.d">Frame period 0 = as fast as possible.</p></div>
+  <div class="card pad"><h2 data-i="adc.gain">Gain &amp; filters</h2>
+   <div class="frow">
+    <div class="fld"><label><span data-i="c.tia">Front-end gain</span> <span class="unit">dB</span></label><select class="inp" data-k="tia"><option>0</option><option>6</option><option>12</option><option>18</option></select></div>
+    <div class="fld"><label><span data-i="c.pga">IF gain</span> <span class="unit">dB</span></label><select class="inp" data-k="pga" id="pga-sel"></select></div>
+    <div class="fld"><label><span data-i="c.pa">TX power</span> <span class="unit">0–15</span></label><input class="inp" type="number" data-k="pa" min="0" max="15"></div>
+    <div class="fld"><label><span data-i="c.hpf">High-pass</span> <span class="unit">kHz</span></label><select class="inp" data-k="pgahpf"><option>100</option><option>500</option><option value="off">off</option></select></div>
+    <div class="fld"><label><span data-i="c.lpf">Low-pass</span> <span class="unit">MHz</span></label><select class="inp" data-k="pgalpf"><option>2</option><option>4</option><option>6</option><option>8</option></select></div>
+   </div>
+   <h3 style="margin:16px 0 4px;font-size:13px;color:var(--head)" data-i="adc.ant">Antennas</h3>
+   <div class="frow">
+    <div class="row"><span class="l">TX0</span><label class="sw"><input type="checkbox" data-k="tx0"><i></i></label></div>
+    <div class="row"><span class="l">TX1</span><label class="sw"><input type="checkbox" data-k="tx1"><i></i></label></div>
+    <div class="row"><span class="l">RX0</span><label class="sw"><input type="checkbox" data-k="rx0"><i></i></label></div>
+    <div class="row"><span class="l">RX1</span><label class="sw"><input type="checkbox" data-k="rx1"><i></i></label></div>
+   </div></div>
+ </div>
+ <div class="card pad"><div class="row"><span class="l"><b id="cfg-sum">–</b><small id="cfg-err"></small></span>
+  <span><button class="btn" onclick="cfgSet('preset','vital')" data-i="c.vital">Breathing preset</button> <button class="btn" onclick="cfgSet('reset','')" data-i="c.reset">Restore defaults</button></span></div></div>
+ <div class="card pad"><h2 data-i="st.t">Data-link self-test</h2><p data-i="st.d">Runs the raw-data app for a few seconds and checks every block arriving from the radar.</p>
+  <div class="acts"><select class="inp" id="st-s" style="max-width:140px"><option value="5">5 s</option><option value="10" selected>10 s</option><option value="20">20 s</option></select><button class="btn pri" onclick="selfTest()" data-i="st.go">Run test</button></div>
+  <div class="res" id="st-res"></div></div>
+</section>
+
+<!-- ============ DEVICE SETTINGS ============ -->
+<section id="v-settings" hidden>
+ <button class="back" onclick="go('home')">‹ <span data-i="nav.home">Home</span></button>
+ <h1 data-i="task.set">Device settings</h1>
+ <p class="lead" data-i="set.lead">Connect Radar Base to your home Wi-Fi, manage firmware files and check the device.</p>
+ <div class="two">
+  <div class="card pad"><h2 data-i="wf.t">Home Wi-Fi</h2><p id="wf-st">–</p>
+   <div class="fld"><label data-i="wf.net">Network</label><div style="display:flex;gap:8px"><select class="inp" id="wf-ssid"></select><button class="btn" onclick="wifiScan()" data-i="wf.scan">Scan</button></div></div>
+   <div class="fld" id="wf-other" hidden><label data-i="wf.name">Network name</label><input class="inp" id="wf-ssid2" autocomplete="off"></div>
+   <div class="fld"><label data-i="wf.pass">Password</label><input class="inp" id="wf-pass" type="password" autocomplete="current-password"></div>
+   <div class="acts"><button class="btn pri" onclick="wifiJoin()" data-i="wf.join">Connect</button><button class="btn" onclick="wifiForget()" data-i="wf.forget">Forget network</button></div>
+   <p class="help" data-i="wf.help">Once connected, open http://kymradar.local (or the address shown above) from any device on the same Wi-Fi. The Radar Base hotspot only turns on when no home network is saved or it cannot be reached.</p></div>
+  <div>
+   <div class="card pad"><h2 data-i="lang.t">Language</h2><div class="fld"><select class="inp" id="lang2" onchange="setLang(this.value)"></select></div></div>
+   <div class="card pad"><h2 data-i="mq.t">Smart home (MQTT)</h2><p data-i="mq.d">Send results to your own MQTT broker, for example the Mosquitto add-on in Home Assistant. Radar Base appears in Home Assistant by itself.</p><p id="mq-st" style="color:var(--head)">–</p>
+    <div class="frow" style="grid-template-columns:2fr 1fr"><div class="fld"><label data-i="mq.host">Broker address</label><input class="inp" id="mq-host" placeholder="homeassistant.local" autocomplete="off"></div>
+     <div class="fld"><label data-i="mq.port">Port</label><input class="inp" id="mq-port" type="number" value="1883"></div></div>
+    <div class="frow" style="grid-template-columns:1fr 1fr"><div class="fld"><label data-i="mq.user">User name</label><input class="inp" id="mq-user" autocomplete="off"></div>
+     <div class="fld"><label data-i="mq.pass">Password</label><input class="inp" id="mq-pass" type="password" autocomplete="new-password"></div></div>
+    <p class="help" data-i="mq.keep">Leave empty to keep the saved password.</p>
+    <div class="acts"><button class="btn pri" onclick="mqttSave(1)" data-i="mq.save">Save and connect</button><button class="btn" onclick="mqttSave(0)" data-i="mq.off">Turn off</button></div></div>
+   <div class="card pad"><h2 data-i="dev.t">This device</h2><div class="res" id="dev-info"></div>
+    <div class="fld"><label data-i="dev.board">Board</label><select class="inp" id="dev-board" onchange="setBoard(this.value)"></select></div>
+    <div class="acts"><button class="btn" onclick="go('diag')" data-i="dg.open">Diagnostics</button></div></div>
+  </div>
+ </div>
+ <div class="card pad"><h2 data-i="fi.t">Firmware files</h2><p data-i="fi.d">Radar apps and backups stored on Radar Base.</p>
+  <table class="ftab" id="fi-tab"></table>
+  <div class="acts"><input type="file" id="fi-up" multiple class="inp" style="max-width:360px"><button class="btn" onclick="upload()" data-i="fi.up">Upload</button></div><p class="help" id="fi-space"></p></div>
+</section>
+
+<!-- ============ DIAGNOSTICS ============ -->
+<section id="v-diag" hidden>
+ <button class="back" onclick="go('settings')">‹ <span data-i="task.set">Device settings</span></button>
+ <h1 data-i="dg.t">Diagnostics</h1>
+ <p class="lead" data-i="dg.lead">Quick checks when something does not work. The log below shows what Radar Base and the radar report.</p>
+ <div class="card pad"><div class="acts" style="flex-wrap:wrap">
+  <button class="btn" onclick="runOp('version')" data-i="dg.ver">Ask the radar its version</button>
+  <button class="btn" onclick="runOp('reset')" data-i="dg.reset">Restart the radar</button>
+  <button class="btn" onclick="runOp('rom')" data-i="dg.rom">Check the boot link</button></div>
+  <p class="help" id="dg-pins"></p><div class="log" id="dg-log"></div></div>
+</section>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- i18n: English built in, other languages fetched on demand from /i18n/<code>.json ---------- */
+const LANGS={en:'English','zh-CN':'简体中文','zh-TW':'繁體中文',ja:'日本語',ko:'한국어',de:'Deutsch',fr:'Français',es:'Español',pt:'Português',it:'Italiano',ru:'Русский'};
+const EN={};document.querySelectorAll('[data-i]').forEach(e=>EN[e.dataset.i]=e.innerHTML);
+Object.assign(EN,{'conn.wait':'Connecting…','conn.live':'Connected','conn.off':'Reconnecting…','conn.usb':'USB',
+ 'home.lead':'Radar Base is connected. The radar is running: {app}.','home.lead0':'Radar Base is connected.',
+ 'app.hd3d':'3D presence & tracking','app.fall':'Fall detection','app.vital':'Breathing & heart rate','app.none':'unknown',
+ 'hd3d.lead':'Live positions from the radar. Each dot is a person; areas light up when someone is inside.',
+ 'help.ceiling':'Radar on the ceiling facing down, 2.2–3 m above the floor. The view is a floor plan with the radar in the middle.',
+ 'help.side':'Radar on a wall about 1.5 m high, facing into the room. The view is the ±55° area in front of it.',
+ 'ovl.load':'Loading {app}…','ovl.load.d':'Sending the app to the radar, about 6 seconds.','ovl.wait':'Waiting for results…','ovl.wait.d':'If nothing appears, check that the radar is powered.',
+ 'm.ceiling.s':'Ceiling','m.side.s':'Wall','rate':'{n} updates/s','t.sent':'Sent to the radar','t.busy':'The radar is busy, try again in a few seconds',
+ 'f.none':'No one there','f.none.d':'Nobody is in the detection area.','f.normal':'Person present','f.normal.d':'Someone is in the room; no fall detected.',
+ 'f.fall':'Fall detected','f.fall.d':'A fall was detected. Check on the person.','f.lying':'Lying still',
+ 'fall.lead':'Watches for falls and tells whether someone is in the room.','vital.lead':'Breathing and heart rate of one person sitting or lying still.',
+ 'v.dist':'Person at {d} m','t.saved':'Saved','t.rej':'Not accepted, see the note below','c.sum':'{kb} KB per frame · {n} samples × {c} chirps',
+ 'fl.nobak':'No backups yet','fl.run':'Working…','fl.saved':'Backup saved','fl.done':'Done','fl.fail':'Failed, see the log','fl.bak':'Backup',
+ 'fl.confirm':'Write {app} into the radar\'s flash? The current firmware is backed up first.',
+ 'st.run':'Running','st.frames':'Frames received','st.blocks':'Data blocks','st.bad':'Corrupted blocks','st.miss':'Missing blocks','st.rate':'Data rate',
+ 'wf.on':'Connected to {ssid} as {ip} · http://{host}','wf.trying':'Trying to join {ssid}…','wf.none':'No home network saved.','wf.ap':'Hotspot {ssid} is on.',
+ 'wf.scanning':'Scanning…','wf.other':'Other network…','wf.joining':'Joining… this page may move to the new address','wf.forget.q':'Forget the saved home network? The hotspot will turn on.',
+ 'fi.del':'Delete','fi.del.q':'Delete {f}?','fi.space':'{u} MB of {t} MB used','dev.fw':'Firmware','dev.build':'Edition','dev.open':'Open','dev.devkit':'Dev kit','dev.addr':'Address',
+ 'dg.pins':'Wiring (ESP32 GPIO):',
+ 'fw':'Firmware {v}','dev.board':'Board','board.unknown':'Unknown board, angles not calibrated','board.other':'Other board','bt.idle':'Ready','bt.waiting':'Connect a module','bt.flashing':'Writing\u2026','bt.swap':'Remove this module','bt.count':'{done} modules \u00b7 {pass} PASS \u00b7 {fail} FAIL \u00b7 last {s} s','mq.st.on':'Connected to {host}. Home Assistant discovery sent.','mq.st.try':'Connecting to {host}\u2026','mq.st.wifi':'Waits for the home Wi-Fi, then connects to {host}.','mq.st.off':'Off.','usb.connect':'Connect USB','usb.space':'Over USB, network names and passwords cannot contain spaces. Use Wi-Fi for those.','usb.nofiles':'Managing files needs Wi-Fi: open the app from Radar Base itself.','v.range':'Floor area shown (± from the radar)','v.range.side':'Distance shown','st.near':'Nearest person','leg.you':'Radar','leg.p':'Person','leg.trail':'Trail'});
+let T=EN,LANG='en';
+function t(k,v){let s=T[k]??EN[k]??k;if(v)for(const a in v)s=s.replace('{'+a+'}',v[a]);return s}
+function applyI18n(){document.querySelectorAll('[data-i]').forEach(e=>{const s=T[e.dataset.i];if(s!=null)e.innerHTML=s});document.documentElement.lang=LANG;refresh()}
+async function setLang(code){
+ if(code==='en'){T=EN}else{try{const r=await fetch('/i18n/'+code+'.json');T=Object.assign({},EN,await r.json())}catch(e){T=EN;code='en'}}
+ LANG=code;try{localStorage.setItem('kym.lang',code)}catch(e){}$('lang').value=code;if($('lang2'))$('lang2').value=code;applyI18n()}
+function pickLang(){let s=null;try{s=localStorage.getItem('kym.lang')}catch(e){}if(s&&LANGS[s])return s;
+ for(const l of navigator.languages||[navigator.language]){if(/^zh/i.test(l))return /^zh-(TW|HK|MO|Hant)/i.test(l)?'zh-TW':'zh-CN';if(LANGS[l])return l;if(LANGS[l.split('-')[0]])return l.split('-')[0]}return 'en'}
+
+/* ---------- transport: same JSON (schema v0) over the device's WebSocket, or later over USB (Web Serial) ---------- */
+const hex32=u=>[u&255,u>>8&255,u>>16&255,u>>>24].map(b=>b.toString(16).padStart(2,'0')).join('');
+const enc=encodeURIComponent;
+/* Over Wi-Fi: the page is served by Radar Base itself (HTTP API + WebSocket). */
+const Http={kind:'wifi',onmsg:null,onstate:null,
+ open(){const ws=new WebSocket((location.protocol==='https:'?'wss://':'ws://')+location.host+'/ws');
+  ws.onopen=()=>this.onstate('live');ws.onclose=()=>{this.onstate('off');setTimeout(()=>this.open(),1500)};
+  ws.onmessage=e=>{for(const l of e.data.split('\n'))if(l)try{this.onmsg(JSON.parse(l))}catch(_){}}},
+ async post(u,o){const r=await fetch(u,Object.assign({method:'POST'},o||{}));if(r.status===409)throw 'busy';if(!r.ok)throw await r.text();return r.text()},
+ async get(u){return (await fetch(u,{cache:'no-store'})).json()},
+ run(file){return this.post(file?'/api/run?op=ram&a='+enc(file):'/api/run?op=reset')},
+ tf(type,u32){return this.post('/api/tf?type='+type+'&data='+hex32(u32))},
+ job(op,a,b){return this.post('/api/run?op='+op+(a?'&a='+enc(a):'')+(b?'&b='+enc(b):''))},
+ async info(){try{return await this.get('/api/files')}catch(e){return null}},
+ cfg(){return this.get('/api/cfg')},
+ async cfgSet(k,v){return (await fetch('/api/cfg?k='+enc(k)+'&v='+enc(v),{method:'POST'})).json()},
+ wifi(){return this.get('/api/wifi')},scan(){return this.get('/api/wifi/scan')},
+ join(ssid,pass){return this.post('/api/wifi',{body:new URLSearchParams({ssid,pass}),headers:{'Content-Type':'application/x-www-form-urlencoded'}})},
+ forget(){return this.post('/api/wifi/forget')},
+ log(since){return this.get('/api/log?since='+since)},
+ mqtt(){return this.get('/api/mqtt')},
+ batch(){return this.get('/api/batch')},
+ board(id){return this.post('/api/board?id='+enc(id))},
+ batchStart(app,bak){return this.post('/api/batch?op=start&a='+enc(app)+'&backup='+(bak?1:0)+'&t='+Math.floor(Date.now()/1000))},
+ batchStop(){return this.post('/api/batch?op=stop')},
+ mqttSet(o){return this.post('/api/mqtt',{body:new URLSearchParams(o),headers:{'Content-Type':'application/x-www-form-urlencoded'}})},
+ del(n){return this.post('/api/delete?name='+enc(n))},
+ async upload(f){const r=await fetch('/api/upload?name='+enc(f.name),{method:'POST',body:f});if(!r.ok)throw await r.text()}};
+/* Over USB (Chrome/Edge Web Serial): the same app from radar.kymopsis.com or a local file talks to the
+   USB console: commands out, JSON results / log lines / "@api" answers in. No Wi-Fi needed. */
+const Usb={kind:'usb',onmsg:null,onstate:null,port:null,w:null,lines:[],base:0,wait:{},
+ async open(){
+  try{this.port=await navigator.serial.requestPort();await this.port.open({baudRate:115200});
+   try{await this.port.setSignals({dataTerminalReady:false,requestToSend:false})}catch(e){}
+  }catch(e){this.onstate('off');return}
+  const te=new TextEncoderStream();te.readable.pipeTo(this.port.writable);this.w=te.writable.getWriter();
+  this.onstate('live');this.read();await this.send('jsonout on')},
+ async read(){const rd=this.port.readable.pipeThrough(new TextDecoderStream()).getReader();let buf='';
+  try{for(;;){const {value,done}=await rd.read();if(done)break;buf+=value;let i;
+   while((i=buf.indexOf('\n'))>=0){const l=buf.slice(0,i).replace(/\r$/,'');buf=buf.slice(i+1);this.line(l)}}}catch(e){}
+  this.onstate('off')},
+ line(l){const j=l.indexOf('{"v":');if(j>=0){try{this.onmsg(JSON.parse(l.slice(j)))}catch(_){}return}
+  const m=/^@api (\w+) (.*)$/.exec(l);if(m){const r=this.wait[m[1]];delete this.wait[m[1]];if(r)try{r(JSON.parse(m[2]))}catch(_){r(null)}return}
+  if(!l.trim()||/[\x00-\x08]/.test(l))return;this.lines.push(l);if(this.lines.length>400){this.lines.shift();this.base++}},
+ send(c){if(!this.w)throw 'not connected';return this.w.write(c+'\r\n')},
+ api(n){return new Promise((res,rej)=>{this.wait[n]=res;this.send('api '+n);setTimeout(()=>{if(this.wait[n]){delete this.wait[n];rej('timeout')}},n==='scan'?6000:2500)})},
+ run(file){return this.send(file?'ram '+file:'reset')},
+ tf(type,u32){return this.send('tf '+type+' '+hex32(u32))},
+ job(op,a,b){const c={version:'ver',reset:'reset',rom:'rom',backup:'backup',flash:'flash '+(b||''),stream:'stream adcstream.bin '+a}[op];return this.send(c)},
+ async info(){try{return await this.api('files')}catch(e){return null}},
+ cfg(){return this.api('cfg')},
+ async cfgSet(k,v){const b=await this.api('cfg');await this.send(('cfg '+k+' '+v).trim());await new Promise(r=>setTimeout(r,300));
+  const c=await this.api('cfg');return {applied:JSON.stringify(b)!==JSON.stringify(c)||k==='reset',cfg:c}},
+ wifi(){return this.api('wifi')},scan(){return this.api('scan')},
+ join(ssid,pass){if(/\s/.test(ssid+pass))throw t('usb.space');return this.send('wifi '+ssid+' '+pass)},
+ forget(){return this.send('wifi forget')},
+ mqtt(){return this.api('mqtt')},
+ batch(){return this.api('batch')},
+ board(id){return this.send('board '+id)},
+ batchStart(app,bak){return this.send('batch start '+app+(bak?'':' nobackup'))},
+ batchStop(){return this.send('batch stop')},
+ mqttSet(o){if(o.on==='0')return this.send('mqtt off');if(/\s/.test(o.host+o.user+o.pass))throw t('usb.space');
+  return this.send(('mqtt '+o.host+' '+o.port+' '+(o.user||'-')+' '+(o.pass||'')).trim())},
+ async log(since){const s=Math.max(since,this.base),i=s-this.base;return {lines:this.lines.slice(i),next:this.base+this.lines.length}},
+ async del(){throw t('usb.nofiles')},async upload(){throw t('usb.nofiles')}};
+const USB_MODE=location.protocol==='https:'||location.protocol==='file:'||/[?&]usb\b/.test(location.search);
+const Link=USB_MODE?Usb:Http;
+Link.tf32=function(type,u32){return this.tf(type,u32)};
+Link.tfF=function(type,f){const d=new DataView(new ArrayBuffer(4));d.setFloat32(0,f,true);return this.tf(type,d.getUint32(0,true))};
+
+/* ---------- state + views ---------- */
+const $=id=>document.getElementById(id);
+const BIN={hd3d:'hd3d.bin',fall:'fall.bin',vital:'vital.bin'};
+const S={app:null,mount:'ceiling',targets:[],trails:{},zones:[0,0,0,0],n:0,t0:performance.now(),rate:0,range:3,trail:true,view:'home',loading:null,last:0};
+function go(v){if(!$('v-'+v))v='home';S.view=v;for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!=='v-'+v;
+ if(location.hash!=='#'+v)history.replaceState(null,'','#'+v);window.scrollTo(0,0);
+ if(v==='flash')loadFlash();if(v==='batch')loadBatch();if(v==='adc')loadCfg();if(v==='settings')loadSettings();if(v==='diag')loadDiag();refresh()}
+
+/* ---------- device log (progress of jobs, diagnostics) ---------- */
+const LOGV={flash:'fl-log',diag:'dg-log'};let logNext=0,logHook=null;
+async function pollLog(){
+ const el=$(LOGV[S.view]);if(!el&&!logHook)return;
+ try{const r=await Link.log(logNext);logNext=r.next;
+  for(const l of r.lines){if(el){el.textContent+=l+'\n';}if(logHook)logHook(l)}
+  if(el&&r.lines.length)el.scrollTop=el.scrollHeight}catch(e){}}
+setInterval(pollLog,800);
+async function syncLog(){try{const r=await Link.log(999999999);logNext=r.next}catch(e){}}
+function resRows(id,rows){$(id).innerHTML=rows.map(([k,v,c])=>'<div><span>'+k+'</span><b class="'+(c||'')+'">'+v+'</b></div>').join('')}
+
+/* ---------- write firmware ---------- */
+let INFO=null;
+async function getInfo(){INFO=await Link.info();return INFO}
+async function loadFlash(){
+ await syncLog();$('fl-log').textContent='';$('fl-res').innerHTML='';
+ const i=await getInfo();if(!i)return;$('fl-open').hidden=!!i.devkit;$('fl-dev').hidden=!i.devkit;
+ const apps=i.files.filter(f=>/\.bin$/i.test(f.name)&&!/^bak\d+\.bin$/i.test(f.name)),baks=i.files.filter(f=>/^bak\d+\.bin$/i.test(f.name));
+ $('fl-app').innerHTML=apps.map(f=>'<option value="'+f.name+'">'+f.name+' · '+(f.size/1024).toFixed(1)+' KB</option>').join('');
+ $('fl-bak').innerHTML=baks.map(f=>'<option value="'+f.name+'">'+f.name+'</option>').join('')||'<option value="">'+t('fl.nobak')+'</option>'}
+async function flashJob(job,label){
+ await syncLog();$('fl-log').textContent='';resRows('fl-res',[[label,t('fl.run'),'']]);
+ logHook=l=>{if(/backup: saved (\S+)/.test(l))resRows('fl-res',[[t('fl.saved'),RegExp.$1,'ok'],[label,t('fl.run'),'']]);
+  if(/RESULT: flash write \+ boot from flash OK/.test(l)){resRows('fl-res',[[label,t('fl.done'),'ok']]);logHook=null;loadFlash()}
+  else if(/RESULT: flash image backed up/.test(l)){resRows('fl-res',[[t('fl.bak'),t('fl.done'),'ok']]);logHook=null;loadFlash()}
+  else if(/RESULT: .*(fail|FAIL)|FAIL:/.test(l)){resRows('fl-res',[[label,t('fl.fail'),'bad']]);logHook=null}};
+ try{await job()}catch(e){logHook=null;resRows('fl-res',[[label,e==='busy'?t('t.busy'):String(e),'bad']])}}
+function flashApp(){const a=$('fl-app').value;if(!a)return;if(!confirm(t('fl.confirm',{app:a})))return;flashJob(()=>Link.job('flash','builtin',a),a)}
+function restoreBak(){const a=$('fl-bak').value;if(!a)return;if(!confirm(t('fl.confirm',{app:a})))return;flashJob(()=>Link.job('flash','builtin',a),a)}
+function backupOnly(){flashJob(()=>Link.job('backup','builtin'),t('fl.bak'))}
+
+/* ---------- raw data & radar settings ---------- */
+let CFG=null;
+function fillCfg(c){CFG=c;
+ for(const e of document.querySelectorAll('#v-adc [data-k]')){const k=e.dataset.k,v=c[k]??c[k+'0'];if(v==null)continue;
+  if(e.type==='checkbox')e.checked=!!v;else e.value=String(v)}
+ $('cfg-sum').textContent=t('c.sum',{kb:(c.bytes_per_frame/1024).toFixed(1),n:c.samples,c:c.chirps});
+ $('cfg-err').textContent=c.valid?'':c.error;$('cfg-err').className=c.valid?'':'bad'}
+async function loadCfg(){try{fillCfg(await Link.cfg())}catch(e){}}
+async function cfgSet(k,v){try{const r=await Link.cfgSet(k,v);
+ fillCfg(r.cfg);toast(r.applied?t('t.saved'):t('t.rej'))}catch(e){toast(String(e))}}
+async function selfTest(){
+ const s=$('st-s').value;await syncLog();resRows('st-res',[[t('st.run'),s+' s','']]);const R={};
+ logHook=l=>{let m;
+  if(m=/RESULT: adc stream (\d+) complete frames/.exec(l))R.f=m[1];
+  if(m=/RESULT: spi rx (\d+) chunks ok.*bad hdr (\d+), bad len (\d+), bad data (\d+), missing (\d+), best (\d+) KB\/s/.exec(l)){
+   R.c=m[1];R.bad=(+m[3])+(+m[4]);R.miss=+m[5];R.kb=m[6];
+   resRows('st-res',[[t('st.frames'),R.f||'–',''],[t('st.blocks'),R.c,''],[t('st.bad'),R.bad,R.bad?'bad':'ok'],[t('st.miss'),R.miss,R.miss?'bad':'ok'],[t('st.rate'),R.kb+' KB/s','']]);logHook=null}
+  else if(/stream.*(fail|FAIL)|cannot open/.test(l)){resRows('st-res',[[t('st.run'),t('fl.fail'),'bad']]);logHook=null}};
+ try{await Link.job('stream',s)}catch(e){logHook=null;resRows('st-res',[[t('st.run'),e==='busy'?t('t.busy'):String(e),'bad']])}}
+
+/* ---------- device settings ---------- */
+async function loadWifi(){try{const w=await Link.wifi();
+ let s=w.sta.connected?t('wf.on',{ssid:w.sta.ssid,ip:w.sta.ip,host:w.host}):w.sta.saved?t('wf.trying',{ssid:w.sta.ssid}):t('wf.none');
+ if(w.ap.on)s+=' '+t('wf.ap',{ssid:w.ap.ssid});$('wf-st').textContent=s;S.wifi=w}catch(e){}}
+async function wifiScan(){const sel=$('wf-ssid');sel.innerHTML='<option>'+t('wf.scanning')+'</option>';
+ try{const l=await Link.scan();const seen={};
+  sel.innerHTML=l.filter(n=>!seen[n.ssid]&&(seen[n.ssid]=1)).map(n=>'<option>'+n.ssid.replace(/</g,'&lt;')+'</option>').join('')+'<option value="__other">'+t('wf.other')+'</option>';
+  sel.onchange=()=>{$('wf-other').hidden=sel.value!=='__other'};sel.onchange()}catch(e){sel.innerHTML='<option value="__other">'+t('wf.other')+'</option>';$('wf-other').hidden=false}}
+async function wifiJoin(){const ssid=$('wf-ssid').value==='__other'?$('wf-ssid2').value.trim():$('wf-ssid').value;if(!ssid)return;
+ const pass=$('wf-pass').value;$('wf-pass').value='';
+ try{await Link.join(ssid,pass);toast(t('wf.joining'));setTimeout(loadWifi,6000)}catch(e){toast(String(e))}}
+async function wifiForget(){if(!confirm(t('wf.forget.q')))return;await Link.forget();setTimeout(loadWifi,1500)}
+async function loadFiles(){const i=await getInfo();if(!i)return;
+ $('fi-tab').innerHTML=i.files.sort((a,b)=>a.name.localeCompare(b.name)).map(f=>'<tr><td>'+f.name+'</td><td>'+(f.size/1024).toFixed(1)+' KB</td><td><button class="lnk" onclick="delFile(\''+f.name+'\')">'+t('fi.del')+'</button></td></tr>').join('');
+ $('fi-space').textContent=t('fi.space',{u:(i.used/1048576).toFixed(1),t:(i.total/1048576).toFixed(1)});
+ resRows('dev-info',[[t('dev.fw'),i.fw,''],[t('dev.build'),i.devkit?t('dev.devkit'):t('dev.open'),''],[t('dev.addr'),location.host,''],[t('dev.board'),i.board?i.board_name:t('board.unknown'),i.board?'':'bad']]);
+ const bs=$('dev-board');bs.innerHTML=(i.boards||[]).map(b=>'<option value="'+b.id+'">'+b.name+'</option>').join('')+'<option value="unknown">'+t('board.other')+'</option>';bs.value=i.board||'unknown'}
+async function setBoard(id){try{await Link.board(id);toast(t('t.saved'));loadFiles()}catch(e){toast(String(e))}}
+async function delFile(n){if(!confirm(t('fi.del.q',{f:n})))return;try{await Link.del(n)}catch(e){toast(String(e))}loadFiles()}
+async function upload(){for(const f of $('fi-up').files){try{await Link.upload(f)}catch(e){toast(f.name+': '+e);return}}$('fi-up').value='';loadFiles();toast(t('t.saved'))}
+async function loadMqtt(){try{const m=await Link.mqtt();$('mq-host').value=m.host||'';$('mq-port').value=m.port||1883;$('mq-user').value=m.user||'';
+ $('mq-st').textContent=!m.on?t('mq.st.off'):m.connected?t('mq.st.on',{host:m.host}):m.wifi?t('mq.st.try',{host:m.host}):t('mq.st.wifi',{host:m.host})}catch(e){}}
+async function mqttSave(on){const o={host:$('mq-host').value.trim(),port:$('mq-port').value||'1883',user:$('mq-user').value.trim(),pass:$('mq-pass').value,on:String(on)};
+ $('mq-pass').value='';try{await Link.mqttSet(o);toast(t('t.saved'));setTimeout(loadMqtt,2500)}catch(e){toast(String(e))}}
+let BT=null;
+async function loadBatch(){const i=await getInfo();if(!i)return;$('bt-open').hidden=!!i.devkit;$('bt-dev').hidden=!i.devkit;
+ const apps=i.files.filter(f=>/\.bin$/i.test(f.name)&&!/^bak\d+\.bin$/i.test(f.name));
+ if(!$('bt-app').options.length)$('bt-app').innerHTML=apps.map(f=>'<option value="'+f.name+'">'+f.name+'</option>').join('');
+ if(i.devkit)pollBatch()}
+async function pollBatch(){try{const b=await Link.batch();BT=b;const st=$('bt-st');
+ const label=!b.running?(b.last?b.last:t('bt.idle')):b.state==='flashing'?t('bt.flashing'):b.state==='swap'?b.last+' · '+t('bt.swap'):t('bt.waiting');
+ st.textContent=label;st.style.color=b.state==='swap'||(!b.running&&b.last)?(b.last==='PASS'?'#16a34a':'#dc2626'):b.state==='flashing'?'#ea580c':'#0f172a';
+ $('bt-cnt').textContent=b.done?t('bt.count',{done:b.done,pass:b.pass,fail:b.fail,s:b.last_s.toFixed(1)}):'';
+ $('bt-go').disabled=b.running}catch(e){}if(S.view==='batch')setTimeout(pollBatch,1000)}
+async function batchStart(){const a=$('bt-app').value;if(!a)return;try{await Link.batchStart(a,$('bt-bak').checked);toast(t('t.sent'))}catch(e){toast(e==='busy'?t('t.busy'):String(e))}}
+async function batchStop(){try{await Link.batchStop()}catch(e){}}
+function loadSettings(){loadWifi();loadFiles();loadMqtt();if(!$('wf-ssid').options.length)wifiScan()}
+
+/* ---------- diagnostics ---------- */
+async function loadDiag(){const i=await getInfo();if(i)$('dg-pins').textContent=t('dg.pins')+' '+i.pins;await syncLog();logNext=Math.max(0,logNext-60)}
+async function runOp(op){try{await Link.job(op);toast(t('t.sent'))}catch(e){toast(e==='busy'?t('t.busy'):String(e))}}
+function toast(s){const e=$('toast');e.textContent=s;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),1800)}
+async function startScene(app){
+ S.loading=app;S.targets=[];S.trails={};go('scene');
+ try{await Link.run(BIN[app]||'')}catch(e){S.loading=null;toast(e==='busy'?t('t.busy'):String(e));}
+ if(app!=='flash'){S.app=null}refresh()}
+const DEF_RANGE={ceiling:3,side:6};
+function mountChanged(m){S.mount=m;S.trails={};S.range=DEF_RANGE[m]}
+function setMount(m){Link.tf('0201',m==='ceiling'?0x13:0x14).then(()=>toast(t('t.sent'))).catch(()=>{});mountChanged(m);refresh()}
+function setOut(k,on){const c=k==='trk'?(on?0x08:0x09):(on?0x06:0x07);Link.tf('0201',c).then(()=>toast(t('t.sent'))).catch(()=>{})}
+function setRange(r){S.range=r;$('rng-v').textContent=r+' m'}
+function setHeight(){Link.tfF('0E04',+$('fh').value).then(()=>toast(t('t.sent'))).catch(e=>toast(e==='busy'?t('t.busy'):String(e)))}
+const FALL={none:['f.none','#5b6675'],normal:['f.normal','#16a34a'],fall:['f.fall','#dc2626'],lying:['f.lying','#ea580c']};
+function showFall(){const f=S.fall;if(!f){$('f-state').textContent=t('ovl.wait');$('f-state').style.color='';$('f-sub').textContent=t('ovl.wait.d');return}
+ const s=FALL[f.state]||[f.state,'#0f172a'];$('f-state').textContent=t(s[0]);$('f-state').style.color=s[1];
+ $('f-sub').textContent=f.state==='none'?t('f.none.d'):f.state==='fall'?t('f.fall.d'):t('f.normal.d')}
+const VH=[];   /* vital history: [t, br, hr] */
+function drawVital(){const c=$('vchart');if(c.offsetParent===null)return;const d=Math.min(2,devicePixelRatio||1),w=c.clientWidth*d,h=c.clientHeight*d;
+ if(c.width!==w)c.width=w;if(c.height!==h)c.height=h;const g=c.getContext('2d');g.clearRect(0,0,w,h);
+ const now=performance.now()/1000,span=120,pad=16*d;g.strokeStyle='#e2e8f0';g.lineWidth=1*d;g.fillStyle='#64748b';g.font=(11*d)+'px Inter,system-ui,sans-serif';
+ const Y=v=>h-pad-(v/140)*(h-2*pad);for(const v of [20,60,100,140]){g.beginPath();g.moveTo(0,Y(v));g.lineTo(w,Y(v));g.stroke();g.fillText(v,2*d,Y(v)-3*d)}
+ for(const [i,col] of [[1,'#2563eb'],[2,'#dc2626']]){g.strokeStyle=col;g.lineWidth=2.5*d;g.beginPath();let on=false;
+  for(const p of VH){if(p[i]==null){on=false;continue}const x=w-(now-p[0])/span*w;if(x<0)continue;on?g.lineTo(x,Y(p[i])):g.moveTo(x,Y(p[i]));on=true}g.stroke()}}
+function refresh(){
+ const appName=S.app?t('app.'+S.app):null;
+ $('home-lead').textContent=appName?t('home.lead',{app:appName}):t('home.lead0');
+ const sc=S.loading&&S.loading!=='flash'?S.loading:(S.app||'hd3d');
+ $('scene-title').textContent=t('app.'+sc);$('scene-lead').textContent=t(sc+'.lead')===sc+'.lead'?'':t(sc+'.lead');
+ for(const a of ['hd3d','fall','vital'])$('sv-'+a).hidden=a!==sc;
+ if(sc==='fall')showFall();
+ for(const b of $('seg-mount').children)b.classList.toggle('on',b.dataset.v===S.mount);
+ $('mount-help').textContent=t('help.'+S.mount);
+ const ds=S.targets.map(p=>Math.hypot(p.x,p.y));$('s-near').textContent=ds.length?Math.min(...ds).toFixed(1)+' m':'–';
+ $('rng').value=S.range;$('rng-v').textContent=S.range+' m';$('rng-l').textContent=t(S.mount==='side'?'v.range.side':'v.range');
+ const ov=$('ovl');const waiting=S.view==='scene'&&(S.loading||!S.app||performance.now()-S.last>4000);
+ ov.classList.toggle('on',waiting);
+ if(S.loading){$('ovl-t').textContent=t('ovl.load',{app:t('app.'+(S.loading==='flash'?'none':S.loading))});$('ovl-d').textContent=t('ovl.load.d')}
+ else{$('ovl-t').textContent=t('ovl.wait');$('ovl-d').textContent=t('ovl.wait.d')}
+ $('legend').innerHTML='<span>■ '+t('leg.you')+'</span><span style="color:var(--blue)">● '+t('leg.p')+'</span><span style="color:#93b4ff">— '+t('leg.trail')+'</span>';
+}
+function onmsg(m){
+ if(m.v!==0)return;S.last=performance.now();
+ if(m.app&&m.app!==S.app){S.app=m.app;S.loading=null;S.targets=[];S.trails={};S.zones=[0,0,0,0];S.fall=null;VH.length=0;
+  if(S.view==='scene'&&m.app!=='hd3d'){/* other scenario pages come next */}}
+ else if(m.app&&S.loading===m.app)S.loading=null;
+ if(S.loading==='flash'&&m.app)S.loading=null;
+ if(m.mount&&m.mount!==S.mount)mountChanged(m.mount);
+ if(m.t==='targets'){S.n++;const tg=m.targets||[],tnow=performance.now();
+  if(tg.length)S.tFull=tnow;
+  S.targets=tg.length||tnow-(S.tFull||0)>600?tg:S.targets;   /* hold the last positions 0.6 s through empty frames */
+  const seen={};
+  for(const p of S.targets){seen[p.id]=1;const tr=S.trails[p.id]=S.trails[p.id]||[];tr.push([p.x,p.y]);if(tr.length>30)tr.shift()}
+  for(const k in S.trails)if(!seen[k])delete S.trails[k];
+  /* the tracker drops a still person in some frames: show the highest count of the last 1.5 s */
+  const now=performance.now();(S.cnt=S.cnt||[]).push([now,S.targets.length]);while(S.cnt.length&&now-S.cnt[0][0]>1500)S.cnt.shift();
+  $('s-people').textContent=Math.max(...S.cnt.map(c=>c[1]))}
+ else if(m.t==='fall'){S.n++;S.fall=m;showFall()}
+ else if(m.t==='vital'){S.n++;const br=m.br>0?m.br:null,hr=m.hr>0?m.hr:null;   /* the radar reports 0 when nobody is measured */
+  VH.push([performance.now()/1000,br,hr]);while(VH.length>400)VH.shift();
+  $('v-br').textContent=br!=null?br.toFixed(0):'–';$('v-hr').textContent=hr!=null?hr.toFixed(0):'–';
+  $('v-dist').textContent=m.dist!=null?t('v.dist',{d:m.dist.toFixed(2)}):''}
+ else if(m.t==='zones'){S.zoneT=performance.now();for(const z of m.zones||[])if(z.id>=1&&z.id<=4)S.zones[z.id-1]=!!z.occupied;showZones()}
+ refresh()}
+Link.onmsg=onmsg;
+Link.onstate=s=>{$('cdot').className='dot'+(s==='live'?' ok':'');$('ctext').textContent=t(s==='live'?'conn.live':'conn.off')};
+function showZones(){for(let i=0;i<4;i++)$('z'+(i+1)).classList.toggle('on',!!S.zones[i])}
+setInterval(()=>{const now=performance.now();S.rate=S.n*1000/(now-S.t0);S.n=0;S.t0=now;
+ if(now-(S.zoneT||0)>2500&&S.zones.some(Boolean)){S.zones=[0,0,0,0];showZones()}   /* no area report for 2.5 s: stale, clear */
+ if(now-S.last>2500&&S.targets.length){S.targets=[];S.trails={};$('s-people').textContent='–'}
+ $('rtext').textContent=t('rate',{n:S.rate.toFixed(0)});$('rdot').className='dot'+(S.rate>0?' ok':'');refresh()},1000);
+
+/* ---------- 3D presence view (canvas) ---------- */
+const cv=$('cv'),cx=cv.getContext('2d');
+function fit(){const ar=S.mount==='side'?1.55:1;if(cv.style.aspectRatio!==String(ar))cv.style.aspectRatio=String(ar);
+ const r=cv.getBoundingClientRect(),d=Math.min(2,window.devicePixelRatio||1);const w=Math.round(r.width*d),h=Math.round(w/ar);
+ if(w&&(cv.width!==w||cv.height!==h)){cv.width=w;cv.height=h}}
+function draw(){
+ fit();const W=cv.width,H=cv.height,css=cv.getBoundingClientRect().width||W,k=W/css;cx.clearRect(0,0,W,H);   /* k = device px per CSS px: sizes below are CSS px */
+ const font=s=>(s*k)+'px Inter,system-ui,sans-serif';
+ let X,Y,sc;
+ if(S.mount==='side'){
+  const R=S.range,f=55*Math.PI/180,pad=(css<500?18:36)*k,xr=R*Math.sin(f);sc=Math.min((W-2*pad-40*k)/(2*xr),(H-pad-28*k)/R);
+  X=x=>W/2+x*sc;Y=y=>H-pad-y*sc;
+  cx.fillStyle='#f8fbff';cx.beginPath();cx.moveTo(X(0),Y(0));cx.arc(X(0),Y(0),R*sc,-Math.PI/2-f,-Math.PI/2+f);cx.closePath();cx.fill();
+  cx.strokeStyle='#e2e8f0';cx.lineWidth=1*k;cx.fillStyle='#64748b';cx.font=font(15);
+  for(let r=1;r<=R;r++){cx.beginPath();cx.arc(X(0),Y(0),r*sc,-Math.PI/2-f,-Math.PI/2+f);cx.stroke();
+   if(r%Math.ceil(R/6)===0||R<=6){cx.fillText(r+' m',X(r*Math.sin(f))+6*k,Y(r*Math.cos(f))+5*k)}}
+  for(let d=-45;d<=45;d+=15){const a=d*Math.PI/180;cx.beginPath();cx.moveTo(X(0),Y(0));cx.lineTo(X(R*Math.sin(a)),Y(R*Math.cos(a)));cx.stroke()}
+  cx.strokeStyle='#94a3b8';cx.lineWidth=1.5*k;cx.beginPath();cx.moveTo(X(0),Y(0));cx.arc(X(0),Y(0),R*sc,-Math.PI/2-f,-Math.PI/2+f);cx.closePath();cx.stroke();
+  cx.fillStyle='#64748b';cx.font=font(14);cx.textAlign='center';cx.fillText('±55°',X(0),Y(R)-8*k);cx.textAlign='left';
+  cx.fillStyle='#06111e';cx.beginPath();cx.moveTo(X(0),Y(0)-16*k);cx.lineTo(X(0)-11*k,Y(0)+4*k);cx.lineTo(X(0)+11*k,Y(0)+4*k);cx.closePath();cx.fill();
+ }else{
+  const h=S.range,pad=46*k;sc=(Math.min(W,H)-2*pad)/(2*h);X=x=>W/2+x*sc;Y=y=>H/2-y*sc;
+  cx.fillStyle='#f8fbff';cx.fillRect(X(-h),Y(h),2*h*sc,2*h*sc);   /* area geometry is not reported by the radar: areas show as chips only */
+  cx.strokeStyle='#e2e8f0';cx.lineWidth=1*k;
+  for(let v=-h;v<=h;v++){cx.beginPath();cx.moveTo(X(v),Y(-h));cx.lineTo(X(v),Y(h));cx.stroke();cx.beginPath();cx.moveTo(X(-h),Y(v));cx.lineTo(X(h),Y(v));cx.stroke()}
+  cx.strokeStyle='#94a3b8';cx.lineWidth=1.5*k;cx.strokeRect(X(-h),Y(h),2*h*sc,2*h*sc);
+  cx.fillStyle='#64748b';cx.font=font(14);cx.fillText(h+' m',X(h)-34*k,Y(-h)-8*k);cx.fillText('1 m',X(-h)+6*k,Y(-h)-8*k);
+  cx.fillStyle='#06111e';cx.fillRect(X(0)-9*k,Y(0)-9*k,18*k,18*k);
+ }
+ for(const p of S.targets){
+  const tr=S.trails[p.id]||[];
+  if(S.trail&&tr.length>1){cx.strokeStyle='rgba(11,92,255,.28)';cx.lineWidth=4*k;cx.lineJoin='round';cx.beginPath();tr.forEach((a,i)=>i?cx.lineTo(X(a[0]),Y(a[1])):cx.moveTo(X(a[0]),Y(a[1])));cx.stroke()}
+  cx.fillStyle='rgba(11,92,255,.14)';cx.beginPath();cx.arc(X(p.x),Y(p.y),26*k,0,7);cx.fill();
+  cx.fillStyle='#0b5cff';cx.beginPath();cx.arc(X(p.x),Y(p.y),12*k,0,7);cx.fill();cx.strokeStyle='#fff';cx.lineWidth=3*k;cx.stroke();
+  let lab='#'+p.id;if(S.mount==='side')lab+='  '+Math.hypot(p.x,p.y).toFixed(1)+' m  '+(Math.atan2(p.x,p.y)*180/Math.PI).toFixed(0)+'°';
+  else if(p.z!=null)lab+='  '+p.z.toFixed(1)+' m';
+  cx.font='600 '+font(15);const w=cx.measureText(lab).width;const lx=X(p.x)+20*k,ly=Y(p.y)-30*k;
+  cx.fillStyle='rgba(255,255,255,.92)';cx.strokeStyle='#dce7f2';cx.lineWidth=1*k;cx.beginPath();cx.roundRect(lx,ly,w+16*k,26*k,7*k);cx.fill();cx.stroke();
+  cx.fillStyle='#0f172a';cx.fillText(lab,lx+8*k,ly+18*k);
+ }
+ drawVital();
+ requestAnimationFrame(draw)}
+
+/* ---------- start ---------- */
+(async()=>{
+ const sel=$('lang');for(const c in LANGS){const o=document.createElement('option');o.value=c;o.textContent=LANGS[c];sel.appendChild(o)}
+ sel.onchange=()=>setLang(sel.value);
+ $('lang2').innerHTML=sel.innerHTML;
+ $('pga-sel').innerHTML=Array.from({length:21},(_,i)=>'<option>'+i*2+'</option>').join('');
+ for(const e of document.querySelectorAll('#v-adc [data-k]'))e.addEventListener('change',()=>cfgSet(e.dataset.k,e.type==='checkbox'?(e.checked?1:0):e.value));
+ await setLang(pickLang());
+ go((location.hash||'#home').slice(1)||'home');
+ if(USB_MODE){$('usbbtn').hidden=false;Link.onstate('off')}else Link.open();
+ draw();
+ const inf=await Link.info();if(inf&&inf.fw)$('fw').textContent=t('fw',{v:inf.fw});
+})();
+</script></body></html>

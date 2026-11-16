@@ -1,0 +1,24 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Über USB im Browser nutzen · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/usb.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/usb.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/usb.html"><link rel="alternate" hreflang="ja" href="../ja/usb.html"><link rel="alternate" hreflang="ko" href="../ko/usb.html"><link rel="alternate" hreflang="de" href="../de/usb.html"><link rel="alternate" hreflang="fr" href="../fr/usb.html"><link rel="alternate" hreflang="es" href="../es/usb.html"><link rel="alternate" hreflang="pt" href="../pt/usb.html"><link rel="alternate" hreflang="it" href="../it/usb.html"><link rel="alternate" hreflang="ru" href="../ru/usb.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">App öffnen</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/usb.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="de" selected>Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">Übersicht</a><div class="ng"><div class="nh">Start</div><a href="getting-started.html">Erste Schritte</a></div><div class="ng"><div class="nh">Verbinden</div><a href="usb.html" class=on>USB im Browser</a><a href="wifi.html">Heim-Wi-Fi</a><a href="hotspot.html">Hotspot-Rückfall</a></div><div class="ng"><div class="nh">Smart Home</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">Entwickeln</div><a href="raw-data.html">Rohdaten</a><a href="json-api.html">JSON und API</a><a href="devkit-flashing.html">Dev-Kit-Flashen</a></div><div class="ng"><div class="nh">Hilfe</div><a href="faq.html">FAQ</a></div></nav>
+<main><h1 id="über-usb-im-browser-nutzen">Über USB im Browser nutzen</h1>
+<p>Die Radar-Base-App läuft in Chrome oder Edge auf Ihrem Computer und spricht über das USB-Kabel (Web Serial) mit dem Board. Nichts zu installieren, kein Wi-Fi beteiligt.</p>
+<h2 id="schritte">Schritte</h2>
+<ol><li>Verbinden Sie den <strong>USB</strong>-Port des Controllers mit dem Computer.</li><li>Öffnen Sie <strong><a href="../app/">radar.kymopsis.com/app</a></strong> in Chrome oder Edge.</li><li>Drücken Sie oben in der Leiste <strong>USB verbinden</strong> und wählen Sie „USB JTAG/serial debug unit“.</li><li>Der Status wird grün. Wählen Sie auf der Startseite eine Aufgabe.</li></ol>
+<p>Ihr Browser fragt pro Website einmal nach der Erlaubnis, den Port zu nutzen; sonst wird nichts von Ihrem Computer freigegeben.</p>
+<h2 id="was-über-usb-funktioniert">Was über USB funktioniert</h2>
+<div class="tw"><table><thead><tr><th>Funktion</th><th>Über USB</th></tr></thead><tbody><tr><td>Szenario starten, Live-Ansichten, Szenario-Einstellungen</td><td>Ja</td></tr><tr><td>Rohdaten-Einstellungen und Selbsttest der Datenverbindung</td><td>Ja</td></tr><tr><td>Firmware ins Radar schreiben (Dev-Kit)</td><td>Ja</td></tr><tr><td>Heim-Wi-Fi einrichten</td><td>Ja (Netzwerknamen und Passwörter ohne Leerzeichen)</td></tr><tr><td>Firmware-Dateien hochladen oder löschen</td><td>Nein - dafür Wi-Fi verwenden</td></tr></tbody></table></div>
+<h2 id="nur-ein-programm-gleichzeitig">Nur ein Programm gleichzeitig</h2>
+<p>Ein USB-Port kann nur in einem Programm geöffnet sein. Schließen Sie jedes serielle Terminal, bevor Sie den Browser verbinden, und umgekehrt.</p>
+<h2 id="browser">Browser</h2>
+<p>Web Serial gibt es in Chrome, Edge und anderen Chromium-basierten Browsern auf dem Desktop. Safari und Firefox unterstützen es nicht; nutzen Sie dort oder auf Handys <a href="wifi.html">Heim-Wi-Fi</a>.</p>
+<p>Stückzahlen, vorgeflashte Module oder eigene Firmware: <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>Keine Cloud. Ihre Radardaten bleiben auf Ihren Geräten.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','de')}catch(e){}</script>
+</body></html>

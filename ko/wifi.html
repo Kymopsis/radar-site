@@ -1,0 +1,28 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Radar Base를 집 Wi-Fi에 연결하기 · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/wifi.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/wifi.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/wifi.html"><link rel="alternate" hreflang="ja" href="../ja/wifi.html"><link rel="alternate" hreflang="ko" href="../ko/wifi.html"><link rel="alternate" hreflang="de" href="../de/wifi.html"><link rel="alternate" hreflang="fr" href="../fr/wifi.html"><link rel="alternate" hreflang="es" href="../es/wifi.html"><link rel="alternate" hreflang="pt" href="../pt/wifi.html"><link rel="alternate" hreflang="it" href="../it/wifi.html"><link rel="alternate" hreflang="ru" href="../ru/wifi.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">앱 열기</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/wifi.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko" selected>한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">개요</a><div class="ng"><div class="nh">시작하기</div><a href="getting-started.html">시작하기</a></div><div class="ng"><div class="nh">연결</div><a href="usb.html">브라우저에서 USB</a><a href="wifi.html" class=on>집 Wi-Fi</a><a href="hotspot.html">핫스팟 대체 연결</a></div><div class="ng"><div class="nh">스마트홈</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">개발</div><a href="raw-data.html">원시 데이터</a><a href="json-api.html">JSON과 API</a><a href="devkit-flashing.html">개발 키트 기록</a></div><div class="ng"><div class="nh">도움말</div><a href="faq.html">FAQ</a></div></nav>
+<main><h1 id="radar-base를-집-wi-fi에-연결하기">Radar Base를 집 Wi-Fi에 연결하기</h1>
+<p>Radar Base가 집 네트워크에 들어오면, 집 안의 휴대폰, 태블릿, 컴퓨터 어디서나 <strong>http://kymradar.local</strong>로 열 수 있습니다. 기기들은 평소 쓰던 Wi-Fi에 그대로 연결되어 있습니다.</p>
+<h2 id="설정하기">설정하기</h2>
+<p>둘 중 하나를 고르세요.</p>
+<ul><li><strong>앱에서(USB 또는 핫스팟):</strong> 기기 설정 → 집 Wi-Fi → 네트워크 선택 → 비밀번호 입력 → 연결.</li><li><strong>시리얼 터미널에서:</strong> <code>wifi &lt;network-name&gt; &lt;password&gt;</code>(둘 다 공백 없이).</li></ul>
+<p>Radar Base에는 2.4 GHz 네트워크가 필요합니다. 대부분의 가정용 공유기는 같은 이름으로 2.4 GHz와 5 GHz를 함께 제공하며, 그래도 괜찮습니다.</p>
+<h2 id="열기">열기</h2>
+<ul><li>컴퓨터, iPhone, iPad, Mac: <strong>http://kymradar.local</strong></li><li>일부 Android 휴대폰은 <code>.local</code> 이름을 해석하지 못합니다. 기기 설정 → 집 Wi-Fi에 표시된 IP 주소</li></ul>
+<p>(예: http://192.168.1.57)를 쓰거나, 공유기 목록에서 "kymradar" 기기를 찾아보세요.</p>
+<h2 id="핫스팟은-어떻게-되나">핫스팟은 어떻게 되나</h2>
+<p>집 Wi-Fi가 작동하고 핫스팟에 연결된 휴대폰이 없으면 Radar Base 핫스팟은 스스로 꺼집니다. 집 네트워크가 30초 동안 사라지면 저절로 다시 켜집니다. <a href="hotspot.html">핫스팟 대체 연결</a>을 참고하세요.</p>
+<h2 id="네트워크-변경-또는-삭제">네트워크 변경 또는 삭제</h2>
+<p>기기 설정 → 집 Wi-Fi → <strong>네트워크 삭제</strong>, 또는 콘솔에서 <code>wifi forget</code>. 핫스팟이 다시 켜집니다.</p>
+<h2 id="개인정보-보호">개인정보 보호</h2>
+<p>Radar Base는 내 네트워크의 기기와만 통신합니다. 클라우드에 연결하지 않고, 어떤 데이터도 외부로 보내지 않습니다.</p>
+<p>대량 구매, 사전 기록된 모듈, 맞춤 펌웨어: <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>클라우드가 필요 없습니다. 레이더 데이터는 내 기기에만 남습니다.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','ko')}catch(e){}</script>
+</body></html>

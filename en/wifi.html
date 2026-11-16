@@ -1,0 +1,28 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Put Radar Base on your home Wi-Fi · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/wifi.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/wifi.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/wifi.html"><link rel="alternate" hreflang="ja" href="../ja/wifi.html"><link rel="alternate" hreflang="ko" href="../ko/wifi.html"><link rel="alternate" hreflang="de" href="../de/wifi.html"><link rel="alternate" hreflang="fr" href="../fr/wifi.html"><link rel="alternate" hreflang="es" href="../es/wifi.html"><link rel="alternate" hreflang="pt" href="../pt/wifi.html"><link rel="alternate" hreflang="it" href="../it/wifi.html"><link rel="alternate" hreflang="ru" href="../ru/wifi.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">Open the app</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/wifi.html'"><option value="en" selected>English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">Overview</a><div class="ng"><div class="nh">Start</div><a href="getting-started.html">Getting started</a></div><div class="ng"><div class="nh">Connect</div><a href="usb.html">USB in the browser</a><a href="wifi.html" class=on>Home Wi-Fi</a><a href="hotspot.html">Hotspot fallback</a></div><div class="ng"><div class="nh">Smart home</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">Develop</div><a href="raw-data.html">Raw data</a><a href="json-api.html">JSON and API</a><a href="devkit-flashing.html">Dev-kit flashing</a></div><div class="ng"><div class="nh">Help</div><a href="faq.html">FAQ</a></div></nav>
+<main><h1 id="put-radar-base-on-your-home-wi-fi">Put Radar Base on your home Wi-Fi</h1>
+<p>Once Radar Base is on your home network, any phone, tablet or computer at home can open it at <strong>http://kymradar.local</strong>. Your devices stay on your normal Wi-Fi.</p>
+<h2 id="set-it-up">Set it up</h2>
+<p>Choose one way:</p>
+<ul><li><strong>From the app (USB or hotspot):</strong> Device settings → Home Wi-Fi → pick your network → enter the password → Connect.</li><li><strong>From a serial terminal:</strong> <code>wifi &lt;network-name&gt; &lt;password&gt;</code> (no spaces in either).</li></ul>
+<p>Radar Base needs a 2.4 GHz network. Most home routers offer 2.4 GHz and 5 GHz under the same name, which is fine.</p>
+<h2 id="open-it">Open it</h2>
+<ul><li>On computers, iPhones, iPads and Macs: <strong>http://kymradar.local</strong></li><li>On some Android phones <code>.local</code> names do not resolve. Use the IP address shown under Device settings → Home Wi-Fi</li></ul>
+<p>(for example http://192.168.1.57), or look the device "kymradar" up in your router's list.</p>
+<h2 id="what-happens-to-the-hotspot">What happens to the hotspot</h2>
+<p>The Radar Base hotspot switches itself off once your home Wi-Fi works and no phone is connected to it. It comes back on its own if the home network is gone for 30 seconds - see <a href="hotspot.html">Hotspot fallback</a>.</p>
+<h2 id="change-or-remove-the-network">Change or remove the network</h2>
+<p>Device settings → Home Wi-Fi → <strong>Forget network</strong>, or on the console <code>wifi forget</code>. The hotspot turns on again.</p>
+<h2 id="privacy">Privacy</h2>
+<p>Radar Base only talks to devices on your own network. It has no cloud connection and sends no data anywhere.</p>
+<p>Volume, pre-flashed modules or custom firmware: <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>No cloud. Your radar data stays on your devices.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','en')}catch(e){}</script>
+</body></html>

@@ -1,0 +1,27 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>開発キット用レーダー書き込みモジュール · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/devkit-flashing.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/devkit-flashing.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/devkit-flashing.html"><link rel="alternate" hreflang="ja" href="../ja/devkit-flashing.html"><link rel="alternate" hreflang="ko" href="../ko/devkit-flashing.html"><link rel="alternate" hreflang="de" href="../de/devkit-flashing.html"><link rel="alternate" hreflang="fr" href="../fr/devkit-flashing.html"><link rel="alternate" hreflang="es" href="../es/devkit-flashing.html"><link rel="alternate" hreflang="pt" href="../pt/devkit-flashing.html"><link rel="alternate" hreflang="it" href="../it/devkit-flashing.html"><link rel="alternate" hreflang="ru" href="../ru/devkit-flashing.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">アプリを開く</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/devkit-flashing.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja" selected>日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">概要</a><div class="ng"><div class="nh">はじめに</div><a href="getting-started.html">はじめに</a></div><div class="ng"><div class="nh">接続</div><a href="usb.html">ブラウザーで USB</a><a href="wifi.html">自宅の Wi-Fi</a><a href="hotspot.html">ホットスポット</a></div><div class="ng"><div class="nh">スマートホーム</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">開発</div><a href="raw-data.html">生データ</a><a href="json-api.html">JSON と API</a><a href="devkit-flashing.html" class=on>開発キット書き込み</a></div><div class="ng"><div class="nh">ヘルプ</div><a href="faq.html">FAQ</a></div></nav>
+<main><h1 id="開発キット用レーダー書き込みモジュール">開発キット用レーダー書き込みモジュール</h1>
+<p>Radar Base のファームウェアには、同じソースからビルドした 2 つのエディションがあります。</p>
+<div class="tw"><table><thead><tr><th>エディション</th><th>できること</th></tr></thead><tbody><tr><td>オープン版</td><td>このサイトで紹介するすべて：レーダーのメモリからすべてのレーダーアプリを実行、JSON、Web アプリ、Wi-Fi、スマートホーム</td></tr><tr><td>開発キット版</td><td>オープン版 + レーダー自身のフラッシュに書き込む追加モジュール</td></tr></tbody></table></div>
+<h2 id="モジュールの役割">モジュールの役割</h2>
+<p>アプリをレーダーのフラッシュに書き込むと、Radar Base が先に読み込まなくても、電源を入れるだけでレーダーが自分で起動します。 モジュールは書き込みのたびに、レーダーの現在のフラッシュをバックアップします。バックアップに失敗したら何も書き込みません。 バックアップはアプリからいつでも元に戻せます。</p>
+<h2 id="開発キット用ファームウェアの提供方法">開発キット用ファームウェアの提供方法</h2>
+<p>開発キット用ファームウェアは、開発キットのボードに書き込み済みで届きます。更新は購入者にメールでお知らせします。開発キット用ファームウェアは一般には公開ダウンロードされていません。オープン版ファームウェアは、いつでも公開リポジトリから入手できます。</p>
+<h2 id="一括書き込み">一括書き込み</h2>
+<p>多数のモジュールを続けて処理する場合：ファームウェアを一度選び、モジュールを 1 つずつ接続します。各モジュールは検出され、必要に応じてバックアップ、書き込み、検証が行われ、フラッシュから起動してバージョンを取得します。ページとボードのライトに PASS または FAIL が表示され、カウンターが加算され、モジュールごとに 1 行がダウンロード可能な CSV ログに記録されます。</p>
+<h2 id="しないこと">しないこと</h2>
+<ul><li>インターネットには接続しません。</li><li>データの収集、保存、送信は一切行いません。</li><li>ファームウェアの他の部分はこのモジュールに依存しません。</li></ul>
+<p>非公開なのは、書き込みのためにレーダーへ読み込む小さなヘルパープログラムが、私たちが公開できるものではないためです。 開発キットのユニットでは、このヘルパーはユニットごとに固有の鍵で暗号化して保存されます。</p>
+<h2 id="モジュールがない場合">モジュールがない場合</h2>
+<p>オープン版ファームウェアでも、すべてのレーダーアプリをレーダーのメモリから実行できます（シナリオを実行）。 失うのは「Radar Base がなくても自分で起動する」という便利さだけです。オープン版ファームウェア、アプリ、 JSON フォーマットはすべてオープンソースです。</p>
+<p>大量購入、書き込み済みモジュール、カスタムファームウェア： <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>クラウドは不要。レーダーのデータは自分のデバイスの中だけに残ります。</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','ja')}catch(e){}</script>
+</body></html>

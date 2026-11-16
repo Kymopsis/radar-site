@@ -1,0 +1,55 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>はじめに · Kymopsis Radar Base</title>
+<link rel="icon" href="../favicon.png"><link rel="stylesheet" href="../site.css">
+<link rel="alternate" hreflang="en" href="../en/getting-started.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/getting-started.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/getting-started.html"><link rel="alternate" hreflang="ja" href="../ja/getting-started.html"><link rel="alternate" hreflang="ko" href="../ko/getting-started.html"><link rel="alternate" hreflang="de" href="../de/getting-started.html"><link rel="alternate" hreflang="fr" href="../fr/getting-started.html"><link rel="alternate" hreflang="es" href="../es/getting-started.html"><link rel="alternate" hreflang="pt" href="../pt/getting-started.html"><link rel="alternate" hreflang="it" href="../it/getting-started.html"><link rel="alternate" hreflang="ru" href="../ru/getting-started.html">
+</head><body>
+<header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
+<div class="sp"></div><a class="btn pri" href="../app/">アプリを開く</a>
+<select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/getting-started.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja" selected>日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
+<div class="wrap"><nav class="side"><a href="index.html">概要</a><div class="ng"><div class="nh">はじめに</div><a href="getting-started.html" class=on>はじめに</a></div><div class="ng"><div class="nh">接続</div><a href="usb.html">ブラウザーで USB</a><a href="wifi.html">自宅の Wi-Fi</a><a href="hotspot.html">ホットスポット</a></div><div class="ng"><div class="nh">スマートホーム</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">開発</div><a href="raw-data.html">生データ</a><a href="json-api.html">JSON と API</a><a href="devkit-flashing.html">開発キット書き込み</a></div><div class="ng"><div class="nh">ヘルプ</div><a href="faq.html">FAQ</a></div></nav>
+<main><h1 id="はじめに">はじめに</h1>
+<p>このガイドでは、箱から出して、リアルタイムのレーダー結果が見えるまでを約 15 分で説明します。</p>
+<h2 id="必要なもの">必要なもの</h2>
+<ul><li>Radar Base コントローラー（ESP32-S3 ボード）と、キャリアボードに載った 60 GHz レーダーモジュール</li><li>ジャンパーワイヤー 10 本（メス-メス）- キットに同梱</li><li>USB ケーブル 2 本：Radar Base 用と、レーダーのキャリアボードへの給電用</li><li>Chrome または Edge が動くパソコン（Windows、macOS、Linux、ChromeOS）</li></ul>
+<h2 id="1-レーダーのキャリアボードを準備する">1. レーダーのキャリアボードを準備する</h2>
+<p>キャリアボードのシリアルヘッダー（J9）と、P19 / GND / P12 のブートヘッダーから、ジャンパーキャップをすべて外します。 外さないと、キャリアボード自身の USB シリアルチップが同じ配線で Radar Base と競合します。</p>
+<h2 id="2-配線する">2. 配線する</h2>
+<p>最初にすべての電源を切ります。<strong>GND を最初に</strong>つなぎ、それから残りをつなぎます。ラベルはレーダーのキャリアボードに印刷されたものです。</p>
+<svg class="diagram" viewBox="0 0 760 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wiring: Radar Base pins to radar carrier labels">
+<g font-family="Inter,system-ui,sans-serif" font-size="14">
+<rect x="10" y="10" width="230" height="450" rx="14" fill="#0b5cff"/>
+<text x="125" y="38" text-anchor="middle" font-weight="700" fill="#fff">Radar Base (ESP32-S3)</text>
+<rect x="520" y="10" width="230" height="450" rx="14" fill="#f8fbff" stroke="#c7d8ff"/>
+<text x="635" y="38" text-anchor="middle" font-weight="700" fill="#0f172a">Radar carrier (labels)</text>
+<g id="rows" fill="none" stroke-width="3" stroke-linecap="round">
+<path d="M240 70H520" stroke="#0f172a"/>
+<path d="M240 108H520" stroke="#2563eb"/><path d="M240 146H520" stroke="#16a34a"/>
+<path d="M240 184H520" stroke="#2563eb"/><path d="M240 222H520" stroke="#16a34a"/>
+<path d="M240 260H520" stroke="#dc2626"/><path d="M240 298H520" stroke="#ea580c"/><path d="M240 336H520" stroke="#ea580c"/>
+<path d="M240 374H520" stroke="#9333ea"/><path d="M240 412H520" stroke="#9333ea"/></g>
+<g fill="#fff" font-weight="600">
+<text x="30" y="75">GND</text><text x="30" y="113">GPIO17</text><text x="30" y="151">GPIO18</text><text x="30" y="189">GPIO15</text>
+<text x="30" y="227">GPIO16</text><text x="30" y="265">GPIO4</text><text x="30" y="303">GPIO5</text><text x="30" y="341">GPIO6</text>
+<text x="30" y="379">GPIO12</text><text x="30" y="417">GPIO11</text></g>
+<g fill="#0f172a" font-weight="600" text-anchor="end">
+<text x="730" y="75">GND</text><text x="730" y="113">RX0</text><text x="730" y="151">TX0</text><text x="730" y="189">RX1</text>
+<text x="730" y="227">TX1</text><text x="730" y="265">RST</text><text x="730" y="303">P12</text><text x="730" y="341">P19</text>
+<text x="730" y="379">SPI CLK</text><text x="730" y="417">SPI MOSI</text></g>
+<g fill="#64748b" font-size="12" text-anchor="middle">
+<text x="380" y="63">first</text><text x="380" y="101">results: commands</text><text x="380" y="139">results: data</text>
+<text x="380" y="177">loading apps</text><text x="380" y="215">loading replies</text><text x="380" y="253">reset</text>
+<text x="380" y="291">boot select</text><text x="380" y="329">boot select</text><text x="380" y="367">raw data clock</text><text x="380" y="405">raw data (not MISO)</text></g>
+</g></svg>
+
+<div class="tw"><table><thead><tr><th>Radar Base のピン</th><th>キャリアボードのラベル</th><th>用途</th></tr></thead><tbody><tr><td>GND</td><td>GND</td><td>共通グラウンド（最初につなぐ）</td></tr><tr><td>GPIO17</td><td>RX0</td><td>レーダーアプリへのコマンド</td></tr><tr><td>GPIO18</td><td>TX0</td><td>レーダーアプリからの結果</td></tr><tr><td>GPIO15</td><td>RX1</td><td>レーダーへのアプリの読み込み</td></tr><tr><td>GPIO16</td><td>TX1</td><td>読み込み中の応答</td></tr><tr><td>GPIO4</td><td>RST</td><td>レーダーのリセット</td></tr><tr><td>GPIO5</td><td>P12</td><td>ブート選択（データ選択も兼ねる）</td></tr><tr><td>GPIO6</td><td>P19</td><td>ブート選択</td></tr><tr><td>GPIO12</td><td>SPI CLK</td><td>生データのクロック（生データ用のみ）</td></tr><tr><td>GPIO11</td><td>SPI MOSI</td><td>生データ（MISO は使わない）</td></tr></tbody></table></div>
+<p>レーダーはキャリアボード自身の電源で動きます（最大約 600 mA）。コントローラーボードの 3V3 ピンから給電しないでください。</p>
+<h2 id="3-正しい順番で電源を入れる">3. 正しい順番で電源を入れる</h2>
+<ol><li>コントローラーの <strong>USB</strong> と書かれたポートをパソコンにつなぎます。（UART と書かれたポートは、コントローラー自身のファームウェア更新専用です。）</li><li>そのあとでレーダーのキャリアボードに給電します。</li></ol>
+<p>Radar Base は起動するとすぐレーダーのブートピンを設定するため、レーダーは後から起動する必要があります。順番を逆にしてしまったら、 診断を開いて <strong>レーダーを再起動</strong> を押してください。</p>
+<h2 id="4-動かしてみる">4. 動かしてみる</h2>
+<ol><li>Chrome または Edge で<a href="../app/">アプリ</a>を開き、<strong>USB 接続</strong> を押して、「USB JTAG/serial」という名前のポートを選びます。</li><li><strong>シナリオを実行</strong> → <strong>3D 在室・人物トラッキング</strong> を選びます。</li><li>レーダーの前を歩きます。あなたの位置が青い点で表示されます。</li></ol>
+<p>次は：普段使いなら<a href="wifi.html">自宅の Wi-Fi</a>、独自のアルゴリズムを作るなら<a href="raw-data.html">生データ</a>へ。</p>
+<p>大量購入、書き込み済みモジュール、カスタムファームウェア： <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
+<footer><span>© Kymopsis</span><span>クラウドは不要。レーダーのデータは自分のデバイスの中だけに残ります。</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
+<script>try{localStorage.setItem('kym.lang','ja')}catch(e){}</script>
+</body></html>
