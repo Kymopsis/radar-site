@@ -13,14 +13,14 @@
 <h2 id="was-das-modul-tut">Was das Modul tut</h2>
 <p>Wird eine App in den Flash des Radars geschrieben, startet sie beim Einschalten von selbst, ohne dass Radar Base sie zuerst laden muss. Das Modul sichert vor jedem Schreiben den aktuellen Flash des Radars; schlägt die Sicherung fehl, wird nichts geschrieben. Sicherungen lassen sich jederzeit über die App zurückspielen.</p>
 <h2 id="wie-die-dev-kit-firmware-geliefert-wird">Wie die Dev-Kit-Firmware geliefert wird</h2>
-<p>Die Dev-Kit-Firmware ist auf dem Dev-Kit-Board vorinstalliert. Updates werden den Käufern per E-Mail mitgeteilt; die Dev-Kit-Firmware ist kein öffentlicher Download. Die offene Firmware ist jederzeit im öffentlichen Repository verfügbar.</p>
+<p>Die Dev-Kit-Firmware ist auf dem Dev-Kit-Board vorinstalliert. Updates werden den Käufern per E-Mail mitgeteilt; die Dev-Kit-Firmware ist kein öffentlicher Download. Die offene Firmware wird als Quellcode in einem öffentlichen Repository veröffentlicht; diese Seite verlinkt es, sobald es online ist.</p>
 <h2 id="stapel-flashen">Stapel-Flashen</h2>
 <p>Für viele Module nacheinander: Wählen Sie die Firmware einmal und schließen Sie dann ein Modul nach dem anderen an. Jedes Modul wird erkannt, auf Wunsch gesichert, geschrieben, geprüft, aus seinem Flash gestartet und nach seiner Version gefragt. Die Seite und die Board-LED zeigen PASS oder FAIL, ein Zähler zählt mit, und jedes Modul erhält eine Zeile in einem CSV-Protokoll, das Sie herunterladen können.</p>
 <h2 id="was-es-nicht-tut">Was es nicht tut</h2>
 <ul><li>Es verbindet sich nicht mit dem Internet.</li><li>Es sammelt, speichert oder sendet keine Daten.</li><li>Nichts anderes in der Firmware hängt von ihm ab.</li></ul>
 <p>Es ist geschlossen, weil das kleine Hilfsprogramm, das zum Schreiben ins Radar geladen wird, nicht von uns veröffentlicht werden darf. Bei Dev-Kit-Geräten ist dieses Hilfsprogramm mit einem für jedes Gerät eigenen Schlüssel verschlüsselt gespeichert.</p>
 <h2 id="ohne-das-modul">Ohne das Modul</h2>
-<p>Jede Radar-App läuft mit der offenen Firmware auch aus dem Speicher des Radars (Szenario starten). Es fehlt nur die Bequemlichkeit „startet von selbst ohne Radar Base“. Die offene Firmware, die App und das JSON-Format sind alle Open Source.</p>
+<p>Jede Radar-App läuft mit der offenen Firmware auch aus dem Speicher des Radars (Szenario starten). Es fehlt nur die Bequemlichkeit „startet von selbst ohne Radar Base“. Die offene Firmware, die App und das JSON-Format sind von Grund auf offen angelegt; die App und das JSON-Format sind auf dieser Website dokumentiert.</p>
 <p>Stückzahlen, vorgeflashte Module oder eigene Firmware: <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
 <footer><span>© Kymopsis</span><span>Keine Cloud. Ihre Radardaten bleiben auf Ihren Geräten.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
 <script>try{localStorage.setItem('kym.lang','de')}catch(e){}</script>

@@ -13,14 +13,14 @@
 <h2 id="what-the-module-does">What the module does</h2>
 <p>Writing an app into the radar's flash makes it start by itself at power-up, without Radar Base loading it first. The module backs up the radar's current flash before every write; if the backup fails, nothing is written. Backups can be put back at any time from the app.</p>
 <h2 id="how-the-dev-kit-firmware-is-delivered">How the dev-kit firmware is delivered</h2>
-<p>The dev-kit firmware comes pre-loaded on the dev-kit board. Updates are announced to buyers by e-mail; the dev-kit firmware is not a public download. The open firmware is always available from the public repository.</p>
+<p>The dev-kit firmware comes pre-loaded on the dev-kit board. Updates are announced to buyers by e-mail; the dev-kit firmware is not a public download. The open firmware will be published as source code in a public repository; this page will link it when it is out.</p>
 <h2 id="batch-flashing">Batch flashing</h2>
 <p>For many modules in a row: choose the firmware once, then connect one module after the other. Each module is detected, optionally backed up, written, verified, started from its flash and asked for its version. The page and the board light show PASS or FAIL, a counter adds up, and every module gets one line in a CSV log you can download.</p>
 <h2 id="what-it-does-not-do">What it does not do</h2>
 <ul><li>It does not connect to the internet.</li><li>It does not collect, store or send any data.</li><li>Nothing else in the firmware depends on it.</li></ul>
 <p>It is closed because the small helper program it loads into the radar for writing is not ours to publish. On dev-kit units that helper is stored encrypted with a key unique to each unit.</p>
 <h2 id="without-it">Without it</h2>
-<p>Every radar app also runs from the radar's memory with the open firmware (Run a scenario). You only lose the "starts by itself without Radar Base" convenience. The open firmware, the app and the JSON format are all open source.</p>
+<p>Every radar app also runs from the radar's memory with the open firmware (Run a scenario). You only lose the "starts by itself without Radar Base" convenience. The open firmware, the app and the JSON format are open by design; the app and the JSON format are documented on this site.</p>
 <p>Volume, pre-flashed modules or custom firmware: <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
 <footer><span>© Kymopsis</span><span>No cloud. Your radar data stays on your devices.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
 <script>try{localStorage.setItem('kym.lang','en')}catch(e){}</script>

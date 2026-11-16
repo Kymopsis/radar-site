@@ -13,14 +13,14 @@
 <h2 id="qué-hace-el-módulo">Qué hace el módulo</h2>
 <p>Al escribir una app en la flash del radar, esta arranca sola al encender, sin que Radar Base tenga que cargarla antes. El módulo hace una copia de seguridad de la flash actual del radar antes de cada escritura; si la copia falla, no se escribe nada. Las copias se pueden restaurar en cualquier momento desde la app.</p>
 <h2 id="cómo-se-entrega-el-firmware-del-kit-de-desarrollo">Cómo se entrega el firmware del kit de desarrollo</h2>
-<p>El firmware del kit de desarrollo viene precargado en la placa del kit. Las actualizaciones se comunican a los compradores por correo electrónico; este firmware no es una descarga pública. El firmware abierto siempre está disponible en el repositorio público.</p>
+<p>El firmware del kit de desarrollo viene precargado en la placa del kit. Las actualizaciones se comunican a los compradores por correo electrónico; este firmware no es una descarga pública. El firmware abierto se publicará como código fuente en un repositorio público; esta página lo enlazará cuando esté disponible.</p>
 <h2 id="grabación-por-lotes">Grabación por lotes</h2>
 <p>Para muchos módulos seguidos: elige el firmware una vez y conecta los módulos uno tras otro. Cada módulo se detecta, se copia si quieres, se graba, se verifica, se arranca desde su flash y se le pide su versión. La página y el LED de la placa muestran PASS o FAIL, un contador va sumando y cada módulo recibe una línea en un registro CSV que puedes descargar.</p>
 <h2 id="qué-no-hace">Qué no hace</h2>
 <ul><li>No se conecta a internet.</li><li>No recopila, guarda ni envía ningún dato.</li><li>Nada más en el firmware depende de él.</li></ul>
 <p>Es cerrado porque el pequeño programa auxiliar que carga en el radar para escribir no es nuestro para publicarlo. En las unidades del kit de desarrollo, ese programa se guarda cifrado con una clave única para cada unidad.</p>
 <h2 id="sin-él">Sin él</h2>
-<p>Cada app del radar también se ejecuta desde la memoria del radar con el firmware abierto (Ejecutar un escenario). Solo pierdes la comodidad de «arranca sola sin Radar Base». El firmware abierto, la app y el formato JSON son todos de código abierto.</p>
+<p>Cada app del radar también se ejecuta desde la memoria del radar con el firmware abierto (Ejecutar un escenario). Solo pierdes la comodidad de «arranca sola sin Radar Base». El firmware abierto, la app y el formato JSON son abiertos por diseño; la app y el formato JSON están documentados en este sitio.</p>
 <p>Volumen, módulos ya grabados o firmware a medida: <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
 <footer><span>© Kymopsis</span><span>Sin nube. Tus datos de radar se quedan en tus dispositivos.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
 <script>try{localStorage.setItem('kym.lang','es')}catch(e){}</script>
