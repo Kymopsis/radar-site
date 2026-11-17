@@ -4,13 +4,57 @@
 <link rel="alternate" hreflang="en" href="../en/esphome.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/esphome.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/esphome.html"><link rel="alternate" hreflang="ja" href="../ja/esphome.html"><link rel="alternate" hreflang="ko" href="../ko/esphome.html"><link rel="alternate" hreflang="de" href="../de/esphome.html"><link rel="alternate" hreflang="fr" href="../fr/esphome.html"><link rel="alternate" hreflang="es" href="../es/esphome.html"><link rel="alternate" hreflang="pt" href="../pt/esphome.html"><link rel="alternate" hreflang="it" href="../it/esphome.html"><link rel="alternate" hreflang="ru" href="../ru/esphome.html">
 </head><body>
 <header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
-<div class="sp"></div><a class="btn pri" href="../app/">앱 열기</a>
+<div class="sp"></div><a class="btn pri" href="../">앱 열기</a>
 <select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/esphome.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko" selected>한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
 <div class="wrap"><nav class="side"><a href="index.html">개요</a><div class="ng"><div class="nh">시작하기</div><a href="getting-started.html">시작하기</a></div><div class="ng"><div class="nh">연결</div><a href="usb.html">브라우저에서 USB</a><a href="wifi.html">집 Wi-Fi</a><a href="hotspot.html">핫스팟 대체 연결</a></div><div class="ng"><div class="nh">스마트홈</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html" class=on>ESPHome</a></div><div class="ng"><div class="nh">개발</div><a href="raw-data.html">원시 데이터</a><a href="json-api.html">JSON과 API</a><a href="devkit-flashing.html">개발 키트 기록</a></div><div class="ng"><div class="nh">도움말</div><a href="faq.html">FAQ</a></div></nav>
 <main><h1 id="esphome">ESPHome</h1>
-<p class="note">Home Assistant MQTT 연동 이후에 제공할 예정입니다.</p>
-<p>ESPHome 외부 컴포넌트를 쓰면 다른 ESPHome 장치처럼 YAML로 Radar Base를 설정할 수 있게 됩니다. 앱 및 MQTT와 같은 결과 (사람 수, 구역, 낙상, 호흡수와 심박수)를 사용하므로 내 ESPHome 센서와 자동화에 자유롭게 섞어 쓸 수 있습니다.</p>
-<p>그때까지는 <a href="home-assistant.html">MQTT로 Home Assistant 연동</a>을 사용하거나 JSON 결과를 직접 읽으세요(<a href="json-api.html">JSON과 API</a>).</p>
+<p><code>kymopsis_radar</code> 외부 컴포넌트는 Radar Base를 ESPHome 장치로 만들어 줍니다. 레이더 앱의 결과를 레이더의 UART에서 직접 읽으므로 웹 앱 및 MQTT와 같은 값을 얻습니다: 재실, 사람 수, 가장 가까운 사람, 구역 4개, 낙상, 호흡수와 심박수. 내 ESPHome 센서와 자동화에 자유롭게 섞어 쓸 수 있습니다.</p>
+<p class="note">ESPHome은 ESP32의 Radar Base 펌웨어를 대체합니다. 레이더 앱은 레이더 모듈 자체의 플래시에서 시작해야 합니다(개발 키트 모듈은 그렇게 출하됩니다). 레이더 메모리에서 앱 실행, 웹 앱, 원시 데이터는 Radar Base 펌웨어에서 사용합니다.</p>
+<h2 id="예시">예시</h2>
+<pre><code>external_components:
+  - source:
+      type: git
+      url: https://github.com/Kymopsis/radar-base
+      ref: main
+      path: esphome/components
+    components: [kymopsis_radar]
+
+uart:
+  id: radar_uart
+  tx_pin: GPIO17
+  rx_pin: GPIO18
+  baud_rate: 115200
+
+kymopsis_radar:
+  uart_id: radar_uart
+  reset_pin: GPIO4
+  boot_high_pin: GPIO5
+  boot_low_pin: GPIO6
+  mount: keep
+
+binary_sensor:
+  - platform: kymopsis_radar
+    occupancy:
+      name: Occupancy
+    area_1:
+      name: Area 1
+    fall:
+      name: Fall detected
+
+sensor:
+  - platform: kymopsis_radar
+    people:
+      name: People
+    nearest_distance:
+      name: Nearest person
+    breathing_rate:
+      name: Breathing rate
+    heart_rate:
+      name: Heart rate</code></pre>
+<p>전체 예시는 저장소의 <code>esphome/radar-base.yaml</code>입니다.</p>
+<h2 id="옵션">옵션</h2>
+<div class="tw"><table><thead><tr><th>옵션</th><th>설명</th></tr></thead><tbody><tr><td><code>reset_pin</code>, <code>boot_high_pin</code>, <code>boot_low_pin</code></td><td>부팅할 때 모듈의 플래시에서 레이더 앱을 시작시키는 핀(Radar Base: GPIO4, GPIO5, GPIO6)</td></tr><tr><td><code>mount</code></td><td><code>ceiling</code>, <code>side</code> 또는 <code>keep</code>(재실 감지 앱의 설치 방식)</td></tr><tr><td><code>timeout</code></td><td>레이더가 이 시간 동안 아무것도 보고하지 않으면 재실과 사람 수를 지웁니다(기본값 3초)</td></tr></tbody></table></div>
+<p>실행 중인 레이더 앱이 보고하지 않는 값은 비어 있습니다. 예를 들어 호흡수와 심박수에는 활력 징후 앱이 필요합니다. 호흡수와 심박수는 웰니스 용도로만 사용하세요. 의료기기가 아닙니다.</p>
 <p>대량 구매, 사전 기록된 모듈, 맞춤 펌웨어: <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
 <footer><span>© Kymopsis</span><span>클라우드가 필요 없습니다. 레이더 데이터는 내 기기에만 남습니다.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
 <script>try{localStorage.setItem('kym.lang','ko')}catch(e){}</script>

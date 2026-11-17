@@ -4,7 +4,7 @@
 <link rel="alternate" hreflang="en" href="../en/devkit-flashing.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/devkit-flashing.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/devkit-flashing.html"><link rel="alternate" hreflang="ja" href="../ja/devkit-flashing.html"><link rel="alternate" hreflang="ko" href="../ko/devkit-flashing.html"><link rel="alternate" hreflang="de" href="../de/devkit-flashing.html"><link rel="alternate" hreflang="fr" href="../fr/devkit-flashing.html"><link rel="alternate" hreflang="es" href="../es/devkit-flashing.html"><link rel="alternate" hreflang="pt" href="../pt/devkit-flashing.html"><link rel="alternate" hreflang="it" href="../it/devkit-flashing.html"><link rel="alternate" hreflang="ru" href="../ru/devkit-flashing.html">
 </head><body>
 <header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
-<div class="sp"></div><a class="btn pri" href="../app/">앱 열기</a>
+<div class="sp"></div><a class="btn pri" href="../">앱 열기</a>
 <select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/devkit-flashing.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko" selected>한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
 <div class="wrap"><nav class="side"><a href="index.html">개요</a><div class="ng"><div class="nh">시작하기</div><a href="getting-started.html">시작하기</a></div><div class="ng"><div class="nh">연결</div><a href="usb.html">브라우저에서 USB</a><a href="wifi.html">집 Wi-Fi</a><a href="hotspot.html">핫스팟 대체 연결</a></div><div class="ng"><div class="nh">스마트홈</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">개발</div><a href="raw-data.html">원시 데이터</a><a href="json-api.html">JSON과 API</a><a href="devkit-flashing.html" class=on>개발 키트 기록</a></div><div class="ng"><div class="nh">도움말</div><a href="faq.html">FAQ</a></div></nav>
 <main><h1 id="개발-키트-레이더-기록-모듈">개발 키트 레이더 기록 모듈</h1>
@@ -13,7 +13,7 @@
 <h2 id="모듈이-하는-일">모듈이 하는 일</h2>
 <p>앱을 레이더 플래시에 기록하면, Radar Base가 먼저 불러오지 않아도 전원을 켤 때 레이더가 스스로 시작합니다. 모듈은 기록할 때마다 레이더의 현재 플래시를 먼저 백업합니다. 백업에 실패하면 아무것도 기록하지 않습니다. 백업은 앱에서 언제든 되돌릴 수 있습니다.</p>
 <h2 id="개발-키트-펌웨어-제공-방식">개발 키트 펌웨어 제공 방식</h2>
-<p>개발 키트 펌웨어는 개발 키트 보드에 미리 기록되어 제공됩니다. 업데이트는 구매자에게 이메일로 안내하며, 개발 키트 펌웨어는 공개 다운로드로 제공되지 않습니다. 오픈 펌웨어는 소스 코드로 공개 저장소에 게시될 예정이며, 게시되면 이 페이지에 링크를 올립니다.</p>
+<p>개발 키트 펌웨어는 개발 키트 보드에 미리 기록되어 제공됩니다. 업데이트는 구매자에게 이메일로 안내하며, 개발 키트 펌웨어는 공개 다운로드로 제공되지 않습니다. 오픈 펌웨어는 소스 코드로 공개되어 있습니다: <a href="https://github.com/Kymopsis/radar-base">github.com/Kymopsis/radar-base</a>.</p>
 <h2 id="일괄-기록">일괄 기록</h2>
 <p>모듈을 연달아 많이 처리할 때: 펌웨어를 한 번 고르고 모듈을 하나씩 연결합니다. 각 모듈은 감지되고, 필요하면 백업되고, 기록되고, 검증되고, 플래시에서 시작되어 버전을 확인합니다. 화면과 보드의 표시등에 PASS 또는 FAIL이 나타나고 카운터가 올라가며, 모듈마다 내려받을 수 있는 CSV 로그에 한 줄씩 남습니다.</p>
 <h2 id="하지-않는-일">하지 않는 일</h2>

@@ -4,13 +4,57 @@
 <link rel="alternate" hreflang="en" href="../en/esphome.html"><link rel="alternate" hreflang="zh-CN" href="../zh-CN/esphome.html"><link rel="alternate" hreflang="zh-TW" href="../zh-TW/esphome.html"><link rel="alternate" hreflang="ja" href="../ja/esphome.html"><link rel="alternate" hreflang="ko" href="../ko/esphome.html"><link rel="alternate" hreflang="de" href="../de/esphome.html"><link rel="alternate" hreflang="fr" href="../fr/esphome.html"><link rel="alternate" hreflang="es" href="../es/esphome.html"><link rel="alternate" hreflang="pt" href="../pt/esphome.html"><link rel="alternate" hreflang="it" href="../it/esphome.html"><link rel="alternate" hreflang="ru" href="../ru/esphome.html">
 </head><body>
 <header class="top"><div class="in"><a class="brand" href="index.html"><img src="../logo.svg" alt="Kymopsis"><span>Radar Base</span></a>
-<div class="sp"></div><a class="btn pri" href="../app/">Открыть приложение</a>
+<div class="sp"></div><a class="btn pri" href="../">Открыть приложение</a>
 <select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/esphome.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru" selected>Русский</option></select></div></header>
 <div class="wrap"><nav class="side"><a href="index.html">Обзор</a><div class="ng"><div class="nh">Начало</div><a href="getting-started.html">Быстрый старт</a></div><div class="ng"><div class="nh">Подключение</div><a href="usb.html">USB в браузере</a><a href="wifi.html">Домашний Wi-Fi</a><a href="hotspot.html">Резервная точка доступа</a></div><div class="ng"><div class="nh">Умный дом</div><a href="home-assistant.html">Home Assistant</a><a href="esphome.html" class=on>ESPHome</a></div><div class="ng"><div class="nh">Разработка</div><a href="raw-data.html">Сырые данные</a><a href="json-api.html">JSON и API</a><a href="devkit-flashing.html">Запись для dev-kit</a></div><div class="ng"><div class="nh">Помощь</div><a href="faq.html">FAQ</a></div></nav>
 <main><h1 id="esphome">ESPHome</h1>
-<p class="note">Запланировано после интеграции Home Assistant через MQTT.</p>
-<p>Внешний компонент ESPHome позволит описывать Radar Base в YAML, как любое другое устройство ESPHome. Он будет использовать те же результаты, что приложение и MQTT (люди, зоны, падение, дыхание и пульс), так что их можно сочетать с вашими датчиками и автоматизациями ESPHome.</p>
-<p>А пока используйте <a href="home-assistant.html">Home Assistant через MQTT</a> или читайте результаты JSON напрямую (<a href="json-api.html">JSON и API</a>).</p>
+<p>Внешний компонент <code>kymopsis_radar</code> превращает Radar Base в устройство ESPHome. Он читает результаты приложения радара прямо из UART радара, так что вы получаете те же значения, что в веб-приложении и MQTT: присутствие, число людей, ближайший человек, четыре зоны, падение, дыхание и пульс. Сочетайте их с собственными датчиками и автоматизациями ESPHome.</p>
+<p class="note">ESPHome заменяет прошивку Radar Base на ESP32. Приложение радара должно запускаться из собственной флеш-памяти модуля радара (модули комплектов разработчика поставляются именно так). Запуск приложений из памяти радара, веб-приложение и сырые данные остаются за прошивкой Radar Base.</p>
+<h2 id="пример">Пример</h2>
+<pre><code>external_components:
+  - source:
+      type: git
+      url: https://github.com/Kymopsis/radar-base
+      ref: main
+      path: esphome/components
+    components: [kymopsis_radar]
+
+uart:
+  id: radar_uart
+  tx_pin: GPIO17
+  rx_pin: GPIO18
+  baud_rate: 115200
+
+kymopsis_radar:
+  uart_id: radar_uart
+  reset_pin: GPIO4
+  boot_high_pin: GPIO5
+  boot_low_pin: GPIO6
+  mount: keep
+
+binary_sensor:
+  - platform: kymopsis_radar
+    occupancy:
+      name: Occupancy
+    area_1:
+      name: Area 1
+    fall:
+      name: Fall detected
+
+sensor:
+  - platform: kymopsis_radar
+    people:
+      name: People
+    nearest_distance:
+      name: Nearest person
+    breathing_rate:
+      name: Breathing rate
+    heart_rate:
+      name: Heart rate</code></pre>
+<p>Полный пример — <code>esphome/radar-base.yaml</code> в репозитории.</p>
+<h2 id="параметры">Параметры</h2>
+<div class="tw"><table><thead><tr><th>Параметр</th><th>Значение</th></tr></thead><tbody><tr><td><code>reset_pin</code>, <code>boot_high_pin</code>, <code>boot_low_pin</code></td><td>Выводы, которые при загрузке запускают приложение радара из флеш-памяти модуля (Radar Base: GPIO4, GPIO5, GPIO6)</td></tr><tr><td><code>mount</code></td><td><code>ceiling</code>, <code>side</code> или <code>keep</code> (установка приложения присутствия)</td></tr><tr><td><code>timeout</code></td><td>Сбросить присутствие и число людей, если радар так долго ничего не сообщает (по умолчанию 3 с)</td></tr></tbody></table></div>
+<p>Значения, которые работающее приложение радара не сообщает, остаются пустыми; например, дыхание и пульс требуют приложения жизненных показателей. Дыхание и пульс предназначены только для оздоровительных целей и не являются медицинским изделием.</p>
 <p>Партии, предварительно прошитые модули или индивидуальная прошивка: <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
 <footer><span>© Kymopsis</span><span>Без облака. Данные радара остаются на ваших устройствах.</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
 <script>try{localStorage.setItem('kym.lang','ru')}catch(e){}</script>
