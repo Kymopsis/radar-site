@@ -8,13 +8,22 @@
 <select class="lang" aria-label="Language" onchange="location.href='../'+this.value+'/home-assistant.html'"><option value="en">English</option><option value="zh-CN">简体中文</option><option value="zh-TW" selected>繁體中文</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="pt">Português</option><option value="it">Italiano</option><option value="ru">Русский</option></select></div></header>
 <div class="wrap"><nav class="side"><a href="index.html">總覽</a><div class="ng"><div class="nh">開始</div><a href="getting-started.html">快速上手</a></div><div class="ng"><div class="nh">連線</div><a href="usb.html">瀏覽器中使用 USB</a><a href="wifi.html">家用 Wi-Fi</a><a href="hotspot.html">熱點備援</a></div><div class="ng"><div class="nh">智慧家庭</div><a href="home-assistant.html" class=on>Home Assistant</a><a href="esphome.html">ESPHome</a></div><div class="ng"><div class="nh">開發</div><a href="raw-data.html">原始資料</a><a href="json-api.html">JSON 與 API</a><a href="devkit-flashing.html">開發套件寫入</a></div><div class="ng"><div class="nh">說明</div><a href="faq.html">常見問題</a></div></nav>
 <main><h1 id="home-assistant">Home Assistant</h1>
-<p class="note">即將推出。本頁說明整合的運作方式，目前正在開發中。</p>
-<p>Radar Base 將透過 MQTT 自動探索出現在 Home Assistant 中。你使用自己的 MQTT 代理伺服器；常見的選擇是 Home Assistant 裡的 <strong>Mosquitto broker</strong> 附加元件。Kymopsis 不運行任何代理伺服器，也沒有雲端。</p>
-<h2 id="規劃中的實體">規劃中的實體</h2>
-<div class="tw"><table><thead><tr><th>實體</th><th>類型</th><th>來源</th></tr></thead><tbody><tr><td>有人狀態</td><td>二元感測器</td><td>3D 人員存在</td></tr><tr><td>人數</td><td>感測器</td><td>3D 人員存在</td></tr><tr><td>區域 1-4 有人</td><td>二元感測器</td><td>3D 人員存在</td></tr><tr><td>偵測到跌倒</td><td>二元感測器和事件</td><td>跌倒偵測</td></tr><tr><td>呼吸率、心率</td><td>感測器（診斷）</td><td>呼吸與心率</td></tr><tr><td>安裝方式（天花板 / 牆面）</td><td>選擇</td><td>3D 人員存在</td></tr></tbody></table></div>
-<h2 id="規劃中的設定步驟">規劃中的設定步驟</h2>
-<ol><li>在 Home Assistant 中安裝 Mosquitto broker 附加元件和 MQTT 整合。</li><li>在 Radar Base 應用程式中：裝置設定 → 智慧家庭 → 填入代理伺服器位址、使用者名稱和密碼。</li><li>Radar Base 會出現在「設定 → 裝置」中。</li></ol>
-<p>呼吸和心率僅供健康保健用途，非醫療用途。</p>
+<p>Radar Base 會透過 MQTT 自動探索出現在 Home Assistant 中。你使用自己的 MQTT 代理伺服器（broker），通常是 Home Assistant 裡的 <strong>Mosquitto broker</strong> 附加元件。Kymopsis 不運行任何代理伺服器，也沒有雲端；資料不會離開你的網路。</p>
+<h2 id="你需要準備">你需要準備</h2>
+<ul><li>具備 <strong>Mosquitto broker</strong> 附加元件和 <strong>MQTT</strong> 整合的 Home Assistant，或你自己運行的其他 MQTT 代理伺服器。</li></ul>
+<p>記下代理伺服器的位址、連接埠（通常是 1883）、使用者名稱和密碼。</p>
+<ul><li>一個 <strong>2.4 GHz</strong> Wi-Fi 網路，或 2.4 GHz 與 5 GHz 使用同一個名稱的雙頻網路。ESP32-S3 沒有</li></ul>
+<p>5 GHz 無線電。</p>
+<ul><li>Radar Base 韌體 0.9.1 或更新版本（<a href="../">在瀏覽器中安裝</a>）。</li></ul>
+<h2 id="設定步驟">設定步驟</h2>
+<ol><li>連上 Wi-Fi：開啟 Radar Base 應用程式（透過 USB，或板子的熱點），裝置設定，Wi-Fi。</li><li>在裝置設定的「智慧家庭」中：填入代理伺服器位址、連接埠、使用者名稱和密碼，然後開啟 MQTT。</li><li>在 Home Assistant 中開啟「設定 → 裝置與服務 → MQTT」。<strong>Kymopsis Radar Base</strong> 已在其中，實體齊全。 無需其他設定。</li></ol>
+<h2 id="實體">實體</h2>
+<div class="tw"><table><thead><tr><th>實體</th><th>類型</th><th>單位 / 數值</th><th>來自的雷達應用</th></tr></thead><tbody><tr><td>有人狀態</td><td>二元感測器</td><td>開 / 關</td><td>3D 人員存在</td></tr><tr><td>人數</td><td>感測器</td><td>數量</td><td>3D 人員存在</td></tr><tr><td>最近的人</td><td>感測器</td><td>m</td><td>3D 人員存在</td></tr><tr><td>區域 1、區域 2、區域 3、區域 4</td><td>二元感測器</td><td>開 / 關</td><td>3D 人員存在</td></tr><tr><td>偵測到跌倒</td><td>二元感測器</td><td>開 / 關</td><td>跌倒偵測</td></tr><tr><td>呼吸率</td><td>感測器</td><td>/min</td><td>呼吸與心率</td></tr><tr><td>心率</td><td>感測器</td><td>/min</td><td>呼吸與心率</td></tr><tr><td>雷達應用</td><td>感測器</td><td>正在執行的應用名稱</td><td>任意</td></tr><tr><td>安裝方式</td><td>選擇</td><td>天花板 / 牆面</td><td>3D 人員存在</td></tr><tr><td>重新啟動雷達</td><td>按鈕</td><td></td><td>任意</td></tr></tbody></table></div>
+<p>正在執行的雷達應用程式沒有回報的值會保持為空或未知。呼吸和心率僅供健康保健用途，非醫療用途。</p>
+<h2 id="上線與離線">上線與離線</h2>
+<p>板子會發布一個可用性主題。在板子上關閉 MQTT 後，裝置會立即變為不可用。 如果板子斷電或斷開 Wi-Fi，代理伺服器會在約 45 秒後將其標記為不可用；板子重新連線後會自動恢復。</p>
+<h2 id="疑難排解">疑難排解</h2>
+<div class="tw"><table><thead><tr><th>問題</th><th>處理方法</th></tr></thead><tbody><tr><td>裝置沒有出現</td><td>查看板子的「智慧家庭」頁面：必須顯示已連線。檢查代理伺服器中的使用者名稱和密碼。</td></tr><tr><td>板子無法連上 Wi-Fi</td><td>使用 2.4 GHz 網路，或使用同一名稱的雙頻網路；僅 5 GHz 的網路無法使用。</td></tr><tr><td><code>kymradar.local</code> 打不開</td><td>該電腦上的 VPN 或代理可能會接管 <code>.local</code> 名稱；請關閉它，或讓 <code>.local</code> 直連，也可以直接開啟板子的 IP 位址。</td></tr><tr><td>距離顯示為英尺</td><td>Home Assistant 使用你設定的單位系統：設定 → 系統 → 一般 → 單位系統：公制。</td></tr></tbody></table></div>
 <p>大量採購、預燒錄模組或客製韌體： <a href="https://kymopsis.com/b2b/?utm_source=radar-site&amp;utm_medium=docs&amp;utm_campaign=radar-base">Kymopsis B2B</a></p></main></div>
 <footer><span>© Kymopsis</span><span>不需要雲端。雷達資料只留在你自己的裝置上。</span><a href="https://kymopsis.com">kymopsis.com</a></footer>
 <script>try{localStorage.setItem('kym.lang','zh-TW')}catch(e){}</script>

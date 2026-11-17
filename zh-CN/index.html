@@ -48,7 +48,7 @@
 <path d="M562 110 C620 110 620 48 666 48"/><path d="M562 130 C620 130 620 120 666 120"/><path d="M562 170 C620 170 620 192 666 192"/><path d="M562 190 C620 190 620 264 666 264"/></g>
 </g></svg>
 
-<div class="tw"><table><thead><tr><th>部分</th><th>作用</th></tr></thead><tbody><tr><td>雷达模块</td><td>运行雷达应用：每个应用在雷达上完成整条信号处理链并上报结果</td></tr><tr><td>Radar Base (ESP32-S3)</td><td>加载雷达应用，把结果转成 JSON，推送原始数据流，提供网页应用，接入你的 Wi-Fi</td></tr><tr><td>网页应用</td><td>选择任务、查看实时结果、修改设置。Wi-Fi 和 USB 下是同一个应用，支持 11 种语言</td></tr><tr><td>你自己的代码</td><td>通过 USB 或 WebSocket 读取 JSON 结果</td></tr><tr><td>智能家居</td><td>通过 MQTT 接入 Home Assistant（即将推出），ESPHome（之后）</td></tr></tbody></table></div>
+<div class="tw"><table><thead><tr><th>部分</th><th>作用</th></tr></thead><tbody><tr><td>雷达模块</td><td>运行雷达应用：每个应用在雷达上完成整条信号处理链并上报结果</td></tr><tr><td>Radar Base (ESP32-S3)</td><td>加载雷达应用，把结果转成 JSON，推送原始数据流，提供网页应用，接入你的 Wi-Fi</td></tr><tr><td>网页应用</td><td>选择任务、查看实时结果、修改设置。Wi-Fi 和 USB 下是同一个应用，支持 11 种语言</td></tr><tr><td>你自己的代码</td><td>通过 USB 或 WebSocket 读取 JSON 结果</td></tr><tr><td>智能家居</td><td>通过 MQTT 接入 Home Assistant（自动发现），ESPHome 组件</td></tr></tbody></table></div>
 <h2 id="连接方式">连接方式</h2>
 <div class="tw"><table><thead><tr><th>方式</th><th>适用场景</th><th>指南</th></tr></thead><tbody><tr><td>USB</td><td>初次体验、开发。随处可用，无需网络</td><td><a href="usb.html">浏览器中使用 USB</a></td></tr><tr><td>家庭 Wi-Fi</td><td>在家里用手机和电脑日常使用</td><td><a href="wifi.html">家庭 Wi-Fi</a></td></tr><tr><td>热点</td><td>首次设置，或连不上家庭网络时</td><td><a href="hotspot.html">热点备用</a></td></tr><tr><td>Home Assistant</td><td>自动化：灯光、提醒、仪表盘</td><td><a href="home-assistant.html">Home Assistant</a></td></tr></tbody></table></div>
 <p>Radar Base 永远不需要云端账号。你的雷达数据只留在自己的设备上。</p>
