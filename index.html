@@ -443,8 +443,12 @@ const Usb={kind:'usb',onmsg:null,onstate:null,port:null,w:null,lines:[],base:0,w
 const USB_MODE=location.protocol==='https:'||location.protocol==='file:'||/[?&]usb\b/.test(location.search);
 const Link=USB_MODE?Usb:Http;
 const HOSTED=location.protocol==='https:'||/[?&]hosted\b/.test(location.search);           /* radar.kymopsis.com: the app before a board is connected */
-const INSTALL_READY=false;                             /* one-click install: on once the firmware release is out */
-function hostedView(live){if(!HOSTED)return;$('hosted').hidden=live;$('board-home').hidden=!live;$('conn').hidden=!live;document.querySelectorAll('a[href="/tools"]').forEach(a=>a.hidden=true);
+const INSTALL_READY=true;                              /* one-click install (ESP Web Tools), open firmware release */
+function setupInstall(){if(!HOSTED||!INSTALL_READY)return;if(!('serial' in navigator)){$('hs-soon').textContent='Chrome / Edge (desktop)';return}const b=$('hs-install');if(!b||b.dataset.ok)return;
+ b.dataset.ok=1;b.disabled=false;$('hs-soon').hidden=true;const w=document.createElement('esp-web-install-button');
+ w.setAttribute('manifest','/firmware/manifest.json');b.parentNode.insertBefore(w,b);b.setAttribute('slot','activate');w.appendChild(b);
+ const sc=document.createElement('script');sc.type='module';sc.src='https://unpkg.com/esp-web-tools@10.1.1/dist/web/install-button.js?module';document.head.appendChild(sc)}
+function hostedView(live){if(!HOSTED)return;setupInstall();$('hosted').hidden=live;$('board-home').hidden=!live;$('conn').hidden=!live;document.querySelectorAll('a[href="/tools"]').forEach(a=>a.hidden=true);
  const g=$('hs-guides');if(g)g.href=LANG+'/index.html'}
 Link.tf32=function(type,u32){return this.tf(type,u32)};
 Link.tfF=function(type,f){const d=new DataView(new ArrayBuffer(4));d.setFloat32(0,f,true);return this.tf(type,d.getUint32(0,true))};

@@ -1,0 +1,16 @@
+{
+  "name": "Kymopsis Radar Base (open firmware)",
+  "version": "0.9.1",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        {
+          "path": "radar-base-open-0.9.1-esp32s3.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}

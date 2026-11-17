@@ -1,0 +1,2 @@
+c266d1d4b67f0d780526caff738edfddc4995326e7633a9563631c980e9ee58e  radar-base-open-0.9.1-esp32s3.bin
+6e7d92e5214ee6fe36e0045ee46ae2186f273b0c934cba8c46a1079de4686012  radar-base-open-0.9.1-app.bin
