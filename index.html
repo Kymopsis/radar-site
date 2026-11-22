@@ -146,11 +146,11 @@ input[type=range]{width:100%;accent-color:var(--blue)}
  <p class="lead" data-i="run.lead">It loads into the radar's memory in about 6 seconds. Power-cycling the radar returns it to the app in its flash.</p>
  <div class="list">
   <button class="task" onclick="startScene('hd3d')"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="7" r="3"/><path d="M5 21v-2a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v2"/></svg></span>
-   <span><span class="tt" data-i="sc.hd3d">3D presence &amp; tracking</span><span class="dd" data-i="sc.hd3d.d">Where people are in the room, up to several at once, with 4 occupancy areas. Ceiling or wall mount.</span></span><span class="go">›</span></button>
+   <span><span class="tt"><span data-i="sc.hd3d">3D presence &amp; tracking</span><span class="tag" data-i="mat.eval">Product evaluation</span></span><span class="dd" data-i="sc.hd3d.d">Where people are in the room, up to several at once, with 4 occupancy areas. Ceiling or wall mount.</span></span><span class="go">›</span></button>
   <button class="task" onclick="startScene('fall')"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="17" cy="5" r="2.5"/><path d="M14 9l-4 3 2 4-5 4M10 12l-5-1"/></svg></span>
    <span><span class="tt" data-i="sc.fall">Fall detection</span><span class="dd" data-i="sc.fall.d">Flags a fall and whether someone is present. Ceiling mount.</span></span><span class="go">›</span></button>
   <button class="task" onclick="startScene('vital')"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg></span>
-   <span><span class="tt" data-i="sc.vital">Breathing &amp; heart rate</span><span class="dd" data-i="sc.vital.d">One person sitting or lying still, 0.5–1.5 m in front of the radar.</span></span><span class="go">›</span></button>
+   <span><span class="tt"><span data-i="sc.vital">Breathing &amp; heart rate</span><span class="tag" data-i="mat.exp">Experimental</span></span><span class="dd" data-i="sc.vital.d">One person sitting or lying still, 0.5–1.5 m in front of the radar.</span><span class="dd" data-i="mat.vital">Wellness only, not a medical device.</span></span><span class="go">›</span></button>
   <button class="task" onclick="startScene('flash')"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg></span>
    <span><span class="tt" data-i="sc.flash">The app already in the radar</span><span class="dd" data-i="sc.flash.d">Restart the radar from its flash and show what it reports.</span></span><span class="go">›</span></button>
  </div>
@@ -455,7 +455,11 @@ Link.tfF=function(type,f){const d=new DataView(new ArrayBuffer(4));d.setFloat32(
 
 /* ---------- state + views ---------- */
 const $=id=>document.getElementById(id);
-const BIN={hd3d:'hd3d.bin',fall:'fall.bin',vital:'vital.bin'};
+/* bundled radar apps (open firmware 0.9.2+) first, older file names as fallback */
+const BIN={hd3d:['kym-presence-3d.bin','hd3d.bin'],fall:['fall.bin'],vital:['kym-vital.bin','vital.bin']};
+async function binFor(app){const c=BIN[app]||[];if(c.length<2)return c[0]||'';
+ const i=await Link.info().catch(()=>null);const have=new Set(((i&&i.files)||[]).map(f=>f.name));
+ return c.find(n=>have.has(n))||c[0]}
 const S={app:null,mount:'ceiling',targets:[],trails:{},zones:[0,0,0,0],n:0,t0:performance.now(),rate:0,range:3,trail:true,view:'home',loading:null,last:0};
 function go(v){if(!$('v-'+v))v='home';S.view=v;for(const s of document.querySelectorAll('main>section'))s.hidden=s.id!=='v-'+v;
  if(location.hash!=='#'+v)history.replaceState(null,'','#'+v);window.scrollTo(0,0);
@@ -556,7 +560,7 @@ async function runOp(op){try{await Link.job(op);toast(t('t.sent'))}catch(e){toas
 function toast(s){const e=$('toast');e.textContent=s;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),1800)}
 async function startScene(app){
  S.loading=app;S.targets=[];S.trails={};go('scene');
- try{await Link.run(BIN[app]||'')}catch(e){S.loading=null;toast(e==='busy'?t('t.busy'):String(e));}
+ try{await Link.run(app==='flash'?'':await binFor(app))}catch(e){S.loading=null;toast(e==='busy'?t('t.busy'):String(e));}
  if(app!=='flash'){S.app=null}refresh()}
 const DEF_RANGE={ceiling:3,side:6};
 function mountChanged(m){S.mount=m;S.trails={};S.range=DEF_RANGE[m]}
